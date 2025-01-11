@@ -1,0 +1,101 @@
+
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1, h2 {
+    text-align: center;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Campos de Texto */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: calc(100% - 20px); /* Ajusta el ancho restando el padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para los canvas de firma en dispositivos móviles */
+.signature-pad {
+    text-align: center;
+    margin-bottom: 20px; /* Espacio entre los contenedores de la firma */
+}
+
+canvas {
+    width: 100%; /* El canvas ocupará el ancho completo del contenedor padre */
+    max-width: 100%; /* Asegura que el canvas no se desborde del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la relación de aspecto */
+    border: 1px solid #ccc; /* Borde del canvas */
+}
+
+button {
+    margin-top: 10px; /* Margen superior para separar el botón de la firma */
+}
+
+canvas {
+    border: 1px solid #0000007c;
+
+}
+
+/* Botones */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
