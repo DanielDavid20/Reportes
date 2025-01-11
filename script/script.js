@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const ctx = canvas.getContext('2d');
         let drawing = false;
         let lastX, lastY;
+        let touchPoints = [];
 
         const getCoordinates = (clientX, clientY) => {
             const rect = canvas.getBoundingClientRect();
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.addEventListener('mousedown', (e) => {
             drawing = true;
             const coords = getCoordinates(e.clientX, e.clientY);
+            touchPoints.push({ x: coords.x, y: coords.y });
             lastX = coords.x;
             lastY = coords.y;
         });
@@ -70,29 +72,28 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.addEventListener('mousemove', (e) => {
             if (!drawing) return;
             const coords = getCoordinates(e.clientX, e.clientY);
-            ctx.strokeStyle = 'blue';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(coords.x, coords.y);
-            ctx.stroke();
+            touchPoints.push({ x: coords.x, y: coords.y });
+            drawCurve();
             lastX = coords.x;
             lastY = coords.y;
         });
 
         canvas.addEventListener('mouseup', () => {
             drawing = false;
+            touchPoints = [];
         });
 
         canvas.addEventListener('mouseout', () => {
             drawing = false;
+            touchPoints = [];
         });
 
         // Event handlers para dispositivos táctiles
         canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevent scrolling
+            e.preventDefault();
             drawing = true;
             const coords = getCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+            touchPoints.push({ x: coords.x, y: coords.y });
             lastX = coords.x;
             lastY = coords.y;
         });
@@ -100,30 +101,31 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
             if (!drawing) return;
-        
+
             const coords = getCoordinates(e.touches[0].clientX, e.touches[0].clientY);
-            
-            // Ajustar la posición de la línea para que esté más arriba del dedo
-            const yOffset = 10; // Cambia este valor para ajustar la distancia hacia arriba
-            const startX = lastX;
-            const startY = lastY + yOffset;
-            const endX = coords.x;
-            const endY = coords.y + yOffset;
-        
-            ctx.strokeStyle = 'blue';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(endX, endY);
-            ctx.stroke();
-            
+            touchPoints.push({ x: coords.x, y: coords.y });
+            drawCurve();
             lastX = coords.x;
             lastY = coords.y;
         });
 
         canvas.addEventListener('touchend', () => {
             drawing = false;
+            touchPoints = [];
         });
+
+        function drawCurve() {
+            if (touchPoints.length < 2) return;
+
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'blue';
+            ctx.beginPath();
+            const start = touchPoints[touchPoints.length - 2];
+            const end = touchPoints[touchPoints.length - 1];
+            ctx.moveTo(start.x, start.y);
+            ctx.lineTo(end.x, end.y);
+            ctx.stroke();
+        }
 
         document.getElementById(clearButtonId).addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -135,3 +137,19 @@ document.addEventListener("DOMContentLoaded", () => {
     setupSignaturePad('signature-tecnico', 'clear-signature-tecnico');
     setupSignaturePad('signature-coordinador', 'clear-signature-coordinador');
 });
+
+    // Ejemplo de crear un botón para mostrar/ocultar un elemento
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggleTable');
+        const tableContainer = document.getElementById('tableContainer');
+
+        toggleButton.addEventListener('click', function() {
+            if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
+                tableContainer.style.display = 'block'; // Mostrar
+                toggleButton.textContent = 'Ocultar Tabla'; // Cambiar texto
+            } else {
+                tableContainer.style.display = 'none'; // Ocultar
+                toggleButton.textContent = 'Mostrar Tabla'; // Cambiar texto
+            }
+        });
+    });

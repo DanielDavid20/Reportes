@@ -1,30 +1,30 @@
-
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Reducción del padding */
 }
 
 .container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    padding: 20px;
+    max-width: 600px; /* Ancho máximo para evitar que se extienda demasiado */
+    width: 100%; /* Así usará todo el ancho disponible hasta el máximo */
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: auto; /* Centrar el contenedor */
 }
 
 /* Títulos */
 h1, h2 {
     text-align: center;
+    font-size: 1.5rem; /* Tamaño de fuente más pequeño */
 }
 
 /* Etiquetas */
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 5px 0 2px; /* Reducción en márgenes */
 }
 
 /* Campos de Texto */
@@ -32,9 +32,9 @@ input[type="text"],
 input[type="date"],
 select,
 textarea {
-    width: calc(100% - 20px); /* Ajusta el ancho restando el padding */
-    padding: 10px;
-    margin-bottom: 10px;
+    width: calc(100% - 10px); /* Ajuste de ancho */
+    padding: 8px; /* Reducción en el padding */
+    margin-bottom: 8px; /* Margen más pequeño */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
@@ -42,20 +42,21 @@ textarea {
 
 .radio-group {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+    flex-direction: column; /* Cambiar a columna para mejor uso del espacio */
+    margin-bottom: 8px; /* Reducción en el margen */
 }
 
 /* Tabla */
 table {
-    width: 100%;
+    width: 100%; 
     border-collapse: collapse;
-    margin: 10px 0;
+    margin: 8px 0; /* Margen más pequeño */
+    font-size: 0.9rem; /* Ajuste tamaño de fuente */
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 6px; /* Reducción en el padding */
 }
 
 th {
@@ -65,37 +66,39 @@ th {
 /* Estilos para los canvas de firma en dispositivos móviles */
 .signature-pad {
     text-align: center;
-    margin-bottom: 20px; /* Espacio entre los contenedores de la firma */
+    margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
 }
 
 canvas {
-    width: 100%; /* El canvas ocupará el ancho completo del contenedor padre */
-    max-width: 100%; /* Asegura que el canvas no se desborde del contenedor */
-    height: auto; /* La altura se ajustará automáticamente para mantener la relación de aspecto */
+    width: 100%; 
+    max-width: 100%; 
+    height: auto; 
     border: 1px solid #ccc; /* Borde del canvas */
-}
-
-button {
-    margin-top: 10px; /* Margen superior para separar el botón de la firma */
-}
-
-canvas {
-    border: 1px solid #0000007c;
-
 }
 
 /* Botones */
 button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* Reducción en el padding */
     background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9rem; /* Tamaño de fuente ajustado */
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Media Query para dispositivos móviles */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.4rem; /* Tamaño de fuente más pequeño */
+    }
+    h2 {
+        font-size: 1.2rem; /* Tamaño de fuente más pequeño */
+    }
 }
