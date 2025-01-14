@@ -66,6 +66,10 @@ h1, h2 {
     font-size: 1.5rem; /* Tamaño de fuente más pequeño */
 }
 
+h3{
+    color: #333;
+
+}
 /* Etiquetas */
 label {
     display: block;
