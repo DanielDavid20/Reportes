@@ -11,39 +11,55 @@ header {
     color: #fff; /* Color del texto */
     text-align: center; /* Centrar el texto */
     padding: 10px 0; /* Espaciado interno arriba y abajo */
-    width: 109%; /* Ancho completo */
+    width: 100%; /* Ancho completo */
     z-index: 1000; /* Asegurarse de que esté por encima del resto del contenido */
     margin-top: -10px; /* Margen negativo para acercar la cabecera hacia arriba */
-
-    /* Media query para ajustar estilos en pantallas más pequeñas */
-    @media only screen and (max-width: 600px) {
-        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
-        font-size: 20px; /* Reducir el tamaño de fuente en pantallas pequeñas */
-    }
 }
 
 header h1 {
     margin: 0; /* Eliminar el margen por defecto */
     font-size: 28px; /* Tamaño de fuente del título */
     padding: 10px 0; /* Espaciado interno arriba y abajo del título */
+}
 
-    /* Media query para ajustar estilos en pantallas más pequeñas */
-    @media only screen and (max-width: 600px) {
-        font-size: 20px; /* Reducir el tamaño de fuente en pantallas pequeñas */
+/* Media query para ajustar estilos en pantallas más pequeñas */
+@media only screen and (max-width: 600px) {
+    header {
+        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
+    }
+    header h1 {
+        font-size: 24px; /* Ajustar el tamaño de fuente */
         padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
     }
 }
 
+
 .container {
     max-width: 600px; /* Ancho máximo para evitar que se extienda demasiado */
-    width: 100%; /* Utilizar el 90% del ancho disponible */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(11, 82, 215, 0.1);
-    margin: 20px auto 0; /* Centrar el contenedor y agregar espacio arriba */
-    background-color: #ffffffcc;
+    width: 95%; /* Utilizar el 95% del ancho disponible */
+    padding: 20px; /* Aumentar padding para mayor espacio interno */
+    border-radius: 16px; /* Hacer esquinas más redondeadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
+    background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
+    
+    
 }
 
+/* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
+.container label {
+    font-weight: bold; /* Hacer las etiquetas más prominentes */
+}
+
+.container h1, .container h2 {
+    margin-bottom: 15px; /* Espaciado inferior para los títulos */
+    color: #333; /* Color de texto más oscuro para mejor contraste */
+}
+
+/* Estilos para los botones dentro del contenedor */
+.container button {
+    margin-top: 10px; /* Espaciado superior para los botones */
+}
 /* Títulos */
 h1, h2 {
     text-align: center;
@@ -81,11 +97,12 @@ table {
     border-collapse: collapse;
     margin: 8px 0; /* Margen más pequeño */
     font-size: 0.9rem; /* Ajuste tamaño de fuente */
+    margin-left: -10px; /* Desplazar la tabla a la izquierda */
 }
 
 th, td {
     border: 1px solid #1f68de;
-    padding: 6px; /* Reducción en el padding */
+    padding: 5px; /* Reducción en el padding */
 }
 
 th {
@@ -100,10 +117,10 @@ th {
 
 canvas {
     width: 100%; 
-    max-width: 100%; 
-    height: auto; 
+    
+  
     border: 1px solid #1f68de; /* Borde del canvas */
-    background-color: rgb(255, 255, 255);
+    
 }
 
 /* Botones */

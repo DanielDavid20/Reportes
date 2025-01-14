@@ -46,22 +46,22 @@
 
             <h2>DATOS TÉCNICOS DEL EQUIPO</h2>
             <label for="marca">Marca</label>
-            <input type="text" id="marca">
+            <input type="text" id="marca" required>
 
             <label for="tipo">Tipo</label>
-            <input type="text" id="tipo">
+            <input type="text" id="tipo" required>
 
             <label for="modelo">Modelo</label>
-            <input type="text" id="modelo">
+            <input type="text" id="modelo" required>
 
             <label for="capacidad">Capacidad</label>
-            <input type="text" id="capacidad">
+            <input type="text" id="capacidad" required>
 
             <label for="numero-serie">No. de Serie</label>
-            <input type="text" id="numero-serie">
+            <input type="text" id="numero-serie" required>
 
             <label for="refrigerante">Refrigerante</label>
-            <input type="text" id="refrigerante">
+            <input type="text" id="refrigerante" required>
 
             <h2>ACTIVIDADES DE MANTENIMIENTO</h2>
             <table>
@@ -98,20 +98,20 @@
             <h2>FIRMAS</h2>
            
             <div id="signature-pad-received" class="signature-pad">
-                <canvas id="signature-received" width="600" height="150"></canvas>
+                <canvas id="signature-received" width="600" height="200"></canvas>
                 <h3>Recibido por</h3>
                 <button type="button" id="clear-signature-received">Limpiar Firma</button>
             </div>
 
             <div id="signature-pad-tecnico" class="signature-pad">
-                <canvas id="signature-tecnico" width="600" height="150"></canvas>
+                <canvas id="signature-tecnico" width="600" height="200"></canvas>
                 <h3>Técnico de Mantenimiento</h3>
                 <button type="button" id="clear-signature-tecnico">Limpiar Firma</button>
             </div>
 
            
             <div id="signature-pad-coordinador" class="signature-pad">
-                <canvas id="signature-coordinador" width="600" height="150"></canvas>
+                <canvas id="signature-coordinador" width="600" height="200"></canvas>
                 <h3>Coordinador de Mantenimiento</h3>
                 <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
             </div>
