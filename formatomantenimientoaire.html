@@ -9,6 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
+    <header>
+        <h1>INFORME DE MANTENIMIENTO <br>
+            AIRES ACONDICIONADOS</h1>
+    </header>
     <div class="container">
         <h1 id="form-title">Información de Mantenimiento</h1>
         <form id="maintenance-form">
@@ -105,12 +109,13 @@
                 <button type="button" id="clear-signature-tecnico">Limpiar Firma</button>
             </div>
 
-            <h3>Coordinador de Mantenimiento</h3>
+           
             <div id="signature-pad-coordinador" class="signature-pad">
                 <canvas id="signature-coordinador" width="600" height="150"></canvas>
-                <h3>Técnico de Mantenimiento</h3>
+                <h3>Coordinador de Mantenimiento</h3>
                 <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
             </div>
+
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
 
@@ -327,10 +332,39 @@ doc.text(repuestosLines, 10, doc.lastAutoTable.finalY + espacioAdicional + 8); /
 
          
     
-          
-    
-            // Guardar el documento PDF
-            doc.save('formulario_mantenimiento.pdf');
+// Obtener la fecha y hora actual
+const today = new Date();
+const year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+let hours = today.getHours();
+let ampm = hours >= 12 ? 'pm' : 'am'; // Determinar si es AM o PM
+hours = hours % 12;
+hours = hours ? hours : 12; // Establecer 12 en lugar de 0 para las 12 PM
+let minutes = today.getMinutes();
+
+// Formatear la fecha
+if (month < 10) {
+    month = '0' + month;
+}
+if (day < 10) {
+    day = '0' + day;
+}
+if (hours < 10) {
+    hours = '0' + hours;
+}
+if (minutes < 10) {
+    minutes = '0' + minutes;
+}
+
+const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
+
+// Nombre del archivo con la fecha y hora actual
+const fileName = `FORMATO MANENIMIENTO AIRES_${formattedDateTime}.pdf`;
+
+// Guardar el documento PDF con el nombre que incluye la fecha y hora
+doc.save(fileName);
+              window.location.reload();
         });
     </script>
 </body>
