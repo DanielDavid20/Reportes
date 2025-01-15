@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleslistado.css">
+    <title>Formulario de Mantenimiento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div id="button2" onclick="window.location.href='principal.html'"><i class="fas fa-home"></i> Volver a Inicio</div>
+        <h1 id="title">PLANILLA DE ASISTENCIA 
+    </header>
+    <div class="container">
+        <h2>Código:MR042021</h2>
+        <h3>Fecha:26/07/2020 </h3>
+        <h1 id="form-title">DATOS DE LA ACTIVIDAD </h1>
+       
+            <label for="Nombreact">NOMBRE DE LA ACTIVIDAD: </label>
+            <input type="text" id="Nombreact" required>
+
+            <label for="entidad">ENTIDAD QUE LA DICTA:T</label>
+            <input type="text" id="entidad" required>
+
+            <label for="Nombre">NOMBRE DE QUIEN LA DICTA:</label>
+            <input type="text" id="Nombre" required>
+
+            <label for="lugar">lugar:</label>
+            <input type="text" id="lugar" required>
+
+             <label for="fecha-servicio">Fecha de Servicio</label>
+            <input type="date" id="fecha-servicio">
+
+            <label for="cargo">CARGO: </label>
+            <input type="text" id="tipo" required>
+
+           
+            <label for="Duracion">DURACION DE LA ACTIVIDAD: </label>
+            <input type="time" id="Duracion" required>
+
+            <h2>OBJETO DE LA ACTIVIDAD:</h2>
+            <textarea id="Objeto-actividad" rows="3"></textarea>
+
+
+
+            <h2>Listado de asistencia</h2>
+            <table id="asistenciaTable">
+                <thead>
+                    <tr>
+                        <th>NOMBRE COMPLETO</th>
+                        <th>N° CEDULA</th>
+                        <th>CARGO</th>
+                        <th>FIRMA</th>
+                        <th>ACCIONES</th> <!-- Nueva columna para los botones -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" placeholder="Nombre"></td>
+                        <td><input type="text" placeholder="Cédula"></td>
+                        <td><input type="text" placeholder="Cargo"></td>
+                        <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                        <td><button class="clearSignatureButton">Limpiar Firma</button></td> <!-- Botón para limpiar -->
+                    </tr>
+                </tbody>
+            </table>
+            <button id="addRowBtn">+</button>
+            
+            <!-- Modal para la firma -->
+            <div id="signatureModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Firma</h2>
+                    <canvas id="modalCanvas" width="400" height="200"></canvas>
+                    <button id="saveSignature">Guardar firma</button>
+                </div>
+            </div>
+
+            <h2>FIRMAS</h2>
+            <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
+           
+    
+
+           
+            <div id="signature-pad-coordinador" class="signature-pad">
+                <canvas id="signature-coordinador" width="600" height="200"></canvas>
+                <h3>Coordinador de Mant</h3>
+                <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
+            </div>
+
+            <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+            
+
+            <button type="submit">Imprimir</button>
+            
+        </form>
+    </div>
+    
+    <script src="script/scriplistado.js"></script>
+
+</body>
+</html>

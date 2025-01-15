@@ -39,12 +39,48 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Inicio</h1>
-        <button onclick="window.location.href='formatomantenimientoaire.html'">Ir a la Página Destino</button>
+        <div class="dropdown">
+            <button>Opciones</button>
+            <div class="dropdown-content">
+                <a href="formatomantenimientoaire.html">Mantenimiento de Aire</a>
+                <a href="listadodeasistencia.html">listado de asistencia</a>
+                <a href="otrapagina2.html">Otra Página 2</a>
+            </div>
+        </div>
     </header>
 
     <div class="container">
