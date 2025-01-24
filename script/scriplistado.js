@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Ajustar el tamaño del canvas modal para que se adapte al modal
             const modalContent = document.querySelector('.modal-content');
             modalCanvas.width = modalContent.clientWidth - 40; // Margen (20px a cada lado)
-            modalCanvas.height = 150; // Altura fija (puedes ajustar esto según tus necesidades)
+            modalCanvas.height = 150; // Altura fija
         }
     });
 
@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModal = document.querySelector('.close');
     closeModal.onclick = function () {
         modal.style.display = "none";
-    }
+    };
     
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 
     // Manejador para el dibujo en el canvas
     const startDrawing = (e) => {
@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!isDrawing) return; // Si no está dibujando, salir
 
         // Obtener la posición del mouse o toque en relación al canvas
-        const rect = modalCanvas.getBoundingClientRect(); // Obtener el tamaño y posición
+        const rect = modalCanvas.getBoundingClientRect();
         const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
         const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
 
-        ctx.lineWidth = 2; // Espesor de la línea
+        ctx.lineWidth = 3; // Espesor de la línea
         ctx.lineCap = 'round';
         ctx.strokeStyle = 'black'; // Color de la firma
 
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(x, y);
-    }
+    };
 
     // Añadir eventos para mouse y touch
     modalCanvas.addEventListener('mousedown', startDrawing);
@@ -81,70 +81,81 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('addRowBtn').addEventListener('click', function () {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td><input type="text" placeholder="Nombre"></td>
-            <td><input type="text" placeholder="Cédula"></td>
-            <td><input type="text" placeholder="Cargo"></td>
-            <td><canvas class="signatureCanvas" width="200" height="100"></canvas></td>
-            <td><button class="clearSignatureButton">Limpiar Firma</button></td> <!-- Nuevo botón para limpiar -->
+             <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                <td>
+                <button class="clearSignatureButton">Limpiar Firma</button>
+                <button class="deleteRowButton">Eliminar</button> <!-- Nuevo botón para eliminar -->
+            </td>
         `;
         document.querySelector('#asistenciaTable tbody').appendChild(newRow);
     });
 
-    // Manejador para los botones de limpiar firma
+    // Manejador para los botones de limpiar firma y eliminar fila
     document.getElementById('asistenciaTable').addEventListener('click', function (event) {
+        // Limpiar firma
         if (event.target.classList.contains('clearSignatureButton')) {
             const row = event.target.closest('tr'); // Obtener la fila correspondiente
             const canvas = row.querySelector('.signatureCanvas'); // Obtener el canvas de esa fila
             const ctx = canvas.getContext('2d'); // Obtener su contexto
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
         }
+
+        // Eliminar fila
+        if (event.target.classList.contains('deleteRowButton')) {
+            const row = event.target.closest('tr'); // Obtener la fila correspondiente
+            row.remove(); // Eliminar la fila de la tabla
+        }
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    const canvas = document.getElementById('signature-coordinador');
-    const ctx = canvas.getContext('2d');
-    let isDrawing = false;
+    // Código para el canvas del coordinador
+    const coordinatorCanvas = document.getElementById('signature-coordinador');
+    if (coordinatorCanvas) {
+        const coordinatorCtx = coordinatorCanvas.getContext('2d');
+        let isCoordinatingDrawing = false;
 
-    // Manejo de eventos para dibujar en el canvas
-    const startDrawing = (e) => {
-        isDrawing = true;
-        draw(e); // Llama a la función draw para empezar a dibujar
-    };
+        // Manejo de eventos para dibujar en el canvas del coordinador
+        const startCoordinatorDrawing = (e) => {
+            isCoordinatingDrawing = true;
+            drawCoordinator(e); // Llama a la función draw para empezar a dibujar
+        };
 
-    const stopDrawing = () => {
-        isDrawing = false;
-        ctx.beginPath(); // Reiniciar el camino
-    };
+        const stopCoordinatorDrawing = () => {
+            isCoordinatingDrawing = false;
+            coordinatorCtx.beginPath(); // Reiniciar el camino
+        };
 
-    const draw = (e) => {
-        if (!isDrawing) return; // Si no está dibujando, salir
+        const drawCoordinator = (e) => {
+            if (!isCoordinatingDrawing) return; // Si no está dibujando, salir
 
-        // Obtener la posición del mouse o toque en relación al canvas
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
-        const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
+            // Obtener la posición del mouse o toque en relación al canvas
+            const rect = coordinatorCanvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
+            const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
 
-        ctx.lineWidth = 2; // Espesor de la línea
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black'; // Color de la firma
+            coordinatorCtx.lineWidth = 2; // Espesor de la línea
+            coordinatorCtx.lineCap = 'round';
+            coordinatorCtx.strokeStyle = 'black'; // Color de la firma
 
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    };
+            coordinatorCtx.lineTo(x, y);
+            coordinatorCtx.stroke();
+            coordinatorCtx.beginPath();
+            coordinatorCtx.moveTo(x, y);
+        };
 
-    // Añadir eventos para mouse y touch
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); });
-    canvas.addEventListener('touchend', stopDrawing);
-    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+        // Añadir eventos para mouse y touch en el canvas del coordinador
+        coordinatorCanvas.addEventListener('mousedown', startCoordinatorDrawing);
+        coordinatorCanvas.addEventListener('mouseup', stopCoordinatorDrawing);
+        coordinatorCanvas.addEventListener('mousemove', drawCoordinator);
+        coordinatorCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startCoordinatorDrawing(e); });
+        coordinatorCanvas.addEventListener('touchend', stopCoordinatorDrawing);
+        coordinatorCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawCoordinator(e); });
 
-    // Limpiar la firma
-    document.getElementById('clear-signature-coordinador').addEventListener('click', function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
+        // Limpiar la firma del coordinador
+        document.getElementById('clear-signature-coordinador').addEventListener('click', function() {
+            coordinatorCtx.clearRect(0, 0, coordinatorCanvas.width, coordinatorCanvas.height);
+        });
+    }
 });

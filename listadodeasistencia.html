@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="css/styleslistado.css">
     <title>Formulario de Mantenimiento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <body>
     <header>
         <div id="button2" onclick="window.location.href='principal.html'"><i class="fas fa-home"></i> Volver a Inicio</div>
@@ -44,47 +45,48 @@
             <h2>OBJETO DE LA ACTIVIDAD:</h2>
             <textarea id="Objeto-actividad" rows="3"></textarea>
 
-
-
             <h2>Listado de asistencia</h2>
-            <table id="asistenciaTable">
-                <thead>
-                    <tr>
-                        <th>NOMBRE COMPLETO</th>
-                        <th>N° CEDULA</th>
-                        <th>CARGO</th>
-                        <th>FIRMA</th>
-                        <th>ACCIONES</th> <!-- Nueva columna para los botones -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" placeholder="Nombre"></td>
-                        <td><input type="text" placeholder="Cédula"></td>
-                        <td><input type="text" placeholder="Cargo"></td>
-                        <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
-                        <td><button class="clearSignatureButton">Limpiar Firma</button></td> <!-- Botón para limpiar -->
-                    </tr>
-                </tbody>
-            </table>
-            <button id="addRowBtn">+</button>
-            
-            <!-- Modal para la firma -->
-            <div id="signatureModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Firma</h2>
-                    <canvas id="modalCanvas" width="400" height="200"></canvas>
-                    <button id="saveSignature">Guardar firma</button>
-                </div>
-            </div>
+<div id="contentToCapture"> <!-- Contenedor para capturar -->
+    <table id="asistenciaTable">
+        <thead>
+            <tr>
+                <th>NOMBRE <br> COM<br>PLETO</th>
+                <th>N° CEDULA</th>
+                <th>CARGO</th>
+                <th>FIRMA</th>
+                <th class="hide-column"></th> <!-- Nueva columna para los botones -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                <td>
+                    <button class="clearSignatureButton">Limpiar Firma</button> <!-- Botón para limpiar -->
+                    <button class="deleteRowButton">Eliminar fila</button> <!-- Botón para eliminar -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="addRowBtn">+</button>
+    
+    <!-- Modal para la firma -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firma</h2>
+            <canvas id="modalCanvas" width="400" height="200"></canvas>
+            <button id="saveSignature">Guardar firma</button>
+        </div>
+    </div>
+</div>
 
             <h2>FIRMAS</h2>
             <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
            
     
-
-           
             <div id="signature-pad-coordinador" class="signature-pad">
                 <canvas id="signature-coordinador" width="600" height="200"></canvas>
                 <h3>Coordinador de Mant</h3>
@@ -94,12 +96,116 @@
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
 
-            <button type="submit">Imprimir</button>
+            <button id="generatePDF">Generar PDF</button>
             
         </form>
     </div>
     
     <script src="script/scriplistado.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('generatePDF').addEventListener('click', function(event) {
+                event.preventDefault();
+    
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+    
+                const titleFontSize = 16;
+                const bodyFontSize = 12;
+    
+                // Agregar logo
+                const logo = document.getElementById('logo');
+                if (logo && logo.src) {
+                    doc.addImage(logo.src, 'PNG', 10, 10, 40, 20);
+                }
+    
+                // Título del formulario
+                doc.setFontSize(titleFontSize);
+                doc.text("FORMULARIO DE ACTIVIDAD", 10, 40);
+                doc.setFontSize(bodyFontSize);
+    
+                // Recoger datos del formulario
+                const fields = [
+                    ['Nombre de la Actividad', document.getElementById('Nombreact').value],
+                    ['Entidad que la Dicta', document.getElementById('entidad').value],
+                    ['Nombre del Dictante', document.getElementById('Nombre').value],
+                    ['Lugar', document.getElementById('lugar').value],
+                    ['Fecha de Servicio', document.getElementById('fecha-servicio').value],
+                    ['Cargo', document.getElementById('tipo').value],
+                    ['Duración', document.getElementById('Duracion').value],
+                    ['Objeto de la Actividad', document.getElementById('Objeto-actividad').value]
+                ];
+    
+                // Tabla de Datos
+                doc.autoTable({
+                    head: [['Campo', 'Valor']],
+                    body: fields,
+                    startY: 50,
+                    theme: 'grid',
+                    styles: { fillColor: [51, 212, 255] }
+                });
+    
+                // Captura de la tabla de asistencia
+                const content = document.getElementById('contentToCapture');
+                if (content) {
+                    // Ocultar la columna de ACCIONES
+                    const actionsColumn = document.querySelectorAll('th.hide-column, td:nth-child(5)');
+                    actionsColumn.forEach(el => el.classList.add('hide-column'));
+    
+                    // Aumentar escala para mejor calidad de captura
+                    setTimeout(() => {
+                        html2canvas(content, { scale: 2 }).then(function(canvas) { 
+                            const imgData = canvas.toDataURL('image/png');
+    
+                            // Establecer dimensiones fijas
+                            const imgWidth = 180; // Ancho fijo en mm
+                            const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantener proporción
+    
+                            // Añadir la imagen de la tabla
+                            let yPosition = doc.lastAutoTable.finalY + 10;
+    
+                            // Verificar si hay suficiente espacio en la página
+                            if (yPosition + imgHeight > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                yPosition = 10; // Reiniciar la posición Y
+                            }
+    
+                            // Cambié la posición X para desplazar hacia la derecha
+                            const xPosition = 15; // Ajusta este valor para mover hacia la derecha
+                            doc.addImage(imgData, 'PNG', xPosition, yPosition, imgWidth, imgHeight);
+    
+                            // Firmas
+                            const coordinadorCanvas = document.getElementById('signature-coordinador');
+                            const coordinadorImage = coordinadorCanvas.toDataURL('image/png');
+                            let firmaYPosition = yPosition + imgHeight + 20; // Ajustar posición para la firma
+    
+                            // Verificar si hay suficiente espacio para la firma
+                            if (firmaYPosition + 30 > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                firmaYPosition = 10; // Reiniciar la posición Y
+                            }
+    
+                            doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 30);
+                            doc.text("Firma del Coordinador de Mant", 10, firmaYPosition + 35);
+    
+                            // Guardar PDF
+                            const today = new Date();
+                            const formattedDateTime = today.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-') + '_am';
+                            const fileName = `FORMULARIO_ACTIVIDAD_${formattedDateTime}.pdf`;
+                            doc.save(fileName);
+                        }).catch(function(error) {
+                            console.error("Error al capturar el contenido:", error);
+                        }).finally(() => {
+                            // Restaurar la visibilidad de la columna de ACCIONES
+                            actionsColumn.forEach(el => el.classList.remove('hide-column'));
+                        });
+                    }, 500); // Tiempo de espera para asegurar que haya renderizado
+                } else {
+                    console.error("Elemento con ID 'contentToCapture' no encontrado.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

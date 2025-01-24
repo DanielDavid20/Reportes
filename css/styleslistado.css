@@ -79,16 +79,27 @@ label {
 /* Campos de Texto */
 input[type="text"],
 input[type="date"],
-select,
-textarea {
+select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid#1f68de;;
+    border: 1px solid #1f68de;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
 
+[contenteditable="true"] {
+    width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
+    padding: 8px; /* Mismo padding */
+    margin-bottom: 8px; /* Margen más pequeño */
+    border: 1px solid #1f68de; /* Misma propiedad */
+    border-radius: 4px; /* Misma propiedad */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    min-height: 50px; /* Altura mínima para que se parezca a un textarea */
+    overflow-wrap: break-word; /* Permitir que las palabras se dividan y se ajusten dentro de la celda */
+}
+
+/* Grupo de Radios */
 .radio-group {
     display: flex;
     flex-direction: column; /* Cambiar a columna para mejor uso del espacio */
@@ -110,7 +121,7 @@ th, td {
 }
 
 th {
-    background-color: #185dfdef
+    background-color: #185dfdef;
 }
 
 /* Estilos para los canvas de firma en dispositivos móviles */
@@ -200,4 +211,23 @@ button:hover {
 
 .clearSignatureButton:hover {
     background-color: #9ed033; /* Color de fondo al pasar el ratón */
+}
+.deleteRowButton {
+    background-color: transparent; /* Fondo transparente */
+    color: red; /* Color del texto */
+    border: 2px solid red; /* Borde rojo */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambios al pasar el mouse */
+.deleteRowButton:hover {
+    background-color: red; /* Fondo rojo al pasar el mouse */
+    color: white; /* Color del texto blanco al pasar el mouse */
+}
+ /* Añadir estilo para ocultar la columna de ACCIONES */
+ .hide-column {
+    display: none !important;
 }
