@@ -40,7 +40,7 @@
 
            
             <label for="Duracion">DURACION DE LA ACTIVIDAD: </label>
-            <input type="time" id="Duracion" required>
+            <input type="text" id="Duracion" required>
 
             <h2>OBJETO DE LA ACTIVIDAD:</h2>
             <textarea id="Objeto-actividad" rows="3"></textarea>
@@ -66,11 +66,12 @@
                 <td>
                     <button class="clearSignatureButton">Limpiar Firma</button> <!-- Botón para limpiar -->
                     <button class="deleteRowButton">Eliminar fila</button> <!-- Botón para eliminar -->
+
                 </td>
             </tr>
         </tbody>
     </table>
-    <button id="addRowBtn">+</button>
+    
     
     <!-- Modal para la firma -->
     <div id="signatureModal" class="modal">
@@ -82,6 +83,7 @@
         </div>
     </div>
 </div>
+<button id="addRowBtn">➕</button>
 
             <h2>FIRMAS</h2>
             <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
@@ -111,19 +113,37 @@
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
     
-                const titleFontSize = 16;
+                const titleFontSize = 12;
                 const bodyFontSize = 12;
     
-                // Agregar logo
-                const logo = document.getElementById('logo');
-                if (logo && logo.src) {
-                    doc.addImage(logo.src, 'PNG', 10, 10, 40, 20);
+                // Función para dibujar la cabecera
+                function drawHeader() {
+                    // Agregar logo
+                    const logo = document.getElementById('logo');
+                    if (logo && logo.src) {
+                        doc.addImage(logo.src, 'PNG', 10, 10, 40, 20);
+                    }
+    
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_________________________________________________________", 60, 15);
+                    doc.setFontSize(titleFontSize);
+                    
+                    // Título de la planilla
+                    const planillaTitle = "| PLANILLA DE ASISTENCIA | Código:MR042021 | Fecha:26/07/2020 |";
+                    doc.text(planillaTitle, 60, 20); // Ajusta el valor '60' para mover el texto a la derecha de la imagen del logo
+    
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_________________________________________________________", 60, 21);
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_______________________________________________________________________________", 10, 32);
                 }
     
+                // Dibuja la cabecera en la primera página
+                drawHeader();
+    
                 // Título del formulario
-                doc.setFontSize(titleFontSize);
-                doc.text("FORMULARIO DE ACTIVIDAD", 10, 40);
                 doc.setFontSize(bodyFontSize);
+                doc.text("Formulario de la actividad", 10, 43);
     
                 // Recoger datos del formulario
                 const fields = [
@@ -142,8 +162,8 @@
                     head: [['Campo', 'Valor']],
                     body: fields,
                     startY: 50,
-                    theme: 'grid',
-                    styles: { fillColor: [51, 212, 255] }
+                    theme: 'plain',
+                    styles: { fillColor: [33, 218, 51] } 
                 });
     
                 // Captura de la tabla de asistencia
@@ -155,39 +175,60 @@
     
                     // Aumentar escala para mejor calidad de captura
                     setTimeout(() => {
-                        html2canvas(content, { scale: 2 }).then(function(canvas) { 
+                        html2canvas(content, { scale: 3 }).then((canvas) => {
                             const imgData = canvas.toDataURL('image/png');
     
-                            // Establecer dimensiones fijas
-                            const imgWidth = 180; // Ancho fijo en mm
-                            const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantener proporción
+                            // Reducir el tamaño de la imagen
+                            const maxWidth = 180; // Tamaño máximo de ancho en mm
+                            const maxHeight = 140; // Tamaño máximo de altura en mm
+                            const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
+                            const newSize = { width: canvas.width * ratio, height: canvas.height * ratio };
+                            const resizedImgData = canvas.toDataURL('image/png', 2); // 1 como nivel de calidad, ajusta según sea necesario
     
-                            // Añadir la imagen de la tabla
+                            // Añadir el título "Listado de asistencia"
                             let yPosition = doc.lastAutoTable.finalY + 10;
     
-                            // Verificar si hay suficiente espacio en la página
-                            if (yPosition + imgHeight > doc.internal.pageSize.getHeight()) {
+                            // Verificar si hay suficiente espacio en la página para el título
+                            if (yPosition + 10 > doc.internal.pageSize.getHeight()) {
                                 doc.addPage(); // Agregar nueva página si no hay suficiente espacio
-                                yPosition = 10; // Reiniciar la posición Y
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                yPosition = 40; // Reiniciar la posición Y debajo del encabezado
                             }
     
-                            // Cambié la posición X para desplazar hacia la derecha
+                            doc.setFontSize(bodyFontSize);
+                            doc.text("Listado de asistencia", 10, yPosition);
+                            yPosition += 10; // Mover Y para dejar espacio a la imagen
+    
+                            // Verificar si hay suficiente espacio en la página para la imagen
+                            if (yPosition + newSize.height > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                yPosition = 40; // Reiniciar la posición Y debajo del encabezado
+                                
+                                // Añadir nuevamente el título en la nueva página
+                                doc.text("Listado de asistencia", 10, yPosition);
+                                yPosition += 10; // Mover Y para dejar espacio a la imagen
+                            }
+    
+                            // Agregar imagen
                             const xPosition = 15; // Ajusta este valor para mover hacia la derecha
-                            doc.addImage(imgData, 'PNG', xPosition, yPosition, imgWidth, imgHeight);
+                            doc.addImage(resizedImgData, 'PNG', xPosition, yPosition, newSize.width, newSize.height);
     
                             // Firmas
                             const coordinadorCanvas = document.getElementById('signature-coordinador');
                             const coordinadorImage = coordinadorCanvas.toDataURL('image/png');
-                            let firmaYPosition = yPosition + imgHeight + 20; // Ajustar posición para la firma
+                            let firmaYPosition = yPosition + newSize.height + 20; // Ajustar posición para la firma
     
                             // Verificar si hay suficiente espacio para la firma
                             if (firmaYPosition + 30 > doc.internal.pageSize.getHeight()) {
                                 doc.addPage(); // Agregar nueva página si no hay suficiente espacio
-                                firmaYPosition = 10; // Reiniciar la posición Y
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                firmaYPosition = 50; // Reiniciar la posición Y debajo del encabezado
                             }
     
                             doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 30);
-                            doc.text("Firma del Coordinador de Mant", 10, firmaYPosition + 35);
+                            doc.text("_____________________________________", 10, firmaYPosition + 30);
+                            doc.text("Firma ", 10, firmaYPosition + 35);
     
                             // Guardar PDF
                             const today = new Date();

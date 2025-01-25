@@ -83,7 +83,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #1f68de;
+    border: 1px solid #369126;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
@@ -92,7 +92,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
     padding: 8px; /* Mismo padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #1f68de; /* Misma propiedad */
+    border: 1px solid #21da33; /* Misma propiedad */
     border-radius: 4px; /* Misma propiedad */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     min-height: 50px; /* Altura mínima para que se parezca a un textarea */
@@ -112,16 +112,16 @@ table {
     border-collapse: collapse;
     margin: 8px 0; /* Margen más pequeño */
     font-size: 0.9rem; /* Ajuste tamaño de fuente */
-    margin-left: -10px; /* Desplazar la tabla a la izquierda */
+    margin-left: -1px; /* Desplazar la tabla a la izquierda */
 }
 
 th, td {
-    border: 1px solid #1f68de;
+    border: 1px solid #20690f;
     padding: 5px; /* Reducción en el padding */
 }
 
 th {
-    background-color: #185dfdef;
+    background-color: #24c929ef;
 }
 
 /* Estilos para los canvas de firma en dispositivos móviles */
@@ -134,7 +134,7 @@ canvas {
     width: 100%; 
     
   
-    border: 1px solid #1f68de; /* Borde del canvas */
+    border: 1px solid #3ba41e; /* Borde del canvas */
     
 }
 
@@ -143,7 +143,7 @@ button {
     display: block;
     width: 100%;
     padding: 8px; /* Reducción en el padding */
-    background-color: #007BFF;
+    background-color: #1eb125;
     color: white;
     border: none;
     border-radius: 4px;
@@ -152,7 +152,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #3ded22;
 }
 
 /* Media Query para dispositivos móviles */
