@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
                 <td>
                 <button class="clearSignatureButton">Limpiar Firma</button>
-                <button class="deleteRowButton">Eliminar</button> <!-- Nuevo botón para eliminar -->
+                <button class="deleteRowButton">Eliminar fila</button> <!-- Nuevo botón para eliminar -->
             </td>
         `;
         document.querySelector('#asistenciaTable tbody').appendChild(newRow);
