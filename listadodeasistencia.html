@@ -258,12 +258,37 @@
     
                             doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 40);
                             doc.text("_____________________________________", 10, firmaYPosition + 40);
-                            doc.text("Firma ", 10, firmaYPosition + 35);
+                            doc.text("Firma ", 10, firmaYPosition + 45);
     
                             // Guardar PDF
-                            const today = new Date();
-                            const formattedDateTime = today.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-') + '_am';
-                            const fileName = `FORMULARIO_ACTIVIDAD_${formattedDateTime}.pdf`;
+                                
+// Obtener la fecha y hora actual
+const today = new Date();
+const year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+let hours = today.getHours();
+let ampm = hours >= 12 ? 'pm' : 'am'; // Determinar si es AM o PM
+hours = hours % 12;
+hours = hours ? hours : 12; // Establecer 12 en lugar de 0 para las 12 PM
+let minutes = today.getMinutes();
+
+// Formatear la fecha
+if (month < 10) {
+    month = '0' + month;
+}
+if (day < 10) {
+    day = '0' + day;
+}
+if (hours < 10) {
+    hours = '0' + hours;
+}
+if (minutes < 10) {
+    minutes = '0' + minutes;
+}
+
+const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
+                            const fileName = `PLANILLA DE ASISTENCIA_${formattedDateTime}.pdf`;
                             doc.save(fileName);
                         }).catch(function(error) {
                             console.error("Error al capturar el contenido:", error);

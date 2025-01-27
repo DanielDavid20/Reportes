@@ -159,3 +159,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaServicioInput = document.getElementById('fecha-servicio');
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    // Agregar un cero delante del mes y día si son menores a 10
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (day < 10) {
+        day = '0' + day;
+    }
+
+    const todayFormatted = `${year}-${month}-${day}`;
+    fechaServicioInput.value = todayFormatted;
+});
