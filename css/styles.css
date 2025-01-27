@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #185dfdef; /* Color de fondo del encabezado */
+    background-color: #185dfdab; /* Color de fondo del encabezado */
     color: #fff; /* Color del texto */
     text-align: center; /* Centrar el texto */
     padding: 10px 0; /* Espaciado interno arriba y abajo */
@@ -20,6 +20,7 @@ header h1 {
     margin: 0; /* Eliminar el margen por defecto */
     font-size: 28px; /* Tamaño de fuente del título */
     padding: 10px 0; /* Espaciado interno arriba y abajo del título */
+    
 }
 
 /* Media query para ajustar estilos en pantallas más pequeñas */

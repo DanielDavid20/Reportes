@@ -11,13 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <body>
-    <header>
-        <div id="button2" onclick="window.location.href='principal.html'"><i class="fas fa-home"></i> Volver a Inicio</div>
-        <h1 id="title">PLANILLA DE ASISTENCIA 
+    <header style="display: flex; align-items: center;">
+        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+            <i class="fas fa-home"></i> Volver a Inicio
+        </div>
+        <h1 id="title ">PLANILLA DE ASISTENCIA</h1>
     </header>
     <div class="container">
-        <h2>Código:MR042021</h2>
-        <h3>Fecha:26/07/2020 </h3>
+        <h2>Código:MR042021 - Fecha:26/07/2020 </h2>
+      
         <h1 id="form-title">DATOS DE LA ACTIVIDAD </h1>
        
             <label for="Nombreact">NOMBRE DE LA ACTIVIDAD: </label>
@@ -43,7 +45,7 @@
             <input type="text" id="Duracion" required>
 
             <h2>OBJETO DE LA ACTIVIDAD:</h2>
-            <textarea id="Objeto-actividad" rows="3"></textarea>
+            <textarea id="Objeto-actividad" rows="3" required></textarea>
 
             <h2>Listado de asistencia</h2>
 <div id="contentToCapture"> <!-- Contenedor para capturar -->
@@ -109,6 +111,34 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('generatePDF').addEventListener('click', function(event) {
                 event.preventDefault();
+
+                // Validar campos requeridos
+                const requiredFields = [
+                    document.getElementById('Nombreact'),
+                    document.getElementById('entidad'),
+                    document.getElementById('Nombre'),
+                    document.getElementById('lugar'),
+                    document.getElementById('fecha-servicio'),
+                    document.getElementById('tipo'),
+                    document.getElementById('Duracion'),
+                    document.getElementById('Objeto-actividad'),
+                    
+                ];
+
+                let allFieldsFilled = true;
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        allFieldsFilled = false;
+                        field.style.border = "1px solid red"; // Resaltar el campo vacío
+                    } else {
+                        field.style.border = ""; // Limpiar el estilo si el campo está lleno
+                    }
+                });
+
+                if (!allFieldsFilled) {
+                    alert("Por favor, completa todos los campos requeridos.");
+                    return; // Detener la generación del PDF
+                }
     
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
@@ -226,8 +256,8 @@
                                 firmaYPosition = 50; // Reiniciar la posición Y debajo del encabezado
                             }
     
-                            doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 30);
-                            doc.text("_____________________________________", 10, firmaYPosition + 30);
+                            doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 40);
+                            doc.text("_____________________________________", 10, firmaYPosition + 40);
                             doc.text("Firma ", 10, firmaYPosition + 35);
     
                             // Guardar PDF
@@ -250,3 +280,4 @@
     </script>
 </body>
 </html>
+

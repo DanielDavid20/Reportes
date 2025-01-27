@@ -4,88 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+ <style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* Color de fondo oscuro */
+}
 
-        header {
-            background-color:  #3572ffef; 
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
+header {
+    background-color: #3498db; /* Color más vibrante y atractivo */
+    color: #fff;
+    text-align: left;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+header h1 {
+    margin: 0;
+    flex: 1;
+    font-size: 1.8em;
+    font-weight: bold;
+}
 
-        button {
-            padding: 10px 20px;
-            background-color: #1f5ea1;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
-        button:hover {
-            background-color: #428ad7;
-        }
+.container {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-            z-index: 1;
-        }
+button {
+    padding: 15px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    font-size: 1.2em;
+}
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+button:hover {
+    background-color: #1abc9c;
+}
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Media query para pantallas de 600px o menos */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .button-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    button {
+        padding: 15px;
+        font-size: 1.1em;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+        transform: scale(1.2); /* Efecto de zoom */
+        transition: transform 0.3s; /* Transición suave para el efecto de zoom */
+    }
+}</style>
    <script type="module" src="script/homepage.js"></script>
 </head>
 
 <body>
     <header>
         <h1>Inicio</h1>
-        <div>Usuario: <span id="loggedUserEmail"></span></div>
-        <div class="dropdown">
-            <button>Opciones</button>
-            <div class="dropdown-content">
-                <a href="formatomantenimientoaire.html">Mantenimiento de Aire</a>
-                <a href="listadodeasistencia.html">listado de asistencia</a>
-                <a href="Eliminarcuenta.html">Ver informacio e Eliminar cuenta</a>
+        <div class="header-content">
+            <img src="logo.png" alt="Logo" class="logo"> <!-- Asegúrate de que el logo esté aquí -->
+            <div> <span id="loggedUserEmail"></span></div>
+            <div class="dropdown">
+                <button> ☰ </button>
+                <div class="dropdown-content">
+                    <a href="formatomantenimientoaire.html">Informe de mantenimiento de aires acondicionados</a>
+                    <a href="listadodeasistencia.html">Plantilla de asistencia</a>
+                    <a href="Eliminarcuenta.html">Ver Información y Eliminar cuenta</a>
+                </div>
             </div>
         </div>
     </header>
-
+</body>
     <div class="container">
         <h2>Bienvenido a la Página de Inicio  <span id="loggedUserFName"></span></h2>
         <p>Contenido de tu página de inicio...</p>

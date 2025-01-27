@@ -1,13 +1,13 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(../img/fondo.avif);
+    background-image: url(../img/fondo\ 2.jpg);
     margin: 0;
     padding: 10px; /* Reducción del padding */
 }
 
 header {
-    background-color: #185dfdef; /* Color de fondo del encabezado */
+    background-color: #369126d5; /* Color de fondo del encabezado */
     color: #fff; /* Color del texto */
     text-align: center; /* Centrar el texto */
     padding: 10px 0; /* Espaciado interno arriba y abajo */
@@ -230,4 +230,20 @@ button:hover {
  /* Añadir estilo para ocultar la columna de ACCIONES */
  .hide-column {
     display: none !important;
+}
+/* Estilo para el textarea */
+textarea {
+    width: 92%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    resize: vertical; /* Permitir redimensionar solo verticalmente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    font-size: 1em; /* Tamaño de la fuente */
+    color: #333; /* Color del texto */
+}
+
+/* Estilo para indicar un campo requerido vacío */
+textarea:required:invalid {
+    border-color: #0f9f22; /* Borde verde si está vacío */
 }
