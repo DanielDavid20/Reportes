@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleslistado.css">
+    <title>Formulario de Mantenimiento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<body>
+    <header style="display: flex; align-items: center;">
+        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+            <i class="fas fa-home"></i> Volver a Inicio
+        </div>
+        <h1 id="title ">INSPECCIÓN DE EPP Y DOTACIÓN</h1>
+    </header>
+    <div class="container">
+        <h2>Código:mv00 - Versión: 1 - Fecha:30/08/2022 </h2>
+      
+        <h1 id="form-title">DATOS DE LA ACTIVIDAD </h1>
+       
+            <label for="Lugarinspeccion">Lugar de la Inspección: </label>
+            <input type="text" id="Lugarinspeccion" required>
+
+
+             <label for="fecha-servicio">Fecha de Servicio</label>
+            <input type="date" id="fecha-servicio">
+
+           
+            <h2>OBJETO DE LA ACTIVIDAD:</h2>
+            <textarea id="Objeto-actividad" rows="3" required></textarea>
+
+            <h2>Listado de asistencia</h2>
+<div id="contentToCapture"> <!-- Contenedor para capturar -->
+    <table id="asistenciaTable">
+        <thead>
+            <tr>
+                <th>NOMBRE <br> COM<br>PLETO</th>
+              
+      
+                <th class="hide-column"></th> <!-- Nueva columna para los botones -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                <td>
+                    <button class="clearSignatureButton">Limpiar Firma</button> <!-- Botón para limpiar -->
+                    <button class="deleteRowButton">Eliminar fila</button> <!-- Botón para eliminar -->
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <!-- Modal para la firma -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firma</h2>
+            <canvas id="modalCanvas" width="400" height="200"></canvas>
+            <button id="saveSignature">Guardar firma</button>
+        </div>
+    </div>
+</div>
+<button id="addRowBtn">➕</button>
+
+            <h2>FIRMAS</h2>
+            <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
+           
+    
+            <div id="signature-pad-coordinador" class="signature-pad">
+                <canvas id="signature-coordinador" width="600" height="200"></canvas>
+                <h3>Coordinador de Mant</h3>
+                <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
+            </div>
+
+            <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+            
+
+            <button id="generatePDF">Generar PDF</button>
+            
+        </form>
+    </div>
+    
+    <script src="script/scripinspeccion.js"></script>
+
+    
+</body>
+</html>
+
