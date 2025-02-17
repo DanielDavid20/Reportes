@@ -1,0 +1,274 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(../img/fondo\ 2.jpg);
+    margin: 0;
+    padding: 10px; /* Reducción del padding */
+}
+
+header {
+    background-color: #369126d5; /* Color de fondo del encabezado */
+    color: #fff; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+    padding: 10px 0; /* Espaciado interno arriba y abajo */
+    width: 100%; /* Ancho completo */
+    z-index: 1000; /* Asegurarse de que esté por encima del resto del contenido */
+    margin-top: -10px; /* Margen negativo para acercar la cabecera hacia arriba */
+}
+
+header h1 {
+    margin: 0; /* Eliminar el margen por defecto */
+    font-size: 28px; /* Tamaño de fuente del título */
+    padding: 10px 0; /* Espaciado interno arriba y abajo del título */
+}
+
+/* Media query para ajustar estilos en pantallas más pequeñas */
+@media only screen and (max-width: 600px) {
+    header {
+        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
+    }
+    header h1 {
+        font-size: 24px; /* Ajustar el tamaño de fuente */
+        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
+    }
+}
+
+
+.container {
+    max-width: 600px; /* Ancho máximo para evitar que se extienda demasiado */
+    width: 95%; /* Utilizar el 95% del ancho disponible */
+    padding: 20px; /* Aumentar padding para mayor espacio interno */
+    border-radius: 16px; /* Hacer esquinas más redondeadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
+    background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
+    
+    
+}
+
+/* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
+.container label {
+    font-weight: bold; /* Hacer las etiquetas más prominentes */
+}
+
+.container h1, .container h2 {
+    margin-bottom: 15px; /* Espaciado inferior para los títulos */
+    color: #333; /* Color de texto más oscuro para mejor contraste */
+}
+
+/* Estilos para los botones dentro del contenedor */
+.container button {
+    margin-top: 10px; /* Espaciado superior para los botones */
+}
+/* Títulos */
+h1, h2 {
+    text-align: center;
+    font-size: 1.5rem; /* Tamaño de fuente más pequeño */
+}
+
+h3{
+    color: #333;
+
+}
+/* Etiquetas */
+label {
+    display: block;
+    margin: 5px 0 2px; /* Reducción en márgenes */
+}
+
+/* Campos de Texto */
+input[type="text"],
+input[type="date"],
+select {
+    width: calc(100% - 10px); /* Ajuste de ancho */
+    padding: 8px; /* Reducción en el padding */
+    margin-bottom: 8px; /* Margen más pequeño */
+    border: 1px solid #369126;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+[contenteditable="true"] {
+    width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
+    padding: 8px; /* Mismo padding */
+    margin-bottom: 8px; /* Margen más pequeño */
+    border: 1px solid #21da33; /* Misma propiedad */
+    border-radius: 4px; /* Misma propiedad */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    min-height: 50px; /* Altura mínima para que se parezca a un textarea */
+    overflow-wrap: break-word; /* Permitir que las palabras se dividan y se ajusten dentro de la celda */
+}
+
+/* Grupo de Radios */
+.radio-group {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para mejor uso del espacio */
+    margin-bottom: 8px; /* Reducción en el margen */
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0; /* Margen más pequeño */
+    font-size: 0.9rem; /* Ajuste tamaño de fuente */
+    margin-left: -1px; /* Desplazar la tabla a la izquierda */
+}
+
+th, td {
+    border: 1px solid #20690f;
+    padding: 5px; /* Reducción en el padding */
+    text-align: left; /* Alinear texto a la izquierda */
+}
+
+th {
+    background-color: #24c929ef;
+    color: #fff; /* Color de texto en el encabezado */
+}
+
+/* Estilo para filas alternas */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+tbody tr:hover {
+    background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+}
+
+/* Botones */
+button {
+    background-color: #24c929ef; /* Color de fondo del botón */
+    color: white; /* Color de texto del botón */
+    border: none;
+    padding: 5px 10px; /* Padding del botón */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    border-radius: 3px; /* Bordes redondeados */
+}
+
+button:hover {
+    background-color: #20690f; /* Color al pasar el ratón */
+}
+
+/* Estilos para los canvas de firma en dispositivos móviles */
+.signature-pad {
+    text-align: center;
+    margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
+}
+
+canvas {
+    width: 100%; 
+    
+  
+    border: 1px solid #3ba41e; /* Borde del canvas */
+    
+}
+
+/* Botones */
+button {
+    display: block;
+    width: 100%;
+    padding: 8px; /* Reducción en el padding */
+    background-color: #1eb125;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem; /* Tamaño de fuente ajustado */
+}
+
+button:hover {
+    background-color: #3ded22;
+}
+
+/* Media Query para dispositivos móviles */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.4rem; /* Tamaño de fuente más pequeño */
+    }
+    h2 {
+        font-size: 1.2rem; /* Tamaño de fuente más pequeño */
+    }
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Escondido por defecto */
+    position: fixed; /* Fijo a la pantalla */
+    z-index: 1; /* Por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* 100% ancho */
+    height: 100%; /* 100% alto */
+    overflow: auto; /* Permitir el desplazamiento si es necesario */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con transparencia */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% desde la parte superior y centrado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.clearSignatureButton {
+    font-size: 14px; /* Tamaño del texto */
+    padding: 5px 10px; /* Espaciado interno del botón */
+    border: 1px solid #6afb30; /* Borde */
+    background: #0f9f22; /* Color de fondo */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición suave de fondo */
+}
+
+.clearSignatureButton:hover {
+    background-color: #9ed033; /* Color de fondo al pasar el ratón */
+}
+.deleteRowButton {
+    background-color: transparent; /* Fondo transparente */
+    color: red; /* Color del texto */
+    border: 2px solid red; /* Borde rojo */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambios al pasar el mouse */
+.deleteRowButton:hover {
+    background-color: red; /* Fondo rojo al pasar el mouse */
+    color: white; /* Color del texto blanco al pasar el mouse */
+}
+ /* Añadir estilo para ocultar la columna de ACCIONES */
+ .hide-column {
+    display: none !important;
+}
+/* Estilo para el textarea */
+textarea {
+    width: 92%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    resize: vertical; /* Permitir redimensionar solo verticalmente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    font-size: 1em; /* Tamaño de la fuente */
+    color: #333; /* Color del texto */
+}
+
+/* Estilo para indicar un campo requerido vacío */
+textarea:required:invalid {
+    border-color: #0f9f22; /* Borde verde si está vacío */
+}

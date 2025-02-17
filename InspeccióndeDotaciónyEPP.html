@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styleslistado.css">
+    <link rel="stylesheet" href="css/stylesinspeccion.css">
     <title>Formulario de Mantenimiento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
@@ -28,38 +28,134 @@
 
              <label for="fecha-servicio">Fecha de Servicio</label>
             <input type="date" id="fecha-servicio">
-
-           
-            <h2>OBJETO DE LA ACTIVIDAD:</h2>
-            <textarea id="Objeto-actividad" rows="3" required></textarea>
-
-            <h2>Listado de asistencia</h2>
-<div id="contentToCapture"> <!-- Contenedor para capturar -->
-    <table id="asistenciaTable">
-        <thead>
-            <tr>
-                <th>NOMBRE <br> COM<br>PLETO</th>
-              
-      
-                <th class="hide-column"></th> <!-- Nueva columna para los botones -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
-                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
-                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
-                <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
-                <td>
-                    <button class="clearSignatureButton">Limpiar Firma</button> <!-- Botón para limpiar -->
-                    <button class="deleteRowButton">Eliminar fila</button> <!-- Botón para eliminar -->
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    
+          
+            <div id="contentToCapture"> <!-- Contenedor para capturar -->
+                <table id="asistenciaTable">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE <br> COMPLETO</th>
+                            <th>firma</th>
+                            <th class="hide-column">botones</th>
+                            <th colspan="2"></th> <!-- Unir columnas -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true" class="cell"></td>
+                            <td class="cell"><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                            <td class="cell">
+                                <button class="clearSignatureButton">Limpiar Firma</button>
+                                <button class="deleteRowButton">Eliminar fila</button>
+                            </td>
+                            <td class="cell" colspan="2"> <!-- Unir celdas -->
+                                <table style="border: none; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>EPP Asignado</th>
+                                            <th>Utiliza</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Gafas claras</td>
+                                            <td>
+                                                <select id="utiliza-gafas-claras" required>
+                                                    <option value="" disabled selected>Seleccione</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="estado-gafas-claras" required>
+                                                    <option value="" disabled selected>Seleccione un estado</option>
+                                                    <option value="bueno">Bueno</option>
+                                                    <option value="malo">Malo</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gafas oscuras</td>
+                                            <td>
+                                                <select id="utiliza-gafas-oscuras" required>
+                                                    <option value="" disabled selected>Seleccione</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="estado-gafas-oscuras" required>
+                                                    <option value="" disabled selected>Seleccione un estado</option>
+                                                    <option value="bueno">Bueno</option>
+                                                    <option value="malo">Malo</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ropa de dotación</td>
+                                            <td>
+                                                <select id="utiliza-ropa" required>
+                                                    <option value="" disabled selected>Seleccione</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="estado-ropa" required>
+                                                    <option value="" disabled selected>Seleccione un estado</option>
+                                                    <option value="bueno">Bueno</option>
+                                                    <option value="malo">Malo</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Botas de seguridad</td>
+                                            <td>
+                                                <select id="utiliza-botas" required>
+                                                    <option value="" disabled selected>Seleccione</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="estado-botas" required>
+                                                    <option value="" disabled selected>Seleccione un estado</option>
+                                                    <option value="bueno">Bueno</option>
+                                                    <option value="malo">Malo</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Guantes de seguridad</td>
+                                            <td>
+                                                <select id="utiliza-guantes" required>
+                                                    <option value="" disabled selected>Seleccione</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="estado-guantes" required>
+                                                    <option value="" disabled selected>Seleccione un estado</option>
+                                                    <option value="bueno">Bueno</option>
+                                                    <option value="malo">Malo</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>Observaciones:</strong></td>
+                            <td colspan="2"><textarea rows="3" style="width: 100%;"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            
+            
+       
     <!-- Modal para la firma -->
     <div id="signatureModal" class="modal">
         <div class="modal-content">
@@ -71,24 +167,63 @@
     </div>
 </div>
 <button id="addRowBtn">➕</button>
+<div id="contentToCapture">
+    <h3>Reporte</h3>
+    <table id="reportadoPorTable" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ccc; padding: 8px;">REPORTADO POR</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Firma</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">ENCARGADO SG-SST</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Firma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 8px;"></td>
+                <td>
+                    <canvas class="signatureCanvas" width="200" height="100" style="border: 1px solid #ccc;"></canvas>
+                </td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 8px;"></td>
+                <td>
+                    <canvas class="signatureCanvas" width="200" height="100" style="border: 1px solid #ccc;"></canvas>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-            <h2>FIRMAS</h2>
-            <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
+    <!-- Botones para limpiar las firmas -->
+    <div style="margin-top: 20px;">
+        <button id="clearSignatureReportedBy" style="background-color: red;">Limpiar Firma Reportado Por</button>
+        <button id="clearSignatureEncargado" style="background-color:red ">Limpiar Firma Encargado SG-SST</button>
+    </div>
+
+    <!-- Modal para la firma -->
+    <div id="signatureModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firma</h2>
+            <canvas id="modalCanvas" width="400" height="200"></canvas>
+            <button id="saveSignature">Guardar firma</button>
+        </div>
+    </div>
+</div>
+
            
-    
-            <div id="signature-pad-coordinador" class="signature-pad">
-                <canvas id="signature-coordinador" width="600" height="200"></canvas>
-                <h3>Coordinador de Mant</h3>
-                <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
-            </div>
-
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
 
             <button id="generatePDF">Generar PDF</button>
+            <button id="printButton">Imprimir</button>
             
         </form>
     </div>
+    <script>
+        document.getElementById('printButton').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+    
     
     <script src="script/scripinspeccion.js"></script>
 
