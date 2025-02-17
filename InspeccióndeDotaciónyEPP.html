@@ -11,16 +11,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <body>
-    <header style="display: flex; align-items: center;">
-        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
-            <i class="fas fa-home"></i> Volver a Inicio
+    
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title">INSPECCIÓN DE EPP Y DOTACIÓN</h1>
         </div>
-        <h1 id="title ">INSPECCIÓN DE EPP Y DOTACIÓN</h1>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
     </header>
     <div class="container">
-        <h2>Código:mv00 - Versión: 1 - Fecha:30/08/2022 </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Versión</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>mv00</td>
+                    <td>1</td>
+                    <td>30/08/2022</td>
+                </tr>
+            </tbody>
+        </table>
       
-        <h1 id="form-title">DATOS DE LA ACTIVIDAD </h1>
+       
        
             <label for="Lugarinspeccion">Lugar de la Inspección: </label>
             <input type="text" id="Lugarinspeccion" required>
@@ -168,7 +187,7 @@
 </div>
 <button id="addRowBtn">➕</button>
 <div id="contentToCapture">
-    <h3>Reporte</h3>
+   
     <table id="reportadoPorTable" style="border-collapse: collapse; width: 100%;">
         <thead>
             <tr>
@@ -213,7 +232,6 @@
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
 
-            <button id="generatePDF">Generar PDF</button>
             <button id="printButton">Imprimir</button>
             
         </form>

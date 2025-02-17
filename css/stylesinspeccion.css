@@ -7,43 +7,67 @@ body {
 }
 
 header {
-    background-color: #369126d5; /* Color de fondo del encabezado */
-    color: #fff; /* Color del texto */
-    text-align: center; /* Centrar el texto */
-    padding: 10px 0; /* Espaciado interno arriba y abajo */
-    width: 100%; /* Ancho completo */
-    z-index: 1000; /* Asegurarse de que esté por encima del resto del contenido */
-    margin-top: -10px; /* Margen negativo para acercar la cabecera hacia arriba */
+    background-color: #c4b15d; /* Color más vibrante y atractivo */
+    color: #fff;
+    text-align: left;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacio entre elementos */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    margin: 0; /* Eliminar el margen por defecto */
-    font-size: 28px; /* Tamaño de fuente del título */
-    padding: 10px 0; /* Espaciado interno arriba y abajo del título */
+    margin: 0;
+    flex: 1;
+    font-size: 1.5em; /* Ajustar tamaño para móviles */
 }
 
-/* Media query para ajustar estilos en pantallas más pequeñas */
-@media only screen and (max-width: 600px) {
-    header {
-        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
-    }
+.logo {
+    width: 80px; /* Ancho reducido para móviles */
+    height: 80px; /* Alto reducido para móviles */
+    margin-left: auto;
+    border: 2px solid #c4b15d; /* Borde cuadrado */
+    border-radius: 0; /* Sin bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s; /* Transición suave */
+}
+
+.logo:hover {
+    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
     header h1 {
-        font-size: 24px; /* Ajustar el tamaño de fuente */
-        padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
+        font-size: 1.2em; /* Ajustar tamaño de fuente en móviles */
+    }
+
+    .logo {
+        width: 60px; /* Cambiar tamaño del logo para móviles */
+        height: 60px; /* Cambiar tamaño del logo para móviles */
+    }
+
+    /* Ajustes para tablas en pantallas pequeñas */
+    table {
+        font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+        overflow-x: auto; /* Permitir desplazamiento horizontal */
+        display: block; /* Cambiar a bloque para permitir desplazamiento */
+        white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    }
+
+    th, td {
+        padding: 4px; /* Reducción en el padding */
     }
 }
-
 
 .container {
-    max-width: 600px; /* Ancho máximo para evitar que se extienda demasiado */
-    width: 95%; /* Utilizar el 95% del ancho disponible */
-    padding: 20px; /* Aumentar padding para mayor espacio interno */
+    width: 100%; /* Utilizar el 95% del ancho disponible */
     border-radius: 16px; /* Hacer esquinas más redondeadas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
     margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
     background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
-    
-    
 }
 
 /* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
@@ -60,16 +84,17 @@ header h1 {
 .container button {
     margin-top: 10px; /* Espaciado superior para los botones */
 }
+
 /* Títulos */
 h1, h2 {
     text-align: center;
     font-size: 1.5rem; /* Tamaño de fuente más pequeño */
 }
 
-h3{
+h3 {
     color: #333;
-
 }
+
 /* Etiquetas */
 label {
     display: block;
@@ -83,7 +108,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #369126;
+    border: 1px solid #c4b15d;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
@@ -92,7 +117,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
     padding: 8px; /* Mismo padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #21da33; /* Misma propiedad */
+    border: 1px solid #c4b15d; /* Misma propiedad */
     border-radius: 4px; /* Misma propiedad */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     min-height: 50px; /* Altura mínima para que se parezca a un textarea */
@@ -116,13 +141,13 @@ table {
 }
 
 th, td {
-    border: 1px solid #20690f;
+    border: 1px solid #c4b15d;
     padding: 5px; /* Reducción en el padding */
     text-align: left; /* Alinear texto a la izquierda */
 }
 
 th {
-    background-color: #24c929ef;
+    background-color: #c4b15d;
     color: #fff; /* Color de texto en el encabezado */
 }
 
@@ -137,7 +162,7 @@ tbody tr:hover {
 
 /* Botones */
 button {
-    background-color: #24c929ef; /* Color de fondo del botón */
+    background-color: #c4b15d; /* Color de fondo del botón */
     color: white; /* Color de texto del botón */
     border: none;
     padding: 5px 10px; /* Padding del botón */
@@ -146,7 +171,7 @@ button {
 }
 
 button:hover {
-    background-color: #20690f; /* Color al pasar el ratón */
+    background-color: #c4b15d; /* Color al pasar el ratón */
 }
 
 /* Estilos para los canvas de firma en dispositivos móviles */
@@ -157,10 +182,7 @@ button:hover {
 
 canvas {
     width: 100%; 
-    
-  
-    border: 1px solid #3ba41e; /* Borde del canvas */
-    
+    border: 1px solid #c4b15d; /* Borde del canvas */
 }
 
 /* Botones */
@@ -224,6 +246,7 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
 .clearSignatureButton {
     font-size: 14px; /* Tamaño del texto */
     padding: 5px 10px; /* Espaciado interno del botón */
@@ -237,6 +260,7 @@ button:hover {
 .clearSignatureButton:hover {
     background-color: #9ed033; /* Color de fondo al pasar el ratón */
 }
+
 .deleteRowButton {
     background-color: transparent; /* Fondo transparente */
     color: red; /* Color del texto */
@@ -252,14 +276,16 @@ button:hover {
     background-color: red; /* Fondo rojo al pasar el mouse */
     color: white; /* Color del texto blanco al pasar el mouse */
 }
- /* Añadir estilo para ocultar la columna de ACCIONES */
- .hide-column {
+
+/* Añadir estilo para ocultar la columna de ACCIONES */
+.hide-column {
     display: none !important;
 }
+
 /* Estilo para el textarea */
 textarea {
     width: 92%; /* Ancho completo */
-    padding: 10px; /* Espaciado interno */
+    padding: 0px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde */
     border-radius: 5px; /* Bordes redondeados */
     resize: vertical; /* Permitir redimensionar solo verticalmente */
@@ -271,4 +297,13 @@ textarea {
 /* Estilo para indicar un campo requerido vacío */
 textarea:required:invalid {
     border-color: #0f9f22; /* Borde verde si está vacío */
+}
+
+@media print {
+    button {
+        display: none;
+    }
+    #button2 {
+        display: none;
+    }
 }
