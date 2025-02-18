@@ -13,21 +13,20 @@ header {
     padding: 15px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Espacio entre elementos */
+    justify-content: flex-start; /* Alinear elementos al inicio */
     flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     margin: 0;
-    flex: 1;
     font-size: 1.5em; /* Ajustar tamaño para móviles */
+    margin-right: 20px; /* Espacio entre el título y el logo */
 }
 
 .logo {
     width: 80px; /* Ancho reducido para móviles */
     height: 80px; /* Alto reducido para móviles */
-    margin-left: auto;
     border: 2px solid #c4b15d; /* Borde cuadrado */
     border-radius: 0; /* Sin bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -61,7 +60,6 @@ header h1 {
         padding: 4px; /* Reducción en el padding */
     }
 }
-
 .container {
     width: 100%; /* Utilizar el 95% del ancho disponible */
     border-radius: 16px; /* Hacer esquinas más redondeadas */
@@ -141,9 +139,10 @@ table {
 }
 
 th, td {
-    border: 1px solid #c4b15d;
-    padding: 5px; /* Reducción en el padding */
+    border: 0.5px solid #c4b15d;
+    padding: 3px; /* Aumentar el padding para mejorar la visibilidad */
     text-align: left; /* Alinear texto a la izquierda */
+    min-width: 90px; /* Aumentar el ancho mínimo de las celdas */
 }
 
 th {
@@ -188,7 +187,7 @@ canvas {
 /* Botones */
 button {
     display: block;
-    width: 100%;
+    width: 98%;
     padding: 8px; /* Reducción en el padding */
     background-color: #1eb125;
     color: white;
@@ -196,6 +195,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem; /* Tamaño de fuente ajustado */
+    
 }
 
 button:hover {
@@ -277,15 +277,20 @@ button:hover {
     color: white; /* Color del texto blanco al pasar el mouse */
 }
 
-/* Añadir estilo para ocultar la columna de ACCIONES */
-.hide-column {
-    display: none !important;
+@media print {
+    .hide-column {
+        display: none !important; /* Ocultar la columna al imprimir */
+    }
 }
 
-/* Estilo para el textarea */
+
+
+
+/* Estilo general para el textarea */
 textarea {
-    width: 92%; /* Ancho completo */
-    padding: 0px; /* Espaciado interno */
+    width: 95%; /* Ancho del textarea */
+    height: 50px; /* Altura del textarea */
+    padding: 10px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde */
     border-radius: 5px; /* Bordes redondeados */
     resize: vertical; /* Permitir redimensionar solo verticalmente */
@@ -294,9 +299,13 @@ textarea {
     color: #333; /* Color del texto */
 }
 
-/* Estilo para indicar un campo requerido vacío */
-textarea:required:invalid {
-    border-color: #0f9f22; /* Borde verde si está vacío */
+/* Estilo específico para pantallas pequeñas (teléfonos) */
+@media (max-width: 600px) {
+    textarea {
+        height: 150px; /* Aumentar altura en móviles */
+        font-size: 1.1em; /* Aumentar tamaño de fuente en móviles */
+        padding: 12px; /* Aumentar espaciado interno en móviles */
+    }
 }
 
 @media print {
@@ -306,4 +315,6 @@ textarea:required:invalid {
     #button2 {
         display: none;
     }
+    
 }
+

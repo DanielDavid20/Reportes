@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newRow.innerHTML = `
             <td contenteditable="true" class="cell" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
             <td class="cell"><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
-            <td class="cell">
+           <td class="cell hide-column"> <!-- Añadir la clase aquí -->
                 <button class="clearSignatureButton">Limpiar Firma</button>
                 <button class="deleteRowButton">Eliminar fila</button>
             </td>
@@ -190,8 +190,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Fila de observaciones
         const obsRow = document.createElement('tr');
         obsRow.innerHTML = `
-            <td colspan="3"><strong>Observaciones:</strong></td>
-            <td colspan="2"><textarea rows="3" style="width: 100%;"></textarea></td>
+           <td colspan="3">
+                                <textarea style="font-family: Arial, sans-serif;" >Observaciones: </textarea></td>
         `;
         
         // Agregar la nueva fila y la fila de observaciones
