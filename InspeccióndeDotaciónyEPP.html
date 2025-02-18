@@ -257,6 +257,7 @@ updateDateTime();
             
 
             <button id="printButton">Imprimir</button>
+            <button id="reloadButton">Limpiar Formulario</button>
             
         </form>
     </div>
@@ -298,9 +299,17 @@ updateDateTime();
             } else {
                 alert('Por favor, complete todos los campos requeridos.');
             }
+            
         });
+       
     </script>
-    
+     
+
+      <script>
+          document.getElementById('reloadButton').addEventListener('click', function() {
+              window.location.reload();
+          });
+      </script>
     
     <script src="script/scripinspeccion.js"></script>
 

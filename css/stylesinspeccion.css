@@ -318,3 +318,16 @@ textarea {
     
 }
 
+#reloadButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #68b8da; /* Color verde */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#reloadButton:hover {
+    background-color: #455da0; /* Color más oscuro al pasar el mouse */
+}

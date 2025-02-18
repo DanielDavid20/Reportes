@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const obsRow = document.createElement('tr');
         obsRow.innerHTML = `
            <td colspan="3">
+                         
                                 <textarea style="font-family: Arial, sans-serif;" >Observaciones: </textarea></td>
         `;
         
