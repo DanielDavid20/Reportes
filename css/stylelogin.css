@@ -54,7 +54,7 @@ input {
 
 .input-group i {
     position: absolute;
-    color: #007bff; /* Colores de iconos en azul */
+    color: #185dfdab; /* Colores de iconos en azul */
 }
 
 input:focus {
@@ -68,7 +68,7 @@ input::placeholder {
 }
 
 label {
-    color: #007bff; /* Color azul para la etiqueta */
+    color:#185dfdab; /* Color azul para la etiqueta */
     position: relative;
     left: 1.2em;
     top: -1.3em;
