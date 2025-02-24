@@ -11,11 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <body>
-    <header style="display: flex; align-items: center;">
-        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
-            <i class="fas fa-home"></i> Volver a Inicio
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title">PLANILLA DE ASISTENCIA
+    </h1>
         </div>
-        <h1 id="title ">PLANILLA DE ASISTENCIA</h1>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
     </header>
     <div class="container">
         <h2>Código:MR042021 - Fecha:26/07/2020 </h2>
@@ -66,8 +70,8 @@
                 <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
                 <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
                 <td>
-                    <button class="clearSignatureButton">Limpiar Firma</button> <!-- Botón para limpiar -->
-                    <button class="deleteRowButton">Eliminar fila</button> <!-- Botón para eliminar -->
+                    <button class="clearSignatureButton" style="width: 90%;">Limpiar Firma</button> <!-- Botón para limpiar -->
+                    <button class="deleteRowButton" style="width: 90%; ">Eliminar fila</button> <!-- Botón para eliminar -->
 
                 </td>
             </tr>
@@ -94,13 +98,14 @@
             <div id="signature-pad-coordinador" class="signature-pad">
                 <canvas id="signature-coordinador" width="600" height="200"></canvas>
                 <h3>Coordinador de Mant</h3>
-                <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
+                <button type="button" id="clear-signature-coordinador" style="background-color: red;">Limpiar Firma</button>
             </div>
 
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
 
             <button id="generatePDF">Generar PDF</button>
+            <button id="reloadButton">Limpiar Formulario</button>
             
         </form>
     </div>
@@ -193,7 +198,7 @@
                     body: fields,
                     startY: 50,
                     theme: 'plain',
-                    styles: { fillColor: [33, 218, 51] } 
+                    styles: { fillColor: [74, 156, 255] } 
                 });
     
                 // Captura de la tabla de asistencia
@@ -303,6 +308,12 @@ const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
             });
         });
     </script>
+
+<script>
+    document.getElementById('reloadButton').addEventListener('click', function() {
+        window.location.reload();
+    });
+</script>
 </body>
 </html>
 

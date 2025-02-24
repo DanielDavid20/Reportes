@@ -10,12 +10,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header style="display: flex; align-items: center;">
-        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 20px; cursor: pointer;">
-            <i class="fas fa-home"></i> Volver a Inicio
+       <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title" style="font-size: 19px;">INFORME DE MANTENIMIENTO <br>
+                AIRES ACONDICIONADOS
+    
+    </h1>
         </div>
-        <h1 id="title">INFORME DE MANTENIMIENTO <br>
-            AIRES ACONDICIONADOS</h1>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
     </header>
     <div class="container">
         <h1 id="form-title">Información de Mantenimiento</h1>
@@ -105,20 +110,20 @@
             <div id="signature-pad-received" class="signature-pad">
                 <canvas id="signature-received" width="600" height="200"></canvas>
                 <h3>Recibido por</h3>
-                <button type="button" id="clear-signature-received">Limpiar Firma</button>
+                <button type="button" id="clear-signature-received" style="background-color: red;">Limpiar Firma</button>
             </div>
 
             <div id="signature-pad-tecnico" class="signature-pad">
                 <canvas id="signature-tecnico" width="600" height="200"></canvas>
                 <h3>Técnico de Mantenimiento</h3>
-                <button type="button" id="clear-signature-tecnico">Limpiar Firma</button>
+                <button type="button" id="clear-signature-tecnico" style="background-color: red;">Limpiar Firma</button>
             </div>
 
            
             <div id="signature-pad-coordinador" class="signature-pad">
                 <canvas id="signature-coordinador" width="600" height="200"></canvas>
                 <h3>Coordinador de Mantenimiento</h3>
-                <button type="button" id="clear-signature-coordinador">Limpiar Firma</button>
+                <button type="button" id="clear-signature-coordinador" style="background-color: red;">Limpiar Firma</button>
             </div>
 
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />

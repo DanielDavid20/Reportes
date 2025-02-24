@@ -1,13 +1,13 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(../img/herramientas.jpg);
+    background-image: url(../img/herramienta.avif);
     margin: 0;
     padding: 10px; /* Reducción del padding */
 }
 
 header {
-    background-color: #5dc4bb; /* Color más vibrante y atractivo */
+    background-color: #185dfddf; /* Color más vibrante y atractivo */
     color: #fff;
 
 
@@ -24,7 +24,7 @@ header h1 {
 .logo {
     width: 80px; /* Ancho reducido para móviles */
     height: 80px; /* Alto reducido para móviles */
-    border: 2px solid #5dc2c4; /* Borde cuadrado */
+    border: 2px solid #1f68de; /* Borde cuadrado */
     border-radius: 0; /* Sin bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s; /* Transición suave */
@@ -62,7 +62,7 @@ header h1 {
     border-radius: 16px; /* Hacer esquinas más redondeadas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
     margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
-    background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
+    background-color: rgba(255, 255, 255, 0.906); /* Fondo semitransparente */
 }
 
 /* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
@@ -103,7 +103,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #5dc4bd;
+    border: 1px solid #1f68de;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
@@ -112,7 +112,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
     padding: 8px; /* Mismo padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #5db8c4; /* Misma propiedad */
+    border: 1px solid #1f68de; /* Misma propiedad */
     border-radius: 4px; /* Misma propiedad */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     min-height: 50px; /* Altura mínima para que se parezca a un textarea */
@@ -136,14 +136,14 @@ table {
 }
 
 th, td {
-    border: 0.5px solid #5dc4b3;
+    border: 0.5px solid #1f68de;
     padding: 3px; /* Aumentar el padding para mejorar la visibilidad */
     text-align: left; /* Alinear texto a la izquierda */
     min-width: 90px; /* Aumentar el ancho mínimo de las celdas */
 }
 
 th {
-    background-color: #5dc4b1;
+    background-color: #1f68de;
     color: #fff; /* Color de texto en el encabezado */
 }
 

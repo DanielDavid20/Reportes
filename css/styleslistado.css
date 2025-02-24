@@ -7,19 +7,32 @@ body {
 }
 
 header {
-    background-color: #369126d5; /* Color de fondo del encabezado */
-    color: #fff; /* Color del texto */
-    text-align: center; /* Centrar el texto */
-    padding: 10px 0; /* Espaciado interno arriba y abajo */
-    width: 100%; /* Ancho completo */
-    z-index: 1000; /* Asegurarse de que esté por encima del resto del contenido */
-    margin-top: -10px; /* Margen negativo para acercar la cabecera hacia arriba */
+    background-color: #185dfddf; /* Color más vibrante y atractivo */
+    color: #fff;
+    
+
+
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     margin: 0; /* Eliminar el margen por defecto */
     font-size: 28px; /* Tamaño de fuente del título */
     padding: 10px 0; /* Espaciado interno arriba y abajo del título */
+    
+}
+.logo {
+    width: 80px; /* Ancho reducido para móviles */
+    height: 80px; /* Alto reducido para móviles */
+    border: 2px solid #1f68de; /* Borde cuadrado */
+    border-radius: 0; /* Sin bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s; /* Transición suave */
+}
+
+.logo:hover {
+    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
 }
 
 /* Media query para ajustar estilos en pantallas más pequeñas */
@@ -31,12 +44,15 @@ header h1 {
         font-size: 24px; /* Ajustar el tamaño de fuente */
         padding: 5px 0; /* Reducir el espaciado interno en pantallas pequeñas */
     }
+    .logo {
+        width: 60px; /* Cambiar tamaño del logo para móviles */
+        height: 60px; /* Cambiar tamaño del logo para móviles */
+    }
 }
 
-
 .container {
-    max-width: 600px; /* Ancho máximo para evitar que se extienda demasiado */
-    width: 95%; /* Utilizar el 95% del ancho disponible */
+    
+    width: 96%; /* Utilizar el 95% del ancho disponible */
     padding: 20px; /* Aumentar padding para mayor espacio interno */
     border-radius: 16px; /* Hacer esquinas más redondeadas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
@@ -83,7 +99,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #369126;
+    border: 1px solid  #185dfdab;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
@@ -92,7 +108,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
     padding: 8px; /* Mismo padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #21da33; /* Misma propiedad */
+    border: 1px solid  #185dfdab; /* Misma propiedad */
     border-radius: 4px; /* Misma propiedad */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     min-height: 50px; /* Altura mínima para que se parezca a un textarea */
@@ -116,12 +132,12 @@ table {
 }
 
 th, td {
-    border: 1px solid #20690f;
+    border: 1px solid  #185dfdab;
     padding: 5px; /* Reducción en el padding */
 }
 
 th {
-    background-color: #24c929ef;
+    background-color:  #185dfdab;
 }
 
 /* Estilos para los canvas de firma en dispositivos móviles */
@@ -134,7 +150,7 @@ canvas {
     width: 100%; 
     
   
-    border: 1px solid #3ba41e; /* Borde del canvas */
+    border: 1px solid  #185dfdab; /* Borde del canvas */
     
 }
 
@@ -245,5 +261,19 @@ textarea {
 
 /* Estilo para indicar un campo requerido vacío */
 textarea:required:invalid {
-    border-color: #0f9f22; /* Borde verde si está vacío */
+    border-color: #185dfdab; /* Borde verde si está vacío */
+}
+
+#reloadButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #68b8da; /* Color verde */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#reloadButton:hover {
+    background-color: #455da0; /* Color más oscuro al pasar el mouse */
 }

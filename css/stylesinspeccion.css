@@ -1,13 +1,13 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(../img/fondo\ 2.jpg);
+    background-image: url(../img/dotacion.jpg);
     margin: 0;
     padding: 10px; /* Reducción del padding */
 }
 
 header {
-    background-color: #c4b15d; /* Color más vibrante y atractivo */
+    background-color: #185dfddf; /* Color más vibrante y atractivo */
     color: #fff;
    
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@ header h1 {
 .logo {
     width: 80px; /* Ancho reducido para móviles */
     height: 80px; /* Alto reducido para móviles */
-    border: 2px solid #c4b15d; /* Borde cuadrado */
+    border: 2px solid #1f68de; /* Borde cuadrado */
     border-radius: 0; /* Sin bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s; /* Transición suave */
@@ -101,7 +101,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho */
     padding: 8px; /* Reducción en el padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #c4b15d;
+    border: 1px solid #1f68de;
     border-radius: 4px;
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
@@ -110,7 +110,7 @@ select {
     width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
     padding: 8px; /* Mismo padding */
     margin-bottom: 8px; /* Margen más pequeño */
-    border: 1px solid #c4b15d; /* Misma propiedad */
+    border: 1px solid #1f68de; /* Misma propiedad */
     border-radius: 4px; /* Misma propiedad */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     min-height: 50px; /* Altura mínima para que se parezca a un textarea */
@@ -134,14 +134,14 @@ table {
 }
 
 th, td {
-    border: 0.5px solid #c4b15d;
+    border: 0.5px solid #1f68de;
     padding: 3px; /* Aumentar el padding para mejorar la visibilidad */
     text-align: left; /* Alinear texto a la izquierda */
     min-width: 90px; /* Aumentar el ancho mínimo de las celdas */
 }
 
 th {
-    background-color: #c4b15d;
+    background-color: #1f68de;
     color: #fff; /* Color de texto en el encabezado */
 }
 
@@ -176,7 +176,7 @@ button:hover {
 
 canvas {
     width: 100%; 
-    border: 1px solid #c4b15d; /* Borde del canvas */
+    border: 1px solid #1f68de; /* Borde del canvas */
 }
 
 /* Botones */
