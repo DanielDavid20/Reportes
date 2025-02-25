@@ -51,8 +51,8 @@ header h1 {
 }
 
 .container {
-    
-    width: 96%; /* Utilizar el 95% del ancho disponible */
+    max-width: 600px; /* Ancho máximo del contenedor para mejorar la ajuste en pantallas más grandes */
+    width: 95%; /* Utilizar el 95% del ancho disponible */
     padding: 20px; /* Aumentar padding para mayor espacio interno */
     border-radius: 16px; /* Hacer esquinas más redondeadas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
