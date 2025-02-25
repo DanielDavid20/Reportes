@@ -208,13 +208,13 @@ button:hover {
     }
 }
 .logo {
-    width: 120px; /* Ajusta el tamaño del logo según tus necesidades */
-    height: 120px; /* Asegúrate de que la altura sea igual al ancho */
+   
+    height: 110px; /* Asegúrate de que la altura sea igual al ancho */
     margin-bottom: 20px; /* Espaciado inferior para separar el logo del contenido */
     display: block; /* Asegúrate de que el logo sea un bloque para centrarlo */
     margin-left: auto; /* Para centrar horizontalmente */
     margin-right: auto; /* Asegura que no haya margen a la derecha */
-    border-radius: 50%; /* Bordes redondeados al 50% para crear un círculo */
+    border-radius: 5px; /* Bordes redondeados al 50% para crear un círculo */
     object-fit: cover; /* Asegúrate de que la imagen se ajuste dentro del círculo */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para los efectos */
