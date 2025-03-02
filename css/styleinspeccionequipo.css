@@ -1,7 +1,7 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(../img/);
+    background-image: url(../img/dotacion.jpg);
     margin: 0;
     padding: 10px; /* Reducción del padding */
 }
@@ -124,7 +124,13 @@ select {
     margin-bottom: 8px; /* Reducción en el margen */
 }
 
-/* Tabla */
+/* Contenedor de la tabla que permite desplazamiento */
+.tabla-contenedor {
+    overflow-x: auto; /* Permitir desplazamiento horizontal */
+    width: 100%; /* Asegúrate de que ocupe el ancho completo */
+}
+
+/* Resto de tu CSS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -152,6 +158,18 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para la barra lateral */
+.barra-lateral {
+    writing-mode: vertical-rl; 
+    text-align: center; 
+    margin-right: 2px; 
+    font-size: 18px; 
+    font-weight: bold; /* Hacer el texto más destacado */
+    color: #1f68de; /* Color que combine con la tabla */
+
+    
 }
 
 /* Botones */

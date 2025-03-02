@@ -43,19 +43,40 @@ updateDateTime();
     </header>
     <div class="container">
     <h2>Valles & Villegas Multiservicios S.A.S. </h2>
-      
-    
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="lugarejecucion">Lugar de ejecución:</label>
+                </td>
+                <td>
+                    <input type="text" id="lugarejecucion" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Responsablequipo">Responsable del equipo:</label>
+                </td>
+                <td>
+                    <input type="text" id="Responsablequipo" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="fecha-servicio">Fecha de diligenciamiento:</label>
+                </td>
+                <td>
+                    <input type="date" id="fecha-servicio">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <label for="lugarejecucion">Lugar de ejecución: </label>
-            <input type="text" id="lugarejecucion" required>
-        
-    <label for="Responsablequipo">Responsable del equipo: </label>
-            <input type="text" id="Responsablequipo" required>
-
-            <label for="fecha-servicio">Fecha de diligenciamiento </label>
-    <input type="date" id="fecha-servicio">
-    
-
+    <div style="display: flex;">
+        <div class="barra-lateral">
+            ARNÉS
+        </div>
+        <div class="tabla-contenedor">
             <table>
 
                 <thead>
@@ -165,8 +186,242 @@ updateDateTime();
                         <td><input type="checkbox" name="OTROSRECHAZO"></td>
                        
                     </tr>
+                    <tr>
+                        <th colspan="6" class="table-header" style="text-align: center;">COSTURAS							
+					
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td> CORTADURAS</td>
+                        <td><input type="checkbox" name="CORTADURASpre"></td>
+                        <td><input type="checkbox" name="CORTADURASPOST"></td>
+                        <td><input type="checkbox" name="CORTADURASBUENESTADO"></td>
+                        <td><input type="checkbox" name="CORTADURASRECHAZO"></td>
+                      
+                    </tr>
+                    <tr>
+                        <td>DESHILACHAMIENTO			
+                        </td>
+                        <td><input type="checkbox" name="DESHILACHAMIENTOpre"></td>
+                        <td><input type="checkbox" name="DESHILACHAMIENTOPOST"></td>
+                        <td><input type="checkbox" name="DESHILACHAMIENTOBUENESTADO"></td>
+                        <td><input type="checkbox" name="DESHILACHAMIENTORECHAZO"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>HILOS FALTANTES			
+                        </td>
+                        <td><input type="checkbox" name="HILOSpre"></td>
+                        <td><input type="checkbox" name="HILOSPOST"></td>
+                        <td><input type="checkbox" name="HILOSBUENESTADO"></td>
+                        <td><input type="checkbox" name="HILOSRECHAZO"></td>
+                    
+                    </tr>
+                    <tr>
+                        <td>QUEMADURAS			
+                        </td>
+                        <td><input type="checkbox" name="QUEMADURASpre"></td>
+                        <td><input type="checkbox" name="QUEMADURASPOST"></td>
+                        <td><input type="checkbox" name="QUEMADURASESTADO"></td>
+                        <td><input type="checkbox" name="QUEMADURASRECHAZO"></td>
+                      
+                    </tr>
+                    <tr>
+                        <td>EXPOSICIÓN A PRODUCTOS QUÍMICOS			
+                        </td>
+                        <td><input type="checkbox" name="EXPOSICIÓNpre"></td>
+                        <td><input type="checkbox" name="EXPOSICIÓNPOST"></td>
+                        <td><input type="checkbox" name="EXPOSICIÓNESTADO"></td>
+                        <td><input type="checkbox" name="EXPOSICIÓNRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>OTROS			
+                        </td>
+                        <td><input type="checkbox" name="OTROSpre"></td>
+                        <td><input type="checkbox" name="OTROSPOST"></td>
+                        <td><input type="checkbox" name="OTROSESTADO"></td>
+                        <td><input type="checkbox" name="OTROSRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="table-header" style="text-align: center;">ARGOLLAS EN "D", ANILLOS, HEBILLAS Y REMACHES												
+					
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>CON DEFORMACIONES O DESGASTE EXCESIVO						
+                        </td>
+                        <td><input type="checkbox" name="CONpre"></td>
+                        <td><input type="checkbox" name="CONPOST"></td>
+                        <td><input type="checkbox" name="CONESTADO"></td>
+                        <td><input type="checkbox" name="CONRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>PICADURAS, GRIETAS					
+                        </td>
+                        <td><input type="checkbox" name="PICADURASpre"></td>
+                        <td><input type="checkbox" name="PICADURASPOST"></td>
+                        <td><input type="checkbox" name="PICADURASESTADO"></td>
+                        <td><input type="checkbox" name="PICADURASRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>DETERIORO GENERAL 					
+                        </td>
+                        <td><input type="checkbox" name="DETERIOROpre"></td>
+                        <td><input type="checkbox" name="DETERIOROPOST"></td>
+                        <td><input type="checkbox" name="DETERIOROESTADO"></td>
+                        <td><input type="checkbox" name="DETERIORORECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>DEFECTO DE FUNCIONAMIENTO					
+                        </td>
+                        <td><input type="checkbox" name="DEFECTOpre"></td>
+                        <td><input type="checkbox" name="DEFECTOPOST"></td>
+                        <td><input type="checkbox" name="DEFECTOESTADO"></td>
+                        <td><input type="checkbox" name="DEFECTORECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>CORROSIÓN							
+                        </td>
+                        <td><input type="checkbox" name="CORROSIÓNpre"></td>
+                        <td><input type="checkbox" name="CORROSIÓNPOST"></td>
+                        <td><input type="checkbox" name="CORROSIÓNESTADO"></td>
+                        <td><input type="checkbox" name="CORROSIÓNRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>OTROS			
+                        </td>
+                        <td><input type="checkbox" name="OTROSpre"></td>
+                        <td><input type="checkbox" name="OTROSPOST"></td>
+                        <td><input type="checkbox" name="OTROSESTADO"></td>
+                        <td><input type="checkbox" name="OTROSRECHAZO"></td>
+                       
+                    </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+            
+    <div style="display: flex;">
+        <div class="barra-lateral">
+            ADAPTADOR DE ANCLAJE
+        </div>
+        <div class="tabla-contenedor">
+            <table>
+
+                <thead>
+                
+                   
+                    <tr>
+                        <th><b>EVALUAR AUSENCIA DE LAS SIGUIENTES CONDICIONES</b> <br>
+                            TEJIDO O CORREA
+                           				
+                        </th>
+                        <th> Estado-PRE</th>
+                        <th> Estado-POST</th>
+                        <th>BUEN ESTADO</th>
+                        <th>RECHAZO</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+             
+                    <tr>
+                        <td>CORTES O ROTURA DEL TEJIDO O COSTURAS</td>
+                        <td><input type="checkbox" name="CORTESpre"></td>
+                        <td><input type="checkbox" name="CORTESPOST"></td>
+                        <td><input type="checkbox" name="CORTESBUENESTADO"></td>
+                        <td><input type="checkbox" name="CORTESRECHAZO"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>GRIETAS</td>
+                        <td><input type="checkbox" name="GRIETASpre"></td>
+                        <td><input type="checkbox" name="GRIETASPOST"></td>
+                        <td><input type="checkbox" name="GRIETASBUENESTADO"></td>
+                        <td><input type="checkbox" name="GRIETASRECHAZO"></td>
+                    
+                    </tr>
+                    <tr>
+                        <td>ESTIRAMIENTO EXCESIVO</td>
+                        <td><input type="checkbox" name="ESTIRAMIENTOpre"></td>
+                        <td><input type="checkbox" name="ESTIRAMIENTOPOST"></td>
+                        <td><input type="checkbox" name="ESTIRAMIENTOSTADO"></td>
+                        <td><input type="checkbox" name="ESTIRAMIENTORECHAZO"></td>
+                      
+                    </tr>
+                    <tr>
+                        <td>DETERIORO GENERAL</td>
+                        <td><input type="checkbox" name="DETERIOROpre"></td>
+                        <td><input type="checkbox" name="DETERIOROPOST"></td>
+                        <td><input type="checkbox" name="DETERIOROESTADO"></td>
+                        <td><input type="checkbox" name="DETERIORORECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>CORROSIÓN O DESGASTE POR EXPOSICIÓN A ÁCIDOS O PRODUCTOS QUÍMICOS</td>
+                        <td><input type="checkbox" name="DETERIOROpre"></td>
+                        <td><input type="checkbox" name="DETERIOROPOST"></td>
+                        <td><input type="checkbox" name="DETERIOROESTADO"></td>
+                        <td><input type="checkbox" name="DETERIORORECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td><b>QUEMADURAS O FIBRAS DERRETIDAS</b> <br>
+                            Puntos o áreas duras o brillantes indican daño por exposición al calor o a radiación UV.</td>
+                            <td><input type="checkbox" name="QUEMADURASpre"></td>
+                            <td><input type="checkbox" name="QUEMADURASPOST"></td>
+                            <td><input type="checkbox" name="QUEMADURASESTADO"></td>
+                            <td><input type="checkbox" name="QUEMADURASRECHAZO"></td>
+                    
+                    </tr>
+                    <tr>
+                        <td> <b>DECOLORACIÓN DEL MATERIAL</b> <br>
+                             Consultar proveedor o fabricante para determinar condición dependiendo de la causa de la decoloración.</td>
+                        <td><input type="checkbox" name="Consultarpre"></td>
+                        <td><input type="checkbox" name="ConsultarPOST"></td>
+                        <td><input type="checkbox" name="ConsultarESTADO"></td>
+                        <td><input type="checkbox" name="ConsultarRECHAZO"></td>
+                       
+                    </tr>
+
+                    <tr>
+                        <td>PRESENCIA DE MOHO</td>
+                        <td><input type="checkbox" name="Consultarpre"></td>
+                        <td><input type="checkbox" name="ConsultarPOST"></td>
+                        <td><input type="checkbox" name="ConsultarESTADO"></td>
+                        <td><input type="checkbox" name="ConsultarRECHAZO"></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>OTROS</td>
+                        <td><input type="checkbox" name="OTROSpre"></td>
+                        <td><input type="checkbox" name="OTROSPOST"></td>
+                        <td><input type="checkbox" name="OTROSESTADO"></td>
+                        <td><input type="checkbox" name="OTROSRECHAZO"></td>
+                       
+                    </tr>
+
+                    <tr>
+                        <td> CORTADURAS</td>
+                        <td><input type="checkbox" name="CORTADURASpre"></td>
+                        <td><input type="checkbox" name="CORTADURASPOST"></td>
+                        <td><input type="checkbox" name="CORTADURASBUENESTADO"></td>
+                        <td><input type="checkbox" name="CORTADURASRECHAZO"></td>
+                      
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
             
             
 
@@ -224,42 +479,9 @@ updateDateTime();
     </div>
     <script>
         document.getElementById('printButton').addEventListener('click', function() {
-             // Validar campos requeridos
-             const requiredFields = [
-         document.getElementById('Diligenciado'),
-         document.getElementById('fecha-servicio'),
-         document.getElementById('Dependencia'),
-         document.getElementById('cargo'),
-         
-       
-      
-     ];
-        // Limpiar placeholders en campos contenteditable
-        const placeholders = document.querySelectorAll('td[contenteditable="true"]');
-        placeholders.forEach(td => {
-            if (td.textContent.trim() === "") {
-                td.textContent = ""; // Limpia el contenido antes de imprimir
-            }
-        });
- 
-             let allValid = true;
- 
-             requiredFields.forEach(field => {
-                 if (!field.value) {
-                     allValid = false;
-                     field.style.border = '2px solid red'; // Resaltar campo no válido
-                 } else {
-                     field.style.border = ''; // Restablecer el borde si es válido
-                 }
-             });
- 
-             if (allValid) {
+        
                  window.print();
-             } else {
-                 alert('Por favor, complete todos los campos requeridos.');
-             }
-             
-         });
+        });
         
      </script>
      
