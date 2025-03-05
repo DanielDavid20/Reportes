@@ -1,7 +1,7 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(../img/dotacion.jpg);
+    background-color: white;
     margin: 0;
     padding: 10px; /* Reducción del padding */
 }

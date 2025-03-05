@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         ctx.lineWidth = 3; // Espesor de la línea
         ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black'; // Color de la firma
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)'; // Color negro con máxima intensidad
 
         ctx.lineTo(x, y);
         ctx.stroke();
