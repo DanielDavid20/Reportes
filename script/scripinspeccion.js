@@ -5,18 +5,26 @@ document.addEventListener('DOMContentLoaded', function () {
     let isDrawing = false; // Variable para saber si está dibujando
     let currentCanvas = null; // Canvas actual para firmar
 
-    // Abre el modal al hacer clic en cualquier canvas de firma
-    document.getElementById('asistenciaTable').addEventListener('click', function (event) {
-        if (event.target.classList.contains('signatureCanvas')) {
-            currentCanvas = event.target; // Guarda la referencia del canvas actual
-            modal.style.display = "block";
-            ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height); // Limpiar el canvas del modal antes de empezar
+    // Función para abrir el modal
+    const openModal = (canvas) => {
+        currentCanvas = canvas;
+        modal.style.display = "block";
+        ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height); // Limpiar el canvas del modal antes de empezar
 
-            // Ajustar el tamaño del canvas modal para que se adapte al modal
-            const modalContent = document.querySelector('.modal-content');
-            modalCanvas.width = modalContent.clientWidth - 40; // Margen (20px a cada lado)
-            modalCanvas.height = 150; // Altura fija
-        }
+        // Ajustar el tamaño del canvas modal
+        const modalContent = document.querySelector('.modal-content');
+        modalCanvas.width = modalContent.clientWidth - 40; // Margen (20px a cada lado)
+        modalCanvas.height = 150; // Altura fija
+    };
+
+    // Abre el modal al hacer clic en cualquier canvas de firma
+    const tables = ['asistenciaTable', 'reportadoPorTable'];
+    tables.forEach(tableId => {
+        document.getElementById(tableId).addEventListener('click', function (event) {
+            if (event.target.classList.contains('signatureCanvas')) {
+                openModal(event.target);
+            }
+        });
     });
 
     // Manejo del modal de firma
@@ -24,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     closeModal.onclick = function () {
         modal.style.display = "none";
     };
-    
+
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -36,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         isDrawing = true;
         draw(e);
     };
-    
+
     const stopDrawing = () => {
         isDrawing = false;
         ctx.beginPath(); // Reiniciar el camino
@@ -45,14 +53,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const draw = (e) => {
         if (!isDrawing) return; // Si no está dibujando, salir
 
-        // Obtener la posición del mouse o toque en relación al canvas
         const rect = modalCanvas.getBoundingClientRect();
         const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
         const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
 
         ctx.lineWidth = 3; // Espesor de la línea
         ctx.lineCap = 'round';
-        ctx.strokeStyle = 'rgba(0, 0, 0, 1)'; // Color negro con máxima intensidad
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)'; // Color negro vivo con opacidad máxima
 
         ctx.lineTo(x, y);
         ctx.stroke();
@@ -76,13 +83,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         modal.style.display = "none"; // Cerrar el modal
     });
-    
-    // Opción para agregar nuevas filas
+
+    // Limpiar las firmas
+    document.getElementById('clearSignatureReportedBy').addEventListener('click', function () {
+        const canvas = document.querySelector('#reportadoPorTable tbody tr td:nth-child(2) .signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
+    });
+
+    document.getElementById('clearSignatureEncargado').addEventListener('click', function () {
+        const canvas = document.querySelector('#reportadoPorTable tbody tr td:nth-child(4) .signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
+    });
+
+    // Opción para agregar nuevas filas en asistenciaTable
     document.getElementById('addRowBtn').addEventListener('click', function () {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td contenteditable="true" class="cell" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
-            <td class="cell"><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+         <td contenteditable="true" class="cell" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+            <td class="cell"><canvas class="signatureCanvas" width="500" height="200"></canvas></td>
            <td class="cell hide-column"> <!-- Añadir la clase aquí -->
                 <button class="clearSignatureButton">Limpiar Firma</button>
                 <button class="deleteRowButton">Eliminar fila</button>
@@ -185,14 +205,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     </tbody>
                 </table>
             </td>
+
         `;
 
         // Fila de observaciones
         const obsRow = document.createElement('tr');
         obsRow.innerHTML = `
            <td colspan="3">
-                         
-                                <textarea style="font-family: Arial, sans-serif;" >Observaciones: </textarea></td>
+               <textarea style="font-family: Arial, sans-serif;">Observaciones: </textarea>
+           </td>
         `;
         
         // Agregar la nueva fila y la fila de observaciones
@@ -200,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('#asistenciaTable tbody').appendChild(obsRow);
     });
 
-    // Manejador para los botones de limpiar firma y eliminar fila
+    // Manejador para limpiar y eliminar filas en asistenciaTable
     document.getElementById('asistenciaTable').addEventListener('click', function (event) {
         // Limpiar firma
         if (event.target.classList.contains('clearSignatureButton')) {
@@ -218,58 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Código para el canvas del coordinador (si es necesario)
-    const coordinatorCanvas = document.getElementById('signature-coordinador');
-    if (coordinatorCanvas) {
-        const coordinatorCtx = coordinatorCanvas.getContext('2d');
-        let isCoordinatingDrawing = false;
-
-        // Manejo de eventos para dibujar en el canvas del coordinador
-        const startCoordinatorDrawing = (e) => {
-            isCoordinatingDrawing = true;
-            drawCoordinator(e); // Llama a la función draw para empezar a dibujar
-        };
-
-        const stopCoordinatorDrawing = () => {
-            isCoordinatingDrawing = false;
-            coordinatorCtx.beginPath(); // Reiniciar el camino
-        };
-
-        const drawCoordinator = (e) => {
-            if (!isCoordinatingDrawing) return; // Si no está dibujando, salir
-
-            // Obtener la posición del mouse o toque en relación al canvas
-            const rect = coordinatorCanvas.getBoundingClientRect();
-            const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
-            const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
-
-            coordinatorCtx.lineWidth = 2; // Espesor de la línea
-            coordinatorCtx.lineCap = 'round';
-            coordinatorCtx.strokeStyle = 'black'; // Color de la firma
-
-            coordinatorCtx.lineTo(x, y);
-            coordinatorCtx.stroke();
-            coordinatorCtx.beginPath();
-            coordinatorCtx.moveTo(x, y);
-        };
-
-        // Añadir eventos para mouse y touch en el canvas del coordinador
-        coordinatorCanvas.addEventListener('mousedown', startCoordinatorDrawing);
-        coordinatorCanvas.addEventListener('mouseup', stopCoordinatorDrawing);
-        coordinatorCanvas.addEventListener('mousemove', drawCoordinator);
-        coordinatorCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startCoordinatorDrawing(e); });
-        coordinatorCanvas.addEventListener('touchend', stopCoordinatorDrawing);
-        coordinatorCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawCoordinator(e); });
-
-        // Limpiar la firma del coordinador
-        document.getElementById('clear-signature-coordinador').addEventListener('click', function() {
-            coordinatorCtx.clearRect(0, 0, coordinatorCanvas.width, coordinatorCanvas.height);
-        });
-    }
-});
-
-// Configuración de la fecha de servicio
-document.addEventListener('DOMContentLoaded', function() {
+    // Configuración de la fecha de servicio
     const fechaServicioInput = document.getElementById('fecha-servicio');
     const today = new Date();
     const year = today.getFullYear();
@@ -286,96 +256,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const todayFormatted = `${year}-${month}-${day}`;
     fechaServicioInput.value = todayFormatted;
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('signatureModal');
-    const modalCanvas = document.getElementById('modalCanvas');
-    const ctx = modalCanvas.getContext('2d');
-    let isDrawing = false; // Variable para saber si está dibujando
-    let currentCanvas = null; // Canvas actual para firmar
-
-    // Abre el modal al hacer clic en cualquier canvas de firma
-    document.getElementById('reportadoPorTable').addEventListener('click', function (event) {
-        if (event.target.classList.contains('signatureCanvas')) {
-            currentCanvas = event.target; // Guarda la referencia del canvas actual
-            modal.style.display = "block";
-            ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height); // Limpiar el canvas del modal antes de empezar
-
-            // Ajustar el tamaño del canvas modal para que se adapte al modal
-            const modalContent = document.querySelector('.modal-content');
-            modalCanvas.width = modalContent.clientWidth - 40; // Margen (20px a cada lado)
-            modalCanvas.height = 150; // Altura fija
-        }
-    });
-
-    // Manejo del modal de firma
-    const closeModal = document.querySelector('.close');
-    closeModal.onclick = function () {
-        modal.style.display = "none";
-    };
-    
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    };
-
-    // Manejador para el dibujo en el canvas
-    const startDrawing = (e) => {
-        isDrawing = true;
-        draw(e);
-    };
-    
-    const stopDrawing = () => {
-        isDrawing = false;
-        ctx.beginPath(); // Reiniciar el camino
-    };
-
-    const draw = (e) => {
-        if (!isDrawing) return; // Si no está dibujando, salir
-
-        // Obtener la posición del mouse o toque en relación al canvas
-        const rect = modalCanvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left; // Coordenada X ajustada
-        const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
-
-        ctx.lineWidth = 3; // Espesor de la línea
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black'; // Color de la firma
-
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    };
-
-    // Añadir eventos para mouse y touch
-    modalCanvas.addEventListener('mousedown', startDrawing);
-    modalCanvas.addEventListener('mouseup', stopDrawing);
-    modalCanvas.addEventListener('mousemove', draw);
-    modalCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); });
-    modalCanvas.addEventListener('touchend', stopDrawing);
-    modalCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
-
-    // Guardar la firma en el canvas específico de la tabla
-    document.getElementById('saveSignature').addEventListener('click', function () {
-        if (currentCanvas) {
-            const signatureCtx = currentCanvas.getContext('2d');
-            signatureCtx.drawImage(modalCanvas, 0, 0, currentCanvas.width, currentCanvas.height);
-        }
-        modal.style.display = "none"; // Cerrar el modal
-    });
-
-    // Limpiar las firmas
-    document.getElementById('clearSignatureReportedBy').addEventListener('click', function () {
-        const canvas = document.querySelector('#reportadoPorTable tbody tr td canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
-    });
-
-    document.getElementById('clearSignatureEncargado').addEventListener('click', function () {
-        const canvas = document.querySelector('#reportadoPorTable tbody tr td:nth-child(4) canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
-    });
 });
