@@ -1,0 +1,319 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleslistado.css">
+    <title>Formulario de Mantenimiento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<body>
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title">PLANILLA DE ASISTENCIA
+    </h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+    <div class="container">
+        <h2>Código:MR042021 - Fecha:26/07/2020 </h2>
+      
+        <h1 id="form-title">DATOS DE LA ACTIVIDAD </h1>
+       
+            <label for="Nombreact">NOMBRE DE LA ACTIVIDAD: </label>
+            <input type="text" id="Nombreact" required>
+
+            <label for="entidad">ENTIDAD QUE LA DICTA:T</label>
+            <input type="text" id="entidad" required>
+
+            <label for="Nombre">NOMBRE DE QUIEN LA DICTA:</label>
+            <input type="text" id="Nombre" required>
+
+            <label for="lugar">lugar:</label>
+            <input type="text" id="lugar" required>
+
+             <label for="fecha-servicio">Fecha de Servicio</label>
+            <input type="date" id="fecha-servicio">
+
+            <label for="cargo">CARGO: </label>
+            <input type="text" id="tipo" required>
+
+           
+            <label for="Duracion">DURACION DE LA ACTIVIDAD: </label>
+            <input type="text" id="Duracion" required>
+
+            <h2>OBJETO DE LA ACTIVIDAD:</h2>
+            <textarea id="Objeto-actividad" rows="3" required></textarea>
+
+            <h2>Listado de asistencia</h2>
+<div id="contentToCapture"> <!-- Contenedor para capturar -->
+    <table id="asistenciaTable">
+        <thead>
+            <tr>
+                <th>NOMBRE <br> COM<br>PLETO</th>
+                <th>N° CEDULA</th>
+                <th>CARGO</th>
+                <th>FIRMA</th>
+                <th class="hide-column"></th> <!-- Nueva columna para los botones -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 5px; width: 15%;"></td>
+                <td><canvas class="signatureCanvas" width="400" height="200"></canvas></td>
+                <td>
+                    <button class="clearSignatureButton" style="width: 90%;">Limpiar Firma</button> <!-- Botón para limpiar -->
+                    <button class="deleteRowButton" style="width: 90%; ">Eliminar fila</button> <!-- Botón para eliminar -->
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <!-- Modal para la firma -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firma</h2>
+            <canvas id="modalCanvas" width="400" height="200"></canvas>
+            <button id="saveSignature">Guardar firma</button>
+        </div>
+    </div>
+</div>
+<button id="addRowBtn">➕</button>
+
+            <h2>FIRMAS</h2>
+            <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
+           
+    
+            <div id="signature-pad-coordinador" class="signature-pad">
+                <canvas id="signature-coordinador" width="600" height="200"></canvas>
+                <h3>Coordinador de Mant</h3>
+                <button type="button" id="clear-signature-coordinador" style="background-color: red;">Limpiar Firma</button>
+            </div>
+
+            <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+            
+
+            <button id="generatePDF">Generar PDF</button>
+            <button id="reloadButton">Limpiar Formulario</button>
+            
+        </form>
+    </div>
+    
+    <script src="script/scriplistado.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('generatePDF').addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // Validar campos requeridos
+                const requiredFields = [
+                    document.getElementById('Nombreact'),
+                    document.getElementById('entidad'),
+                    document.getElementById('Nombre'),
+                    document.getElementById('lugar'),
+                    document.getElementById('fecha-servicio'),
+                    document.getElementById('tipo'),
+                    document.getElementById('Duracion'),
+                    document.getElementById('Objeto-actividad'),
+                    
+                ];
+
+                let allFieldsFilled = true;
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        allFieldsFilled = false;
+                        field.style.border = "1px solid red"; // Resaltar el campo vacío
+                    } else {
+                        field.style.border = ""; // Limpiar el estilo si el campo está lleno
+                    }
+                });
+
+                if (!allFieldsFilled) {
+                    alert("Por favor, completa todos los campos requeridos.");
+                    return; // Detener la generación del PDF
+                }
+    
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+    
+                const titleFontSize = 12;
+                const bodyFontSize = 12;
+    
+                // Función para dibujar la cabecera
+                function drawHeader() {
+                    // Agregar logo
+                    const logo = document.getElementById('logo');
+                    if (logo && logo.src) {
+                        doc.addImage(logo.src, 'PNG', 10, 10, 40, 20);
+                    }
+    
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_________________________________________________________", 60, 15);
+                    doc.setFontSize(titleFontSize);
+                    
+                    // Título de la planilla
+                    const planillaTitle = "| PLANILLA DE ASISTENCIA | Código:MR042021 | Fecha:26/07/2020 |";
+                    doc.text(planillaTitle, 60, 20); // Ajusta el valor '60' para mover el texto a la derecha de la imagen del logo
+    
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_________________________________________________________", 60, 21);
+                    doc.setFontSize(bodyFontSize);
+                    doc.text("_______________________________________________________________________________", 10, 32);
+                }
+    
+                // Dibuja la cabecera en la primera página
+                drawHeader();
+    
+                // Título del formulario
+                doc.setFontSize(bodyFontSize);
+                doc.text("Formulario de la actividad", 10, 43);
+    
+                // Recoger datos del formulario
+                const fields = [
+                    ['Nombre de la Actividad', document.getElementById('Nombreact').value],
+                    ['Entidad que la Dicta', document.getElementById('entidad').value],
+                    ['Nombre del Dictante', document.getElementById('Nombre').value],
+                    ['Lugar', document.getElementById('lugar').value],
+                    ['Fecha de Servicio', document.getElementById('fecha-servicio').value],
+                    ['Cargo', document.getElementById('tipo').value],
+                    ['Duración', document.getElementById('Duracion').value],
+                    ['Objeto de la Actividad', document.getElementById('Objeto-actividad').value]
+                ];
+    
+                // Tabla de Datos
+                doc.autoTable({
+                    head: [['Campo', 'Valor']],
+                    body: fields,
+                    startY: 50,
+                    theme: 'plain',
+                    styles: { fillColor: [74, 156, 255] } 
+                });
+    
+                // Captura de la tabla de asistencia
+                const content = document.getElementById('contentToCapture');
+                if (content) {
+                    // Ocultar la columna de ACCIONES
+                    const actionsColumn = document.querySelectorAll('th.hide-column, td:nth-child(5)');
+                    actionsColumn.forEach(el => el.classList.add('hide-column'));
+    
+                    // Aumentar escala para mejor calidad de captura
+                    setTimeout(() => {
+                        html2canvas(content, { scale: 3 }).then((canvas) => {
+                            const imgData = canvas.toDataURL('image/png');
+    
+                            // Reducir el tamaño de la imagen
+                            const maxWidth = 180; // Tamaño máximo de ancho en mm
+                            const maxHeight = 140; // Tamaño máximo de altura en mm
+                            const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
+                            const newSize = { width: canvas.width * ratio, height: canvas.height * ratio };
+                            const resizedImgData = canvas.toDataURL('image/png', 2); // 1 como nivel de calidad, ajusta según sea necesario
+    
+                            // Añadir el título "Listado de asistencia"
+                            let yPosition = doc.lastAutoTable.finalY + 10;
+    
+                            // Verificar si hay suficiente espacio en la página para el título
+                            if (yPosition + 10 > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                yPosition = 40; // Reiniciar la posición Y debajo del encabezado
+                            }
+    
+                            doc.setFontSize(bodyFontSize);
+                            doc.text("Listado de asistencia", 10, yPosition);
+                            yPosition += 10; // Mover Y para dejar espacio a la imagen
+    
+                            // Verificar si hay suficiente espacio en la página para la imagen
+                            if (yPosition + newSize.height > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                yPosition = 40; // Reiniciar la posición Y debajo del encabezado
+                                
+                                // Añadir nuevamente el título en la nueva página
+                                doc.text("Listado de asistencia", 10, yPosition);
+                                yPosition += 10; // Mover Y para dejar espacio a la imagen
+                            }
+    
+                            // Agregar imagen
+                            const xPosition = 15; // Ajusta este valor para mover hacia la derecha
+                            doc.addImage(resizedImgData, 'PNG', xPosition, yPosition, newSize.width, newSize.height);
+    
+                            // Firmas
+                            const coordinadorCanvas = document.getElementById('signature-coordinador');
+                            const coordinadorImage = coordinadorCanvas.toDataURL('image/png');
+                            let firmaYPosition = yPosition + newSize.height + 20; // Ajustar posición para la firma
+    
+                            // Verificar si hay suficiente espacio para la firma
+                            if (firmaYPosition + 30 > doc.internal.pageSize.getHeight()) {
+                                doc.addPage(); // Agregar nueva página si no hay suficiente espacio
+                                drawHeader(); // Dibuja la cabecera en la nueva página
+                                firmaYPosition = 50; // Reiniciar la posición Y debajo del encabezado
+                            }
+    
+                            doc.addImage(coordinadorImage, 'PNG', 10, firmaYPosition, 80, 40);
+                            doc.text("_____________________________________", 10, firmaYPosition + 40);
+                            doc.text("Firma ", 10, firmaYPosition + 45);
+    
+                            // Guardar PDF
+                                
+// Obtener la fecha y hora actual
+const today = new Date();
+const year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+let hours = today.getHours();
+let ampm = hours >= 12 ? 'pm' : 'am'; // Determinar si es AM o PM
+hours = hours % 12;
+hours = hours ? hours : 12; // Establecer 12 en lugar de 0 para las 12 PM
+let minutes = today.getMinutes();
+
+// Formatear la fecha
+if (month < 10) {
+    month = '0' + month;
+}
+if (day < 10) {
+    day = '0' + day;
+}
+if (hours < 10) {
+    hours = '0' + hours;
+}
+if (minutes < 10) {
+    minutes = '0' + minutes;
+}
+
+const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
+                            const fileName = `PLANILLA DE ASISTENCIA_${formattedDateTime}.pdf`;
+                            doc.save(fileName);
+                        }).catch(function(error) {
+                            console.error("Error al capturar el contenido:", error);
+                        }).finally(() => {
+                            // Restaurar la visibilidad de la columna de ACCIONES
+                            actionsColumn.forEach(el => el.classList.remove('hide-column'));
+                        });
+                    }, 500); // Tiempo de espera para asegurar que haya renderizado
+                } else {
+                    console.error("Elemento con ID 'contentToCapture' no encontrado.");
+                }
+            });
+        });
+    </script>
+
+<script>
+    document.getElementById('reloadButton').addEventListener('click', function() {
+        window.location.reload();
+    });
+</script>
+</body>
+</html>
+

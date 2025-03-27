@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Formulario de Mantenimiento</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+       <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title" style="font-size: 19px;">INFORME DE MANTENIMIENTO <br>
+                AIRES ACONDICIONADOS
+    
+    </h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+    <div class="container">
+        <h1 id="form-title">Información de Mantenimiento</h1>
+        <form id="maintenance-form">
+            <label for="estado-equipo">Estado del Equipo</label>
+            <select id="estado-equipo" required>
+                <option value="" disabled selected>Seleccione un estado</option>
+                <option value="Operativo">Operativo</option>
+                <option value="No Operativo">No Operativo</option>
+            </select>
+            
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="tipo-mantenimiento" value="Preventivo" required> Preventivo
+                </label>
+                <label>
+                    <input type="radio" name="tipo-mantenimiento" value="Correctivo"> Correctivo
+                </label>
+            </div>
+
+            <label for="cliente">Cliente</label>
+            <input type="text" id="cliente" required>
+
+            <label for="nit">NIT</label>
+            <input type="text" id="nit" required>
+
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" required>
+
+            <label for="fecha-servicio">Fecha de Servicio</label>
+            <input type="date" id="fecha-servicio">
+
+            <h2>DATOS TÉCNICOS DEL EQUIPO</h2>
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" required>
+
+            <label for="tipo">Tipo</label>
+            <input type="text" id="tipo" required>
+
+            <label for="modelo">Modelo</label>
+            <input type="text" id="modelo" required>
+
+            <label for="capacidad">Capacidad</label>
+            <input type="text" id="capacidad" required>
+
+            <label for="numero-serie">No. de Serie</label>
+            <input type="text" id="numero-serie" required>
+
+            <label for="refrigerante">Refrigerante</label>
+            <input type="text" id="refrigerante" required>
+
+            <h2>ACTIVIDADES DE MANTENIMIENTO</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>ACTIVIDAD DE MANTENIMIENTO</th>
+                        <th>Efectuado</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="actividades"></tbody>
+            </table>
+
+            <h2>PARÁMETROS DE OPERACIÓN</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>PARÁMETROS DE OPERACIÓN</th>
+                        <th>Efectuado</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="parametros"></tbody>
+            </table>
+
+            <h2>REPORTE DE FALLAS</h2>
+            <textarea id="reporte-fallas" rows="3"></textarea>
+
+            <h2>REPUESTOS UTILIZADOS</h2>
+            <textarea id="repuestos-utilizados" rows="3"></textarea>
+
+            <h2>FIRMAS</h2>
+            <h3>¡Para firmar de forma mas facil recomiendo voltear su teléfono horizontalmente (solo para teléfonos)!</h3>
+           
+            <div id="signature-pad-received" class="signature-pad">
+                <canvas id="signature-received" width="600" height="200"></canvas>
+                <h3>Recibido por</h3>
+                <button type="button" id="clear-signature-received" style="background-color: red;">Limpiar Firma</button>
+            </div>
+
+            <div id="signature-pad-tecnico" class="signature-pad">
+                <canvas id="signature-tecnico" width="600" height="200"></canvas>
+                <h3>Técnico de Mantenimiento</h3>
+                <button type="button" id="clear-signature-tecnico" style="background-color: red;">Limpiar Firma</button>
+            </div>
+
+           
+            <div id="signature-pad-coordinador" class="signature-pad">
+                <canvas id="signature-coordinador" width="600" height="200"></canvas>
+                <h3>Coordinador de Mantenimiento</h3>
+                <button type="button" id="clear-signature-coordinador" style="background-color: red;">Limpiar Firma</button>
+            </div>
+
+            <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+            
+
+            <button type="submit">Imprimir</button>
+            
+        </form>
+    </div>
+    <script src="script/script.js"></script>
+    <script>
+        document.getElementById('maintenance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+    
+            // Establecer estilos
+            const titleFontSize = 16;
+            const subtitleFontSize = 14;
+            const bodyFontSize = 12;
+    
+            // Establecer color del borde
+            const borderColor = [0, 0, 255]; // Azul
+    
+            
+            
+            let logoY = 0;
+      // Agregar el logo en la cabecera
+const logo = document.getElementById('logo'); // Asegúrate de tener una imagen con id 'logo'
+if (logo && logo.src) {
+    const logoImage = logo.src; // Cargar directamente el src de la imagen.
+    const logoX = 150; // Ajusta este valor (en mm) para mover el logo a la derecha
+    const logoY = 5;   // Ajusta este valor (en mm) para mover el logo hacia abajo (si es necesario)
+    doc.addImage(logoImage, 'PNG', logoX, logoY, 40, 20); // Ajusta la posición y tamaño del logo
+    
+}
+
+            // Título principal
+            doc.setFontSize(titleFontSize);
+            doc.text("INFORME DE MANTENIMIENTO", 10, 15);
+            doc.text("AIRES ACONDICIONADOS", 10, 22);
+            doc.setFontSize(bodyFontSize);
+
+            // Agregar una línea azul que pase debajo del logo y del título
+doc.setDrawColor(0, 0, 255); // Azul
+doc.setLineWidth(0.2); // Grosor de la línea
+doc.line(10, Math.max(logoY + 20, 22) + 5, 200, Math.max(logoY + 20, 22) + 5); // Coordenadas para la línea que pasa debajo del logo y del título
+            
+    
+            // Título principal
+            doc.setFontSize(subtitleFontSize);
+            doc.text("INFORMACIÓN DE MANTENIMIENTO", 10, 40);
+            doc.setFontSize(bodyFontSize);
+    
+            // Datos del equipo
+            const fields = [
+                ['Estado del Equipo', document.getElementById('estado-equipo').value],
+                ['Cliente', document.getElementById('cliente').value],
+                ['NIT', document.getElementById('nit').value],
+                ['Dirección', document.getElementById('direccion').value],
+                ['Fecha de Servicio', document.getElementById('fecha-servicio').value]
+            ];
+    
+            // Tabla de Datos del Equipo
+            doc.autoTable({
+                head: [['Campo', 'Valor']],
+                body: fields,
+                startY: 45,
+                theme: 'grid',
+                styles: { fillColor: [51, 212, 255 ] }// Color de fondo celeste para las celdas
+            });
+    
+            // Imprimir DATOS TÉCNICOS DEL EQUIPO
+            doc.setFontSize(subtitleFontSize);
+            doc.text("DATOS TÉCNICOS DEL EQUIPO", 10, doc.lastAutoTable.finalY + 10);
+            doc.setFontSize(bodyFontSize);
+    
+            const technicalFields = [
+                ['Marca', document.getElementById('marca').value],
+                ['Tipo', document.getElementById('tipo').value],
+                ['Modelo', document.getElementById('modelo').value],
+                ['Capacidad', document.getElementById('capacidad').value],
+                ['No. de Serie', document.getElementById('numero-serie').value],
+                ['Refrigerante', document.getElementById('refrigerante').value]
+            ];
+    
+            // Tabla de Datos Técnicos
+            doc.autoTable({
+                head: [['Campo', 'Valor']],
+                body: technicalFields,
+                startY: doc.lastAutoTable.finalY + 15,
+                theme: 'grid',
+                styles: { fillColor: [51, 212, 255 ] }// Color de fondo celeste para las celdas
+            });
+    
+            // Actividades de Mantenimiento
+            const actividades = document.querySelectorAll('#actividades tr');
+            const actividadesData = Array.from(actividades).map((actividad, index) => {
+                const efectuada = actividad.querySelector('input[type="checkbox"]').checked ? "Sí" : "No";
+                const descripcion = actividad.querySelector('input[type="text"]').value;
+                return [`${index + 1}. ${actividad.cells[1].textContent}`, efectuada, descripcion];
+            });
+    
+            // Tabla de Actividades de Mantenimiento
+            doc.setFontSize(subtitleFontSize);
+            doc.text("ACTIVIDADES DE MANTENIMIENTO", 10, doc.lastAutoTable.finalY + 10);
+            doc.setFontSize(bodyFontSize);
+    
+            doc.autoTable({
+                head: [['Descripción', 'Efectuado', 'Detalles']],
+                body: actividadesData,
+                startY: doc.lastAutoTable.finalY + 17,
+                theme: 'grid',
+                styles: { fillColor: [51, 212, 255 ] } // Color de fondo celeste para las celdas
+            });
+    
+           
+    
+            // Imprimir PARÁMETROS DE OPERACIÓN
+            doc.addPage();
+         
+
+            
+            if (logo && logo.src) {
+    const logoImage = logo.src; // Cargar directamente el src de la imagen.
+    const logoX = 150; // Ajusta este valor (en mm) para mover el logo a la derecha
+    const logoY = 5;   // Ajusta este valor (en mm) para mover el logo hacia abajo (si es necesario)
+
+    // Agregar el logo en la segunda página
+    doc.addImage(logoImage, 'PNG', logoX, logoY, 40, 20); // Ajusta la posición y tamaño del logo
+
+}
+ // Título principal
+ doc.setFontSize(titleFontSize);
+            doc.text("INFORME DE MANTENIMIENTO", 10, 15);
+            doc.text("AIRES ACONDICIONADOS", 10, 22);
+            doc.setFontSize(bodyFontSize);
+
+                        // Agregar una línea azul que pase debajo del logo y del título
+doc.setDrawColor(0, 0, 255); // Azul
+doc.setLineWidth(0.2); // Grosor de la línea
+doc.line(10, Math.max(logoY + 20, 22) + 5, 200, Math.max(logoY + 20, 22) + 5); // Coordenadas para la línea que pasa debajo del logo y del título
+    
+            doc.setFontSize(subtitleFontSize);
+            doc.text("PARÁMETROS DE OPERACIÓN", 10, 35);
+            doc.setFontSize(bodyFontSize);
+    
+            const parametros = document.querySelectorAll('#parametros tr');
+            const parametrosData = Array.from(parametros).map((parametro, index) => {
+                const efectuada = parametro.querySelector('input[type="checkbox"]').checked ? "Sí" : "No";
+                const descripcion = parametro.querySelector('input[type="text"]').value;
+                return [`${index + 1}. ${parametro.cells[1].textContent}`, efectuada, descripcion];
+            });
+    
+            // Tabla de Parámetros de Operación
+            doc.autoTable({
+                head: [['Descripción', 'Efectuado', 'Detalles']],
+                body: parametrosData,
+                startY: 40,
+                theme: 'grid',
+                styles: { fillColor: [51, 212, 255 ] } // Color de fondo celeste para las celdas
+            });
+    
+            // Imprimir REPORTE DE FALLAS
+doc.setFontSize(subtitleFontSize);
+doc.text("REPORTE DE FALLAS", 10, doc.lastAutoTable.finalY + 10); // Aumenta el espacio para el título
+doc.setFontSize(bodyFontSize);
+const reporteFallas = document.getElementById('reporte-fallas').value;
+
+// Ajusta la posición para que esté debajo del título y divide el texto en líneas
+const reportLines = doc.splitTextToSize(reporteFallas, 190); // Ajusta el ancho (190) según sea necesario
+doc.text(reportLines, 10, doc.lastAutoTable.finalY + 18); // Dibuja las líneas ajustadas
+
+// Espacio adicional antes de REPUESTOS UTILIZADOS
+const espacioAdicional = 55; // Espacio adicional en Y
+doc.setFontSize(subtitleFontSize);
+doc.text("REPUESTOS UTILIZADOS", 10, doc.lastAutoTable.finalY + espacioAdicional);
+doc.setFontSize(bodyFontSize);
+const repuestosUtilizados = document.getElementById('repuestos-utilizados').value;
+
+// Divide el texto en líneas y dibújalo
+const repuestosLines = doc.splitTextToSize(repuestosUtilizados, 190); // Ajusta el ancho (190) según sea necesario
+doc.text(repuestosLines, 10, doc.lastAutoTable.finalY + espacioAdicional + 8); // Dibuja las líneas ajustadas
+    
+            // Imprimir FIRMAS
+            doc.setFontSize(subtitleFontSize);
+            doc.text("FIRMAS", 10, doc.lastAutoTable.finalY + 95); // Disminuye este valor para mover hacia arriba
+    
+            // Firma Técnico de Mantenimiento
+            const tecnicoY = doc.lastAutoTable.finalY + 125; // Disminuye este valor para mover más arriba
+            doc.line(10, tecnicoY, 90, tecnicoY); // Línea de firma
+            const canvasTecnico = document.getElementById('signature-tecnico');
+            const dataURLTecnico = canvasTecnico.toDataURL('image/png');
+            doc.addImage(dataURLTecnico, 'PNG', 10, tecnicoY - 30, 80, 30);
+            doc.setFontSize(bodyFontSize);
+            doc.text("Técnico de Mantenimiento", 10, tecnicoY + 5);
+    
+            // Firma Recibido por
+            const recibidoY = tecnicoY + 30; // Mantener el mismo espaciado
+            doc.line(10, recibidoY, 90, recibidoY); // Línea de firma
+            const canvasRecibido = document.getElementById('signature-received');
+            const dataURLRecibido = canvasRecibido.toDataURL('image/png');
+            doc.addImage(dataURLRecibido, 'PNG', 10, recibidoY - 30, 80, 30);
+            doc.setFontSize(bodyFontSize);
+            doc.text("Recibido por", 10, recibidoY + 5);
+    
+            // Firma Coordinador de Mantenimiento
+            const coordinadorY = recibidoY + 30; // Mantener el mismo espaciado
+            doc.line(10, coordinadorY, 90, coordinadorY); // Línea de firma
+            const canvasCoordinador = document.getElementById('signature-coordinador');
+            const dataURLCoordinador = canvasCoordinador.toDataURL('image/png');
+            doc.addImage(dataURLCoordinador, 'PNG', 10, coordinadorY - 30, 80, 30);
+            doc.setFontSize(bodyFontSize);
+            doc.text("Coordinador de Mantenimiento", 10, coordinadorY + 5);
+
+         
+    
+// Obtener la fecha y hora actual
+const today = new Date();
+const year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+let hours = today.getHours();
+let ampm = hours >= 12 ? 'pm' : 'am'; // Determinar si es AM o PM
+hours = hours % 12;
+hours = hours ? hours : 12; // Establecer 12 en lugar de 0 para las 12 PM
+let minutes = today.getMinutes();
+
+// Formatear la fecha
+if (month < 10) {
+    month = '0' + month;
+}
+if (day < 10) {
+    day = '0' + day;
+}
+if (hours < 10) {
+    hours = '0' + hours;
+}
+if (minutes < 10) {
+    minutes = '0' + minutes;
+}
+
+const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
+
+// Nombre del archivo con la fecha y hora actual
+const fileName = `FORMATO MANENIMIENTO AIRES_${formattedDateTime}.pdf`;
+
+// Guardar el documento PDF con el nombre que incluye la fecha y hora
+doc.save(fileName);
+              window.location.reload();
+        });
+    </script>
+</body>
+</html>
