@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         ctx.lineWidth = 3; // Espesor de la línea
         ctx.lineCap = 'round';
-        ctx.strokeStyle = 'rgba(0, 0, 0, 1)'; // Color negro vivo con opacidad máxima
+        ctx.strokeStyle = 'rgb(13, 0, 255)'; // Color negro vivo con opacidad máxima
 
         ctx.lineTo(x, y);
         ctx.stroke();
