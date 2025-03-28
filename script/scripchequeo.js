@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const y = (e.clientY || e.touches[0].clientY) - rect.top; // Coordenada Y ajustada
 
         ctx.lineWidth = 3; // Espesor de la línea
-        ctx.lineCap = 'round';
+      
         ctx.strokeStyle = 'rgb(13, 0, 255)'; // Color negro vivo con opacidad máxima
+
 
         ctx.lineTo(x, y);
         ctx.stroke();
