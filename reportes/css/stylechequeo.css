@@ -58,7 +58,7 @@ header h1 {
     }
 }
 .container {
-    width: 100%; /* Utilizar el 95% del ancho disponible */
+    width: 95%; /* Utilizar el 95% del ancho disponible */
     border-radius: 16px; /* Hacer esquinas más redondeadas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
     margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
@@ -178,7 +178,7 @@ button:hover {
 
 canvas {
     width: 100%; 
-    border: 1px solid #c4b15d; /* Borde del canvas */
+    border: 1px solid #0048ff; /* Borde del canvas */
 }
 
 /* Botones */
