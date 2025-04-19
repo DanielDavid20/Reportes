@@ -9,7 +9,6 @@ body {
 header {
     background-color: #185dfddf; /* Color más vibrante y atractivo */
     color: #fff;
-   
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -32,6 +31,55 @@ header h1 {
     transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
 }
 
+.container {
+    width: 100%; /* Utilizar el 95% del ancho disponible */
+    border-radius: 16px; /* Hacer esquinas más redondeadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
+    background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
+}
+
+/* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
+.container label {
+    font-weight: bold; /* Hacer las etiquetas más prominentes */
+}
+
+.container h1,
+.container h2 {
+    margin-bottom: 15px; /* Espaciado inferior para los títulos */
+    color: #333; /* Color de texto más oscuro para mejor contraste */
+}
+
+/* Ajustes para las Tablas */
+.tabla-contenedor {
+    overflow-x: auto; /* Permitir desplazamiento horizontal */
+    width: 100%; /* Asegúrate de que ocupe el ancho completo */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Ajustar ancho de columnas automáticamente */
+    margin: 8px 0; /* Margen más pequeño */
+    font-size: 0.9rem; /* Ajuste tamaño de fuente */
+}
+
+th,
+td {
+    border: 0.5px solid #1f68de;
+    padding: 8px; /* Aumentar el padding para mejorar la visibilidad */
+    text-align: left; /* Alinear texto a la izquierda */
+}
+
+/* Estilo para filas alternas */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+tbody tr:hover {
+    background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+}
+
 /* Media query para pantallas pequeñas */
 @media (max-width: 600px) {
     header h1 {
@@ -46,40 +94,18 @@ header h1 {
     /* Ajustes para tablas en pantallas pequeñas */
     table {
         font-size: 0.8rem; /* Tamaño de fuente más pequeño */
-        overflow-x: auto; /* Permitir desplazamiento horizontal */
-        display: block; /* Cambiar a bloque para permitir desplazamiento */
-        white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
     }
 
-    th, td {
+    th,
+    td {
         padding: 4px; /* Reducción en el padding */
+        min-width: 60px; /* Ajustar el ancho mínimo de las celdas */
     }
 }
-.container {
-    width: 100%; /* Utilizar el 95% del ancho disponible */
-    border-radius: 16px; /* Hacer esquinas más redondeadas */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
-    margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
-    background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
-}
 
-/* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
-.container label {
-    font-weight: bold; /* Hacer las etiquetas más prominentes */
-}
-
-.container h1, .container h2 {
-    margin-bottom: 15px; /* Espaciado inferior para los títulos */
-    color: #333; /* Color de texto más oscuro para mejor contraste */
-}
-
-/* Estilos para los botones dentro del contenedor */
-.container button {
-    margin-top: 10px; /* Espaciado superior para los botones */
-}
-
-/* Títulos */
-h1, h2 {
+/* Resto del CSS... */
+h1,
+h2 {
     text-align: center;
     font-size: 1.5rem; /* Tamaño de fuente más pequeño */
 }
@@ -124,77 +150,9 @@ select {
     margin-bottom: 8px; /* Reducción en el margen */
 }
 
-/* Contenedor de la tabla que permite desplazamiento */
-.tabla-contenedor {
-    overflow-x: auto; /* Permitir desplazamiento horizontal */
-    width: 100%; /* Asegúrate de que ocupe el ancho completo */
-}
-
-/* Resto de tu CSS */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 8px 0; /* Margen más pequeño */
-    font-size: 0.9rem; /* Ajuste tamaño de fuente */
-    margin-left: -1px; /* Desplazar la tabla a la izquierda */
-}
-
-th, td {
-    border: 0.5px solid #1f68de;
-    padding: 3px; /* Aumentar el padding para mejorar la visibilidad */
-    text-align: left; /* Alinear texto a la izquierda */
-    min-width: 90px; /* Aumentar el ancho mínimo de las celdas */
-}
-
-th {
-    background-color: #1f68de;
-    color: #fff; /* Color de texto en el encabezado */
-}
-
-/* Estilo para filas alternas */
-tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Color de fondo para filas pares */
-}
-
-tbody tr:hover {
-    background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
-}
-
-/* Estilo para la barra lateral */
-.barra-lateral {
-    writing-mode: vertical-rl; 
-    text-align: center; 
-    margin-right: 2px; 
-    font-size: 18px; 
-    font-weight: bold; /* Hacer el texto más destacado */
-    color: #1f68de; /* Color que combine con la tabla */
-
-    
-}
-
-/* Botones */
-button {
-    background-color: #c4b15d; /* Color de fondo del botón */
-    color: white; /* Color de texto del botón */
-    border: none;
-    padding: 5px 10px; /* Padding del botón */
-    cursor: pointer; /* Cambiar cursor al pasar el ratón */
-    border-radius: 3px; /* Bordes redondeados */
-}
-
-button:hover {
-    background-color: #c4b15d; /* Color al pasar el ratón */
-}
-
-/* Estilos para los canvas de firma en dispositivos móviles */
-.signature-pad {
-    text-align: center;
-    margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
-}
-
-canvas {
-    width: 100%; 
-    border: 1px solid #1f68de; /* Borde del canvas */
+/* Estilos para los botones dentro del contenedor */
+.container button {
+    margin-top: 10px; /* Espaciado superior para los botones */
 }
 
 /* Botones */
@@ -202,27 +160,16 @@ button {
     display: block;
     width: 98%;
     padding: 8px; /* Reducción en el padding */
-    background-color: #1eb125;
-    color: white;
+    background-color: #1eb125; /* Color de fondo */
+    color: white; /* Color de texto del botón */
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
     font-size: 0.9rem; /* Tamaño de fuente ajustado */
-    
 }
 
 button:hover {
-    background-color: #3ded22;
-}
-
-/* Media Query para dispositivos móviles */
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 1.4rem; /* Tamaño de fuente más pequeño */
-    }
-    h2 {
-        font-size: 1.2rem; /* Tamaño de fuente más pequeño */
-    }
+    background-color: #3ded22; /* Color al pasar el ratón */
 }
 
 /* Estilos para el modal */
@@ -260,45 +207,6 @@ button:hover {
     cursor: pointer;
 }
 
-.clearSignatureButton {
-    font-size: 14px; /* Tamaño del texto */
-    padding: 5px 10px; /* Espaciado interno del botón */
-    border: 1px solid #6afb30; /* Borde */
-    background: #0f9f22; /* Color de fondo */
-    cursor: pointer; /* Cambia el cursor al pasar el ratón */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición suave de fondo */
-}
-
-.clearSignatureButton:hover {
-    background-color: #9ed033; /* Color de fondo al pasar el ratón */
-}
-
-.deleteRowButton {
-    background-color: transparent; /* Fondo transparente */
-    color: red; /* Color del texto */
-    border: 2px solid red; /* Borde rojo */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 5px 10px; /* Espaciado interno */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s, color 0.3s; /* Transición suave */
-}
-
-/* Cambios al pasar el mouse */
-.deleteRowButton:hover {
-    background-color: red; /* Fondo rojo al pasar el mouse */
-    color: white; /* Color del texto blanco al pasar el mouse */
-}
-
-@media print {
-    .hide-column {
-        display: none !important; /* Ocultar la columna al imprimir */
-    }
-}
-
-
-
-
 /* Estilo general para el textarea */
 textarea {
     width: 95%; /* Ancho del textarea */
@@ -319,16 +227,54 @@ textarea {
         font-size: 1.1em; /* Aumentar tamaño de fuente en móviles */
         padding: 12px; /* Aumentar espaciado interno en móviles */
     }
+
+    h1 {
+        font-size: 1.4rem; /* Tamaño de fuente más pequeño */
+    }
+    h2 {
+        font-size: 1.2rem; /* Tamaño de fuente más pequeño */
+    }
 }
 
+button.clearSignatureButton {
+    font-size: 14px; /* Tamaño del texto */
+    padding: 5px 10px; /* Espaciado interno del botón */
+    border: 1px solid #6afb30; /* Borde */
+    background: #0f9f22; /* Color de fondo */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición suave de fondo */
+}
+
+.clearSignatureButton:hover {
+    background-color: #9ed033; /* Color de fondo al pasar el ratón */
+}
+
+button.deleteRowButton {
+    background-color: transparent; /* Fondo transparente */
+    color: red; /* Color del texto */
+    border: 2px solid red; /* Borde rojo */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambios al pasar el mouse */
+.deleteRowButton:hover {
+    background-color: red; /* Fondo rojo al pasar el mouse */
+    color: white; /* Color del texto blanco al pasar el mouse */
+}
+
+/* Ocultar botones al imprimir */
 @media print {
     button {
-        display: none;
-    }
-    #button2 {
-        display: none;
+        display: none !important; /* Ocultar todos los botones al imprimir */
     }
     
+    .hide-column {
+        display: none !important; /* Ocultar la columna al imprimir */
+    }
 }
 
 #reloadButton {
@@ -343,4 +289,14 @@ textarea {
 
 #reloadButton:hover {
     background-color: #455da0; /* Color más oscuro al pasar el mouse */
+}
+
+.signature-pad {
+    text-align: center;
+    margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
+}
+
+canvas {
+    width: 100%; 
+    border: 1px solid #1f68de; /* Borde del canvas */
 }
