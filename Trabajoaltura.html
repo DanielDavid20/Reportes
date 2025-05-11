@@ -139,36 +139,37 @@
         
         <h3>El ATS es requisito indispensable para la autorización del permiso de trabajo, debe ser anexo al permiso y permanecer en el área donde se realizan los trabajos.</h3>
 
-        <!-- Tabla de firmas -->
-        <div class="table-responsive">
-            <table id="reportadoPorTable">
-                <thead>
-                    <tr>
-                        <th>RESPONSABLE ATS</th>
-                        <th>Firma</th>
-                        <th>COORDINADOR DE ALTURAS</th>
-                        <th>Firma</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td contenteditable="true"></td>
-                        <td>
-                            <canvas class="signatureCanvas" width="500" height="140"></canvas>
-                        </td>
-                        <td contenteditable="true"></td>
-                        <td>
-                            <canvas class="signatureCanvas" width="500" height="140"></canvas>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <!-- Tabla de firmas -->
+<div class="table-responsive">
+    <table id="reportadoPorTable">
+        <thead>
+            <tr>
+                <th>RESPONSABLE ATS</th>
+                <th>Firma</th>
+                <th>COORDINADOR DE ALTURAS</th>
+                <th>Firma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true"></td>
+                <td>
+                    <canvas id="firmaResponsable" class="signatureCanvas" width="500" height="140"></canvas>
+                </td>
+                <td contenteditable="true"></td>
+                <td>
+                    <canvas id="firmaCoordinador" class="signatureCanvas" width="500" height="140"></canvas>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-        <!-- Botones para limpiar las firmas -->
-        <div>
-            <button id="clearSignatureReportedBy">Limpiar Firma</button>
-        </div>
+<!-- Botones para limpiar las firmas -->
+<div>
+    <button id="clearSignatureReportedBy" style="background-color: rgb(241, 67, 67);">Limpiar Firma Responsable</button>
+    <button id="clearSignatureEncargado" style="background-color: rgb(241, 67, 67);">Limpiar Firma Coordinador de alturas</button>
+</div>
 
         <!-- Logo oculto para PDF -->
         <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
@@ -191,8 +192,8 @@
     </div>
 
     <!-- Scripts -->
-    <script>
-   // Script para actualizar fecha y hora
+   <script>
+// Script para actualizar fecha y hora
 function updateDateTime() {
     const now = new Date();
     
@@ -213,6 +214,15 @@ function updateDateTime() {
 
 setInterval(updateDateTime, 1000);
 updateDateTime();
+
+// Función para limpiar firmas
+function limpiarFirma(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
 
 // Función para validar campos obligatorios
 function validarCamposObligatorios() {
@@ -271,14 +281,14 @@ document.getElementById('reloadButton').addEventListener('click', function() {
     }
 });
 
-// Agregar clase para campos obligatorios en el CSS
+// Configuración inicial al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
+    // Agregar asteriscos a campos obligatorios
     const camposObligatorios = ['nombre', 'cedula', 'cargo', 'lugar', 'descripcion'];
     
     camposObligatorios.forEach(id => {
         const label = document.querySelector(`label[for="${id}"]`);
         if (label) {
-            // Agregar asterisco rojo para indicar campo obligatorio
             const asterisco = document.createElement('span');
             asterisco.textContent = ' *';
             asterisco.style.color = 'red';
@@ -286,9 +296,17 @@ document.addEventListener('DOMContentLoaded', function() {
             label.appendChild(asterisco);
         }
     });
+
+    // Configurar botones para limpiar firmas
+    document.getElementById('clearSignatureReportedBy')?.addEventListener('click', function() {
+        limpiarFirma('firmaResponsable');
+    });
+
+    document.getElementById('clearSignatureEncargado')?.addEventListener('click', function() {
+        limpiarFirma('firmaCoordinador');
+    });
 });
-    </script>
-    
+</script>
     <!-- Script externo para manejo de firmas y otras funcionalidades -->
     <script src="script/scripchequeo.js"></script>
 </body>
