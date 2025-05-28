@@ -8,10 +8,15 @@ let lastX = 0
 let lastY = 0
 let currentColor = "#000000"
 let currentSize = 2
+let resizeTimeout = null
 
 // Configurar un canvas con alta resolución
 function setupHighResCanvas(canvas) {
+  if (!canvas || !canvas.getContext) return null
+
   const rect = canvas.getBoundingClientRect()
+  if (rect.width === 0 || rect.height === 0) return null
+
   const ratio = Math.max(window.devicePixelRatio || 1, 1)
 
   // Configurar dimensiones reales
@@ -37,7 +42,9 @@ function setupHighResCanvas(canvas) {
 function initializeFormCanvases() {
   // Configurar todos los canvas de firma del formulario
   document.querySelectorAll(".signatureCanvas, .mini-signature").forEach((canvas) => {
-    setupHighResCanvas(canvas)
+    if (canvas && canvas.offsetWidth > 0 && canvas.offsetHeight > 0) {
+      setupHighResCanvas(canvas)
+    }
   })
 }
 
@@ -200,10 +207,8 @@ function initSignatureModal() {
   signaturePad.addEventListener("mouseup", stopDrawing)
   signaturePad.addEventListener("mouseout", stopDrawing)
 
-  // Eventos táctiles
-  signaturePad.addEventListener("touchstart", handleTouchStart)
-  signaturePad.addEventListener("touchmove", handleTouchMove)
-  signaturePad.addEventListener("touchend", stopDrawing)
+  // Configurar eventos táctiles mejorados
+  setupTouchScrolling()
 
   // Cerrar modal al hacer clic fuera
   window.addEventListener("click", (event) => {
@@ -225,10 +230,13 @@ function setupMainButtons() {
       if (validacionCompleta()) {
         // Mostrar mensaje de confirmación antes de imprimir
         if (confirm("¿Desea imprimir el formulario? Asegúrese de que todos los datos estén correctos.")) {
-          // Pequeño delay para que se cierre el modal de confirmación
+          // Preparar para impresión
+          prepareForPrint()
+
+          // Pequeño delay para que se procesen los cambios
           setTimeout(() => {
             window.print()
-          }, 100)
+          }, 500)
         }
       }
     })
@@ -239,7 +247,12 @@ function setupMainButtons() {
   if (imprimirBtn) {
     imprimirBtn.addEventListener("click", () => {
       if (validacionCompleta()) {
-        window.print()
+        // Preparar para impresión
+        prepareForPrint()
+
+        setTimeout(() => {
+          window.print()
+        }, 500)
       }
     })
   }
@@ -250,7 +263,7 @@ function setupMainButtons() {
     recargarBtn = document.createElement("button")
     recargarBtn.id = "recargar"
     recargarBtn.type = "button"
-    recargarBtn.textContent = "Nuevo Formulario"
+    recargarBtn.textContent = "Nuevo"
     recargarBtn.style.backgroundColor = "#dc3545"
     recargarBtn.style.color = "white"
 
@@ -269,56 +282,22 @@ function setupMainButtons() {
   })
 }
 
-// Función para mostrar errores de validación con estilo
-function mostrarError(mensaje, elemento = null) {
-  // Crear div de error si no existe
-  let errorDiv = document.getElementById("validation-error")
-  if (!errorDiv) {
-    errorDiv = document.createElement("div")
-    errorDiv.id = "validation-error"
-    errorDiv.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-      border-radius: 8px;
-      padding: 15px 20px;
-      max-width: 400px;
-      z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      font-weight: 500;
-    `
-    document.body.appendChild(errorDiv)
-  }
-
-  errorDiv.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span style="font-size: 18px;">⚠️</span>
-      <div>${mensaje}</div>
-    </div>
-  `
-  errorDiv.style.display = "block"
-
-  // Auto-ocultar después de 5 segundos
-  setTimeout(() => {
-    if (errorDiv) {
-      errorDiv.style.display = "none"
-    }
-  }, 5000)
-
-  // Si se proporciona un elemento, hacer scroll hacia él
-  if (elemento) {
-    elemento.scrollIntoView({ behavior: "smooth", block: "center" })
-    elemento.focus()
-  }
-}
-
 // Abrir modal de firma
 function openSignatureModal(targetId) {
   currentSignatureCanvas = document.getElementById(targetId)
   signatureModal.style.display = "block"
+
+  // Guardar la posición de desplazamiento actual
+  const scrollPosition = window.pageYOffset || document.documentElement.scrollTop
+
+  // En dispositivos móviles, asegurar que el modal no afecte el desplazamiento global
+  if (window.innerWidth <= 768) {
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollPosition}px`
+    document.body.style.width = "100%"
+  }
+
   resizeSignaturePad()
   clearModalSignature()
 }
@@ -327,6 +306,18 @@ function openSignatureModal(targetId) {
 function closeSignatureModal() {
   signatureModal.style.display = "none"
   currentSignatureCanvas = null
+
+  // Restaurar el desplazamiento normal en dispositivos móviles
+  document.body.style.overflow = "auto"
+  document.body.style.position = "static"
+  document.body.style.touchAction = "auto"
+
+  // Desplazarse a la posición del canvas que se estaba firmando
+  if (currentSignatureCanvas) {
+    setTimeout(() => {
+      currentSignatureCanvas.scrollIntoView({ behavior: "smooth", block: "center" })
+    }, 100)
+  }
 }
 
 // Redimensionar el pad de firma - VERSIÓN MEJORADA RESPONSIVA
@@ -337,6 +328,8 @@ function resizeSignaturePad() {
     if (!container) return
 
     const containerRect = container.getBoundingClientRect()
+    if (containerRect.width === 0 || containerRect.height === 0) return
+
     const ratio = Math.max(window.devicePixelRatio || 1, 1)
 
     // Calcular dimensiones basadas en el contenedor
@@ -366,18 +359,30 @@ function resizeSignaturePad() {
 
 // Limpiar el canvas del modal
 function clearModalSignature() {
-  ctx.clearRect(0, 0, signaturePad.width, signaturePad.height)
+  if (ctx && signaturePad.width > 0 && signaturePad.height > 0) {
+    ctx.clearRect(0, 0, signaturePad.width, signaturePad.height)
+  }
 }
 
 // Limpiar un canvas específico
 function clearCanvas(canvas) {
+  if (!canvas || !canvas.getContext) return
+
   const context = canvas.getContext("2d")
-  context.clearRect(0, 0, canvas.width, canvas.height)
+  if (context && canvas.width > 0 && canvas.height > 0) {
+    context.clearRect(0, 0, canvas.width, canvas.height)
+  }
 }
 
 // Guardar la firma - VERSIÓN MEJORADA PARA MANTENER CALIDAD
 function saveSignature() {
   if (!currentSignatureCanvas) return
+
+  // Verificar que el canvas del modal tiene dimensiones válidas
+  if (signaturePad.width === 0 || signaturePad.height === 0) {
+    alert("Error: El canvas de firma no está inicializado correctamente.")
+    return
+  }
 
   // Verificar que hay contenido en el canvas
   const imageData = ctx.getImageData(0, 0, signaturePad.width, signaturePad.height)
@@ -390,6 +395,10 @@ function saveSignature() {
 
   // Configurar el canvas destino con alta resolución
   const destCtx = setupHighResCanvas(currentSignatureCanvas)
+  if (!destCtx) {
+    alert("Error: No se pudo configurar el canvas de destino.")
+    return
+  }
 
   // Limpiar el canvas destino
   destCtx.clearRect(0, 0, currentSignatureCanvas.offsetWidth, currentSignatureCanvas.offsetHeight)
@@ -430,7 +439,115 @@ function saveSignature() {
   // Dibujar la firma manteniendo las proporciones
   destCtx.drawImage(tempCanvas, drawX, drawY, drawWidth, drawHeight)
 
+  // Guardar referencia al canvas actual antes de cerrar el modal
+  const savedCanvas = currentSignatureCanvas
+
   closeSignatureModal()
+
+  // Desplazarse a la posición del canvas que se acaba de firmar
+  setTimeout(() => {
+    if (savedCanvas) {
+      savedCanvas.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+  }, 300)
+}
+
+// Función para optimizar canvas antes de imprimir - CORREGIDA
+function optimizeCanvasForPrint() {
+  const allCanvas = document.querySelectorAll(".signatureCanvas, .mini-signature")
+
+  allCanvas.forEach((canvas) => {
+    // Verificar que el canvas existe y tiene contexto
+    if (!canvas || !canvas.getContext) return
+
+    // Verificar que el canvas tiene dimensiones válidas
+    if (canvas.width === 0 || canvas.height === 0 || canvas.offsetWidth === 0 || canvas.offsetHeight === 0) {
+      console.warn("Canvas sin dimensiones válidas, saltando optimización:", canvas)
+      return
+    }
+
+    try {
+      const ctx = canvas.getContext("2d")
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+      // Verificar si hay contenido
+      const hasContent = imageData.data.some((channel, index) => index % 4 === 3 && channel !== 0)
+
+      if (hasContent) {
+        // Crear un canvas temporal con mejor resolución para impresión
+        const tempCanvas = document.createElement("canvas")
+        const tempCtx = tempCanvas.getContext("2d")
+
+        // Configurar dimensiones optimizadas para impresión (300 DPI equivalente)
+        const printScale = 2
+        tempCanvas.width = canvas.offsetWidth * printScale
+        tempCanvas.height = canvas.offsetHeight * printScale
+
+        // Configurar contexto para mejor calidad
+        tempCtx.imageSmoothingEnabled = false
+        tempCtx.webkitImageSmoothingEnabled = false
+        tempCtx.mozImageSmoothingEnabled = false
+        tempCtx.msImageSmoothingEnabled = false
+
+        // Escalar y dibujar el contenido original
+        tempCtx.scale(printScale, printScale)
+        tempCtx.drawImage(canvas, 0, 0, canvas.offsetWidth, canvas.offsetHeight)
+
+        // Reemplazar el canvas original con la versión optimizada
+        try {
+          const dataURL = tempCanvas.toDataURL("image/png", 1.0)
+          const img = new Image()
+          img.onload = () => {
+            // Limpiar el canvas original
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            // Dibujar la imagen optimizada
+            ctx.drawImage(img, 0, 0, canvas.offsetWidth, canvas.offsetHeight)
+          }
+          img.src = dataURL
+        } catch (e) {
+          console.warn("No se pudo optimizar el canvas para impresión:", e)
+        }
+      }
+    } catch (error) {
+      console.warn("Error al procesar canvas para impresión:", error, canvas)
+    }
+  })
+}
+
+// Función para preparar el documento para impresión
+function prepareForPrint() {
+  // Optimizar todos los canvas
+  optimizeCanvasForPrint()
+
+  // Asegurar que todos los inputs tengan sus valores visibles
+  const inputs = document.querySelectorAll(
+    'input[type="text"], input[type="date"], input[type="time"], input[type="number"], textarea',
+  )
+  inputs.forEach((input) => {
+    if (input.value) {
+      input.setAttribute("value", input.value)
+    }
+  })
+
+  // Marcar checkboxes y radios seleccionados
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+  checkboxes.forEach((cb) => cb.setAttribute("checked", "checked"))
+
+  const radios = document.querySelectorAll('input[type="radio"]:checked')
+  radios.forEach((radio) => radio.setAttribute("checked", "checked"))
+
+  // Añadir clase especial para impresión
+  document.body.classList.add("printing")
+}
+
+// Función para limpiar después de imprimir
+function cleanupAfterPrint() {
+  document.body.classList.remove("printing")
+
+  // Reinicializar los canvas si es necesario
+  setTimeout(() => {
+    initializeFormCanvases()
+  }, 100)
 }
 
 // Funciones de dibujo
@@ -475,7 +592,9 @@ function getPosition(e) {
   return [x, y]
 }
 
+// Modificar la función handleTouchStart para limitar preventDefault solo al canvas
 function handleTouchStart(e) {
+  // Prevenir el comportamiento predeterminado solo dentro del canvas de firma
   e.preventDefault()
   const touch = e.touches[0]
   const mouseEvent = new MouseEvent("mousedown", {
@@ -485,7 +604,9 @@ function handleTouchStart(e) {
   signaturePad.dispatchEvent(mouseEvent)
 }
 
+// Modificar la función handleTouchMove para limitar preventDefault solo al canvas
 function handleTouchMove(e) {
+  // Prevenir el comportamiento predeterminado solo dentro del canvas de firma
   e.preventDefault()
   const touch = e.touches[0]
   const mouseEvent = new MouseEvent("mousemove", {
@@ -495,20 +616,89 @@ function handleTouchMove(e) {
   signaturePad.dispatchEvent(mouseEvent)
 }
 
-// Manejar cambios de orientación y redimensionamiento
-function handleResize() {
-  // Reinicializar canvas del formulario
-  initializeFormCanvases()
+// Añadir una función para manejar el desplazamiento en dispositivos táctiles
+function setupTouchScrolling() {
+  // Asegurar que el modal no bloquee el desplazamiento en el resto de la página
+  signatureModal.addEventListener(
+    "touchmove",
+    (e) => {
+      // Permitir desplazamiento dentro del modal
+      e.stopPropagation()
+    },
+    { passive: true },
+  )
 
-  if (signatureModal && signatureModal.style.display === "block") {
-    resizeSignaturePad()
-  }
+  // Configurar eventos táctiles específicos para el canvas
+  signaturePad.addEventListener("touchstart", handleTouchStart, { passive: false })
+  signaturePad.addEventListener("touchmove", handleTouchMove, { passive: false })
+
+  // Eliminar los listeners anteriores para evitar duplicados
+  signaturePad.removeEventListener("touchstart", handleTouchStart)
+  signaturePad.removeEventListener("touchmove", handleTouchMove)
+
+  // Volver a añadir los listeners con la configuración correcta
+  signaturePad.addEventListener("touchstart", handleTouchStart, { passive: false })
+  signaturePad.addEventListener("touchmove", handleTouchMove, { passive: false })
 }
 
-// Agregar listeners para redimensionamiento
+// Función mejorada para manejar cambios de orientación y redimensionamiento
+function handleResize() {
+  // Limpiar timeout anterior si existe
+  if (resizeTimeout) {
+    clearTimeout(resizeTimeout)
+  }
+
+  // Usar debounce para evitar múltiples ejecuciones
+  resizeTimeout = setTimeout(() => {
+    // Reinicializar canvas del formulario
+    initializeFormCanvases()
+
+    // Si el modal está abierto, redimensionar el pad de firma
+    if (signatureModal && signatureModal.style.display === "block") {
+      resizeSignaturePad()
+    }
+
+    // Forzar un repaint para asegurar que los estilos se apliquen
+    document.body.style.display = "none"
+    document.body.offsetHeight // Trigger reflow
+    document.body.style.display = ""
+
+    // Disparar evento personalizado para notificar que el resize ha terminado
+    window.dispatchEvent(new CustomEvent("resizeComplete"))
+  }, 250) // Esperar 250ms después del último evento de resize
+}
+
+// Función para forzar el reajuste de elementos responsivos
+function forceResponsiveReflow() {
+  // Obtener todos los elementos que pueden necesitar reajuste
+  const responsiveElements = document.querySelectorAll(
+    ".container, .form-section, .modal-content, .signature-canvas-container",
+  )
+
+  responsiveElements.forEach((element) => {
+    // Forzar recálculo de estilos
+    const display = element.style.display
+    element.style.display = "none"
+    element.offsetHeight // Trigger reflow
+    element.style.display = display
+  })
+}
+
+// Agregar listeners para redimensionamiento mejorados
 window.addEventListener("resize", handleResize)
+
 window.addEventListener("orientationchange", () => {
-  setTimeout(handleResize, 500) // Delay para orientationchange
+  // Delay más largo para orientationchange ya que toma más tiempo
+  setTimeout(() => {
+    handleResize()
+    forceResponsiveReflow()
+  }, 500)
+})
+
+// Listener para cuando se complete el resize
+window.addEventListener("resizeComplete", () => {
+  // Reinicializar elementos que puedan haberse desconfigurado
+  initializeFormCanvases()
 })
 
 // Función para validar en tiempo real
@@ -527,23 +717,50 @@ function setupRealTimeValidation() {
 
 // Función para preparar la impresión
 window.addEventListener("beforeprint", () => {
-  // Ocultar elementos que no deben imprimirse
-  const elementsToHide = document.querySelectorAll(".signature-buttons, .modal")
-  elementsToHide.forEach((el) => {
-    el.style.display = "none"
-  })
+  prepareForPrint()
 })
 
 window.addEventListener("afterprint", () => {
-  // Restaurar elementos después de imprimir
-  const elementsToShow = document.querySelectorAll(".signature-buttons")
-  elementsToShow.forEach((el) => {
-    el.style.display = "flex"
-  })
+  cleanupAfterPrint()
 })
+
+// Función para detectar cambios de viewport en dispositivos móviles
+function setupViewportHandler() {
+  let viewportHeight = window.innerHeight
+
+  window.addEventListener("resize", () => {
+    const currentHeight = window.innerHeight
+    const heightDifference = Math.abs(currentHeight - viewportHeight)
+
+    // Si el cambio es significativo (más de 150px), probablemente es un cambio de orientación
+    if (heightDifference > 150) {
+      viewportHeight = currentHeight
+      setTimeout(() => {
+        forceResponsiveReflow()
+        initializeFormCanvases()
+      }, 300)
+    }
+  })
+}
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   initSignatureModal()
   setupRealTimeValidation()
+  setupViewportHandler()
+
+  // Forzar un reajuste inicial después de que todo esté cargado
+  setTimeout(() => {
+    forceResponsiveReflow()
+    initializeFormCanvases()
+  }, 500)
+})
+
+// Listener para cuando la página esté completamente cargada
+window.addEventListener("load", () => {
+  // Segundo reajuste después de que todas las imágenes y recursos estén cargados
+  setTimeout(() => {
+    forceResponsiveReflow()
+    initializeFormCanvases()
+  }, 200)
 })

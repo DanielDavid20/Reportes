@@ -10,6 +10,8 @@ body {
   padding: 10px;
   line-height: 1.6;
   color: #333;
+  touch-action: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Header responsivo */
@@ -30,6 +32,18 @@ header h1 {
   font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.5px;
+}
+.logo {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #1f68de;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 /* Contenedor principal */
@@ -162,22 +176,23 @@ textarea:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
   min-width: 600px;
 }
 
 th,
 td {
-  padding: 12px 15px;
+  padding: clamp(8px, 2vw, 12px);
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
+  word-wrap: break-word;
 }
 
 th {
   background-color: #185dfd;
   color: white;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   position: sticky;
@@ -400,7 +415,7 @@ input[type="radio"] {
   text-align: center;
   padding: 15px 10px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
 }
 
 .firmas-table td {
@@ -417,7 +432,7 @@ input[type="radio"] {
   padding: 8px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
 }
 
 /* Botones principales */
@@ -465,47 +480,6 @@ button:hover {
   transform: translateY(-1px);
 }
 
-/* Mensaje de error de validación */
-#validation-error {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  border-radius: 8px;
-  padding: 15px 20px;
-  max-width: 400px;
-  z-index: 10000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-weight: 500;
-  display: none;
-}
-
-/* Campos con error */
-.field-error {
-  border-color: #dc3545 !important;
-  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2) !important;
-}
-
-/* Animación para campos con error */
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  75% {
-    transform: translateX(5px);
-  }
-}
-
-.field-error {
-  animation: shake 0.5s ease-in-out;
-}
-
 /* MODAL COMPLETAMENTE RESPONSIVO */
 .modal {
   display: none;
@@ -518,6 +492,8 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
   animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
@@ -648,6 +624,7 @@ button:hover {
   overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  touch-action: none;
 }
 
 #signaturePad {
@@ -757,53 +734,33 @@ button:hover {
     width: 100%;
     max-width: unset;
     padding: 14px 16px;
-    font-size: 16px; /* Evita zoom en iOS */
+    font-size: 16px;
   }
 
-  /* Tablas en móviles - Diseño de cards */
-  .table-container {
-    display: none;
+  /* Tablas en móviles */
+  table {
+    min-width: 500px;
+    font-size: 0.7rem;
   }
 
-  .mobile-table {
-    display: block;
+  th,
+  td {
+    padding: 6px 8px;
   }
 
-  .mobile-card {
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  th {
+    font-size: 0.65rem;
   }
 
-  .mobile-card-header {
-    font-weight: 600;
-    color: #185dfd;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #e5e7eb;
+  .firmas-table {
+    min-width: 600px;
   }
 
-  .mobile-card-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-
-  .mobile-card-label {
-    font-weight: 600;
-    color: #374151;
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-  }
-
-  .mobile-card-value {
-    color: #6b7280;
-    font-size: 0.9rem;
+  .firmas-table input[type="date"],
+  .firmas-table input[type="text"] {
+    min-width: 80px;
+    padding: 6px 8px;
+    font-size: 0.7rem;
   }
 
   /* EPP Grid en móviles */
@@ -901,50 +858,6 @@ button:hover {
   .signature-buttons {
     flex-direction: column;
     gap: 8px;
-  }
-
-  .firmas-table-container {
-    display: none;
-  }
-
-  .mobile-signatures {
-    display: block;
-  }
-
-  .mobile-signature-card {
-    background-color: white;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .mobile-signature-header {
-    font-weight: 600;
-    color: #185dfd;
-    margin-bottom: 15px;
-    font-size: 1rem;
-  }
-
-  .mobile-signature-field {
-    margin-bottom: 15px;
-  }
-
-  .mobile-signature-field label {
-    display: block;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-  }
-
-  .mobile-signature-field input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 16px;
   }
 }
 
@@ -1116,298 +1029,12 @@ button:hover {
   }
 }
 
-/* Ocultar elementos en impresión */
-@media print {
-  .modal,
-  .clearSignatureButton,
-  .sign-button,
-  .signature-buttons {
-    display: none !important;
-  }
-
-  body {
-    background-color: white;
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.4;
-  }
-
-  .container {
-    box-shadow: none;
-    border: 1px solid #000;
-    padding: 15px;
-    margin: 0;
-    width: 100%;
-    max-width: none;
-  }
-
-  header {
-    background-color: white !important;
-    color: black !important;
-    border: 1px solid #000;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-
-  .container h2 {
-    background-color: #f0f0f0 !important;
-    color: black !important;
-    border: 1px solid #000;
-    padding: 8px;
-    margin: 10px 0;
-    font-size: 14px;
-    page-break-after: avoid;
-  }
-
-  .form-section {
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: white;
-    page-break-inside: avoid;
-  }
-
-  /* Optimización específica para canvas de firmas */
-  .signatureCanvas,
-  .mini-signature {
-    border: 2px solid #000 !important;
-    background-color: white !important;
-    width: 100% !important;
-    max-width: 200px !important;
-    height: auto !important;
-    min-height: 60px !important;
-    display: block !important;
-    margin: 5px 0 !important;
-    page-break-inside: avoid;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
-  }
-
-  /* Contenedor de firma para impresión */
-  .signature-pad {
-    page-break-inside: avoid;
-    margin: 10px 0;
-  }
-
-  /* Tabla de firmas optimizada para impresión */
-  .firmas-table-container {
-    page-break-inside: avoid;
-    overflow: visible !important;
-  }
-
-  .firmas-table {
-    width: 100% !important;
-    min-width: unset !important;
-    border-collapse: collapse;
-    font-size: 10px;
-  }
-
-  .firmas-table th,
-  .firmas-table td {
-    border: 1px solid #000 !important;
-    padding: 5px !important;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .firmas-table th {
-    background-color: #f0f0f0 !important;
-    color: black !important;
-    font-weight: bold;
-  }
-
-  .firmas-table input {
-    border: none !important;
-    background: transparent !important;
-    width: 100% !important;
-    padding: 2px !important;
-    font-size: 10px !important;
-    text-align: center;
-  }
-
-  /* Sección de firmas del emisor */
-  .firma-section {
-    border: 2px solid #000 !important;
-    margin: 15px 0;
-    padding: 10px;
-    background-color: white !important;
-    page-break-inside: avoid;
-  }
-
-  .firma-datos {
-    display: flex !important;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .firma-datos label {
-    font-weight: bold;
-    margin-right: 5px;
-    font-size: 11px;
-  }
-
-  .firma-datos input {
-    border-bottom: 1px solid #000 !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    background: transparent !important;
-    padding: 2px 5px !important;
-    font-size: 11px !important;
-  }
-
-  /* Tablas responsivas en impresión */
-  .table-container {
-    overflow: visible !important;
-    page-break-inside: avoid;
-  }
-
-  table {
-    width: 100% !important;
-    min-width: unset !important;
-    font-size: 10px;
-    border-collapse: collapse;
-  }
-
-  table th,
-  table td {
-    border: 1px solid #000 !important;
-    padding: 4px !important;
-    text-align: left;
-    vertical-align: top;
-  }
-
-  table th {
-    background-color: #f0f0f0 !important;
-    color: black !important;
-    font-weight: bold;
-  }
-
-  /* Radio buttons en impresión */
-  input[type="radio"]:checked::after {
-    content: "✓";
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    color: black;
-  }
-
-  /* Checkboxes en impresión */
-  input[type="checkbox"]:checked::after {
-    content: "✓";
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    color: black;
-  }
-
-  /* EPP y equipos en impresión */
-  .epp-grid,
-  .equipos-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 5px;
-    font-size: 10px;
-  }
-
-  .epp-item,
-  .equipo-item {
-    border: 1px solid #ccc;
-    padding: 5px;
-    background-color: white;
-  }
-
-  /* Reglas de oro en impresión */
-  .reglas-oro {
-    border: 1px solid #000 !important;
-    background-color: #f9f9f9 !important;
-    padding: 10px;
-    margin: 10px 0;
-    page-break-inside: avoid;
-  }
-
-  .reglas-oro h3 {
-    margin-top: 0;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .reglas-oro ol {
-    margin: 5px 0 0 15px;
-    font-size: 10px;
-  }
-
-  .reglas-oro li {
-    margin-bottom: 3px;
-  }
-
-  /* Textareas en impresión */
-  textarea {
-    border: 1px solid #000 !important;
-    background: transparent !important;
-    width: 100% !important;
-    min-height: 40px !important;
-    padding: 5px !important;
-    font-size: 10px !important;
-    resize: none !important;
-  }
-
-  /* Inputs en impresión */
-  input[type="text"],
-  input[type="date"],
-  input[type="time"],
-  input[type="number"],
-  select {
-    border: none !important;
-    border-bottom: 1px solid #000 !important;
-    background: transparent !important;
-    padding: 2px 5px !important;
-    font-size: 10px !important;
-  }
-
-  /* Ocultar elementos móviles en impresión */
-  .mobile-table,
-  .mobile-signatures,
-  .mobile-card,
-  .mobile-signature-card {
-    display: none !important;
-  }
-
-  /* Mostrar elementos de escritorio en impresión */
-  .desktop-only {
-    display: block !important;
-  }
-
-  /* Evitar saltos de página en elementos importantes */
-  .form-row,
-  .epp-item,
-  .equipo-item {
-    page-break-inside: avoid;
-  }
-
-  /* Ajustes para páginas */
-  @page {
-    margin: 1cm;
-    size: A4;
-  }
-
-  /* Forzar salto de página antes de firmas */
-  .firma-section:first-of-type {
-    page-break-before: auto;
-  }
-}
-
-/* Estilos específicos para mejorar la calidad de impresión de canvas */
-@media print {
-  .signatureCanvas,
-  .mini-signature {
-    -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+/* Clase para cuando el modal está activo */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 /* Animaciones */
@@ -1431,29 +1058,6 @@ button:hover {
   }
 }
 
-/* Clases auxiliares para móviles */
-.mobile-table {
-  display: none;
-}
-
-.mobile-signatures {
-  display: none;
-}
-
-@media (max-width: 480px) {
-  .desktop-only {
-    display: none !important;
-  }
-
-  .mobile-table {
-    display: block;
-  }
-
-  .mobile-signatures {
-    display: block;
-  }
-}
-
 /* Mejoras de accesibilidad */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1462,5 +1066,384 @@ button:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Impresión directa */
+@media print {
+  .modal,
+  .clearSignatureButton,
+  .sign-button,
+  .signature-buttons {
+    display: none !important;
+  }
+
+  body {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .container {
+    box-shadow: none;
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  header {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #000;
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+
+  .container h2 {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    border: 1px solid #000;
+    padding: 6px;
+    margin: 8px 0 6px 0;
+    font-size: 13px;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .form-section {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: white;
+    page-break-inside: avoid;
+  }
+
+  /* Agrupar secciones específicas para que no se separen */
+  .container h2:nth-of-type(5) /* 5. Planeación */,
+  .container h2:nth-of-type(5) + .form-section {
+    page-break-before: auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .container h2:nth-of-type(6) /* 6. Para la Ejecución */,
+  .container h2:nth-of-type(6) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .container h2:nth-of-type(8) /* 8. Firmas Emisión y Revalidaciones */,
+  .container h2:nth-of-type(8) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Agrupar secciones 3 y 4 específicamente */
+  .container h2:nth-of-type(3) /* 3. Equipos de Seguridad y Señalización */,
+  .container h2:nth-of-type(3) + .form-section,
+  .container h2:nth-of-type(4) /* 4. Competencias del Personal */,
+  .container h2:nth-of-type(4) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Forzar que la sección 4 no se separe de la 3 */
+  .container h2:nth-of-type(4) {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Mantener juntas las secciones de firmas */
+  .firma-section {
+    border: 2px solid #000 !important;
+    margin: 8px 0;
+    padding: 8px;
+    background-color: white !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .firma-section p {
+    margin: 4px 0 !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Mantener la tabla de ejecutores junta */
+  .firmas-table-container {
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    overflow: visible !important;
+    margin-top: 8px;
+  }
+
+  .firmas-table {
+    width: 100% !important;
+    min-width: unset !important;
+    border-collapse: collapse;
+    font-size: 9px;
+    margin-bottom: 0 !important;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table th,
+  .firmas-table td {
+    border: 1px solid #000 !important;
+    padding: 3px !important;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.2;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold;
+    font-size: 8px;
+  }
+
+  .firmas-table input {
+    border: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    padding: 1px !important;
+    font-size: 8px !important;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* Optimización específica para canvas de firmas - SIN LIMPIAR */
+  .signatureCanvas,
+  .mini-signature {
+    border: 2px solid #000 !important;
+    background-color: white !important;
+    width: 100% !important;
+    max-width: 180px !important;
+    height: auto !important;
+    min-height: 50px !important;
+    display: block !important;
+    margin: 3px 0 !important;
+    page-break-inside: avoid !important;
+    /* Mantener calidad de imagen sin procesar */
+    image-rendering: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .firma-datos {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 6px;
+    page-break-inside: avoid !important;
+  }
+
+  .firma-datos label {
+    font-weight: bold;
+    margin-right: 3px;
+    font-size: 9px;
+  }
+
+  .firma-datos input {
+    border-bottom: 1px solid #000 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: transparent !important;
+    padding: 1px 3px !important;
+    font-size: 9px !important;
+  }
+
+  /* Contenedor de firma para impresión */
+  .signature-pad {
+    page-break-inside: avoid !important;
+    margin: 6px 0;
+  }
+
+  /* Tablas responsivas en impresión */
+  .table-container {
+    overflow: visible !important;
+    page-break-inside: avoid;
+    margin: 8px 0;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: unset !important;
+    font-size: 9px;
+    border-collapse: collapse;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #000 !important;
+    padding: 3px !important;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.2;
+  }
+
+  table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold;
+    font-size: 8px;
+  }
+
+  /* Radio buttons en impresión */
+  input[type="radio"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    font-size: 10px;
+  }
+
+  /* Checkboxes en impresión */
+  input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    font-size: 10px;
+  }
+
+  /* EPP y equipos en impresión */
+  .epp-grid,
+  .equipos-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3px;
+    font-size: 9px;
+    margin: 6px 0;
+  }
+
+  .epp-item,
+  .equipo-item {
+    border: 1px solid #ccc;
+    padding: 3px;
+    background-color: white;
+    line-height: 1.2;
+  }
+
+  /* Reglas de oro en impresión */
+  .reglas-oro {
+    border: 1px solid #000 !important;
+    background-color: #f9f9f9 !important;
+    padding: 6px;
+    margin: 6px 0;
+    page-break-inside: avoid;
+  }
+
+  .reglas-oro h3 {
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .reglas-oro ol {
+    margin: 3px 0 0 12px;
+    font-size: 9px;
+  }
+
+  .reglas-oro li {
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  /* Textareas en impresión */
+  textarea {
+    border: 1px solid #000 !important;
+    background: transparent !important;
+    width: 100% !important;
+    min-height: 30px !important;
+    padding: 3px !important;
+    font-size: 9px !important;
+    resize: none !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Inputs en impresión */
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    background: transparent !important;
+    padding: 1px 3px !important;
+    font-size: 9px !important;
+  }
+
+  /* Evitar saltos de página en elementos importantes */
+  .form-row,
+  .epp-item,
+  .equipo-item {
+    page-break-inside: avoid;
+    margin-bottom: 3px;
+  }
+
+  /* Ajustes para páginas */
+  @page {
+    margin: 0.8cm;
+    size: A4;
+  }
+
+  /* Compactar la sección de ejecutores */
+  .firmas-table tbody tr {
+    height: auto !important;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table tbody tr td {
+    padding: 2px !important;
+    vertical-align: middle !important;
+  }
+
+  /* Observaciones más compactas */
+  .form-section:last-of-type {
+    margin-bottom: 6px !important;
+    page-break-before: avoid !important;
+  }
+
+  /* Forzar que las secciones críticas se mantengan juntas */
+  .container h2:nth-of-type(5) /* Planeación */,
+  .container h2:nth-of-type(5) + .form-section,
+  .container h2:nth-of-type(6) /* Para la Ejecución */,
+  .container h2:nth-of-type(6) + .form-section,
+  .container h2:nth-of-type(8) /* Firmas */,
+  .container h2:nth-of-type(8) + .form-section {
+    break-inside: avoid !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+  }
+}
+
+/* Estilos específicos para mejorar la calidad de impresión de canvas */
+@media print {
+  .signatureCanvas,
+  .mini-signature {
+    -webkit-print-color-adjust: exact !important;
+    accent-color: exact !important;
+    print-color-adjust: exact !important;
   }
 }

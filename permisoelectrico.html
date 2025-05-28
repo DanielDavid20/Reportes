@@ -3,62 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Permiso para Trabajos con Riesgo Eléctrico</title>
+    <title>PERMISO TRABAJO ELECTRICO <span id="datetime"></span></title>
     <link rel="stylesheet" href="css/stylesp.css">
+
+      <!-- Scripts externos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header>
-         <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
-                <i class="fas fa-home"></i> Volver a Inicio
-            </div>
-        <h1>PERMISO PARA TRABAJOS CON RIESGO ELÉCTRICO</h1>
-          
+  <!-- Encabezado -->
+ <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer; print-color-adjust: exact; -webkit-print-color-adjust: exact;">
+    <script>
+        (function() {
+            var style = document.createElement('style');
+            style.textContent = '@media print { #button2 { display: none !important; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+    <i class="fas fa-home"></i> Volver a Inicio
+</div>
+            <h1 id="title"> PERMISO PARA TRABAJOS CON RIESGO ELÉCTRICO</h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
     </header>
 
     <div class="container">
         <h2>1. Generalidades</h2>
         <div class="form-section">
             <div class="form-row">
-                <label for="fecha-expedicion">FECHA EXPEDICIÓN DEL PERMISO:</label>
-                <input type="date" id="fecha-expedicion" value="">
+                <label for="fecha-expedicion">FECHA EXPEDICIÓN DEL PERMISO: <span class="required">*</span></label>
+                <input type="date" id="fecha-expedicion" value="" required>
                 
                 <label for="vigencia">VIGENCIA DEL PERMISO:</label>
                 <div class="inline-fields">
-                    <label for="fecha-inicial">FECHA INICIAL:</label>
-                    <input type="date" id="fecha-inicial" value="">
+                    <label for="fecha-inicial">FECHA INICIAL: <span class="required">*</span></label>
+                    <input type="date" id="fecha-inicial" value="" required>
                     
-                    <label for="fecha-final">FECHA FINAL:</label>
-                    <input type="date" id="fecha-final" value="">
+                    <label for="fecha-final">FECHA FINAL: <span class="required">*</span></label>
+                    <input type="date" id="fecha-final" value="" required>
                     
-                    <label for="hora-inicial">HORA INICIAL:</label>
-                    <input type="time" id="hora-inicial" value="">
+                    <label for="hora-inicial">HORA INICIAL: <span class="required">*</span></label>
+                    <input type="time" id="hora-inicial" value="" required>
                     
-                    <label for="hora-final">HORA FINAL:</label>
-                    <input type="time" id="hora-final" value="">
+                    <label for="hora-final">HORA FINAL: <span class="required">*</span></label>
+                    <input type="time" id="hora-final" value="" required>
                 </div>
             </div>
 
             <div class="form-row">
-                <label for="empresa">EMPRESA CONTRATISTA:</label>
-                <input type="text" id="empresa" value="">
+                <label for="empresa">EMPRESA CONTRATISTA: <span class="required">*</span></label>
+                <input type="text" id="empresa" value="" required>
             </div>
 
             <div class="form-row">
-                <label for="area">ÁREA O LUGAR:</label>
-                <input type="text" id="area" value="">
+                <label for="area">ÁREA O LUGAR: <span class="required">*</span></label>
+                <input type="text" id="area" value="" required>
                 
-                <label for="num-personas">N° PERSONAS EJECUTORAS:</label>
-                <input type="number" id="num-personas" value="">
+                <label for="num-personas">N° PERSONAS EJECUTORAS: <span class="required">*</span></label>
+                <input type="number" id="num-personas" value="" min="1" required>
             </div>
 
             <div class="form-row">
-                <label for="responsable">RESPONSABLE DE LOS TRABAJOS:</label>
-                <input type="text" id="responsable" value="">
+                <label for="responsable">RESPONSABLE DE LOS TRABAJOS: <span class="required">*</span></label>
+                <input type="text" id="responsable" value="" required>
             </div>
 
             <div class="form-row">
-                <label for="actividad">ACTIVIDAD A REALIZAR:</label>
-                <textarea id="actividad"></textarea>
+                <label for="actividad">ACTIVIDAD A REALIZAR: <span class="required">*</span></label>
+                <textarea id="actividad" required></textarea>
             </div>
         </div>
 
@@ -144,8 +160,7 @@
 
         <h2>4. Competencias del Personal</h2>
         <div class="form-section">
-            <!-- Tabla para escritorio -->
-            <div class="table-container desktop-only">
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -183,55 +198,11 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Cards para móvil -->
-            <div class="mobile-table">
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 1</div>
-                    <div class="mobile-card-label">¿El personal que realizara los trabajos cuenta con formación en electrotecnia y experiencia verificable en su oficio?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta1" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta1" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta1" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 2</div>
-                    <div class="mobile-card-label">¿El personal cuenta con capacitación en Riesgo eléctrico?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta2" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta2" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta2" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 3</div>
-                    <div class="mobile-card-label">¿El personal conoce los procedimientos y/o instructivos necesarios para efectuar de manera segura el trabajo?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta3" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta3" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta3" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 4</div>
-                    <div class="mobile-card-label">¿El personal cuenta con tarjeta profecional CONTE?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta4" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta4" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta4" value="na"> N/A</label>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <h2>5. Planeación</h2>
         <div class="form-section">
-            <!-- Tabla para escritorio -->
-            <div class="table-container desktop-only">
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -281,75 +252,11 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Cards para móvil -->
-            <div class="mobile-table">
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 5</div>
-                    <div class="mobile-card-label">¿Fueron identificados todos los aspectos técnicos de la instalación? (Equipos a intervenir, adyacentes y la ubicación de los mismos)</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta5" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta5" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta5" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 6</div>
-                    <div class="mobile-card-label">¿Fueron analizados los documentos técnicos disponibles? (Manuales, planos, guías, estadísticas de falla y operación, entre otros)</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta6" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta6" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta6" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 7</div>
-                    <div class="mobile-card-label">Se tienen definidas y descritas las actividades que deben efectuarse paso a paso.</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta7" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta7" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta7" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 8</div>
-                    <div class="mobile-card-label">¿Se identificaron, valoraron y definieron las medidas de prevención y protección de los peligros por contacto eléctrico (directo e indirecto) de la actividad? (Aplicación de las reglas de oro)</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta8" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta8" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta8" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 9</div>
-                    <div class="mobile-card-label">¿Se definieron los recursos necesarios para la ejecución de los trabajos? (personal, herramientas, equipos, materiales, epp).</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta9" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta9" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta9" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 10</div>
-                    <div class="mobile-card-label">¿Se dispone de un plan de emergencias para atender cualquier evento, que concuerde con el de la sede donde se ejecuta el trabajo?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta10" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta10" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta10" value="na"> N/A</label>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <h2>6. Para la Ejecución</h2>
         <div class="form-section">
-            <!-- Tabla para escritorio -->
-            <div class="table-container desktop-only">
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -404,79 +311,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Cards para móvil -->
-            <div class="mobile-table">
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 11</div>
-                    <div class="mobile-card-label">¿El personal que realizara los trabajadores conocen las actividades programadas, los riesgos y los controles definidos?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta11" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta11" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta11" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 12</div>
-                    <div class="mobile-card-label">¿Se encuentra en buen estado y correcto funcionamiento las herramientas, equipos de medida, elementos de protección y equipos de seguridad?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta12" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta12" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta12" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 13</div>
-                    <div class="mobile-card-label">¿Se encuentran en buen estado las estructuras, soportes, accesos y sitios de trabajo?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta13" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta13" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta13" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 14</div>
-                    <div class="mobile-card-label">¿Está el área limpia y libre de sustancias combustibles?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta14" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta14" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta14" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 15</div>
-                    <div class="mobile-card-label">¿Se ha identificado y demarcado adecuadamente el Área de trabajo?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta15" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta15" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta15" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 16</div>
-                    <div class="mobile-card-label">¿Se verifica el NO uso de elementos conductores? (relojes, anillos, joyas, etc.)</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta16" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta16" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta16" value="na"> N/A</label>
-                    </div>
-                </div>
-
-                <div class="mobile-card">
-                    <div class="mobile-card-header">Pregunta 17</div>
-                    <div class="mobile-card-label">¿Fueron aplicadas las REGLAS DE ORO para trabajos en instalaciones y equipo eléctrico?</div>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pregunta17" value="si"> SI</label>
-                        <label><input type="radio" name="pregunta17" value="no"> NO</label>
-                        <label><input type="radio" name="pregunta17" value="na"> N/A</label>
-                    </div>
-                </div>
             </div>
 
             <div class="reglas-oro">
@@ -550,8 +384,7 @@
             <div class="firma-section">
                 <p><strong>EJECUTOR:</strong> He verificado con el emisor la aplicación de Permiso y los demás controles para minimizar los riesgos asociados a este trabajo y los comunicaré al grupo ejecutor. He verificado el buen estado de las herramientas y equipos a utilizar.</p>
                 
-                <!-- Tabla para escritorio -->
-                <div class="firmas-table-container desktop-only">
+                <div class="firmas-table-container">
                     <table class="firmas-table">
                         <thead>
                             <tr>
@@ -563,9 +396,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-1" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-1" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-1" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-1" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -575,9 +408,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-2" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-2" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-2" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-2" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -587,9 +420,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-3" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-3" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-3" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-3" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -599,9 +432,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-4" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-4" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-4" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-4" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -611,9 +444,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-5" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-5" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-5" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-5" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -623,9 +456,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-6" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-6" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-6" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-6" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -635,9 +468,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-7" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-7" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-7" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-7" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -647,9 +480,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-8" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-8" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-8" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-8" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -659,9 +492,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="date" value=""></td>
-                                <td><input type="text" value=""></td>
-                                <td><input type="text" value=""></td>
+                                <td><input type="date" id="fecha-ejecutor-9" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-9" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-9" value=""></td>
                                 <td>
                                     <canvas id="firma-ejecutor-9" class="mini-signature"></canvas>
                                     <div class="signature-buttons">
@@ -673,225 +506,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Cards para móvil -->
-                <div class="mobile-signatures">
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 1</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-1-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-1-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 2</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-2-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-2-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 3</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-3-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-3-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 4</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-4-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-4-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 5</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-5-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-5-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 6</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-6-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-6-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 7</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-7-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-7-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 8</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-8-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-8-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mobile-signature-card">
-                        <div class="mobile-signature-header">Ejecutor 9</div>
-                        <div class="mobile-signature-field">
-                            <label>Fecha:</label>
-                            <input type="date" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Nombre:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Cédula:</label>
-                            <input type="text" value="">
-                        </div>
-                        <div class="mobile-signature-field">
-                            <label>Firma:</label>
-                            <canvas id="firma-ejecutor-9-mobile" class="signatureCanvas"></canvas>
-                            <div class="signature-buttons">
-                                <button type="button" class="sign-button" data-signature-target="firma-ejecutor-9-mobile">Firmar</button>
-                                <button type="button" class="clearSignatureButton">Limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -901,8 +515,30 @@
         </div>
 
         <div class="form-actions">
-            <button type="button" id="guardar">Guardar Permiso</button>
-            <button type="button" id="imprimir">Imprimir Permiso</button>
+         
+  <button type="button" id="imprimir">Imprimir</button>
+<button id="recargar" type="button" style="background-color: rgb(255, 248, 249); color: white;">🔃</button>
+
+<script>
+  const botonImprimir = document.getElementById('imprimir');
+  const botonRecargar = document.getElementById('recargar');
+
+  const textoImprimir = botonImprimir.textContent;
+  const textoRecargar = botonRecargar.textContent;
+
+  botonImprimir.addEventListener('mousedown', () => {
+    // Ocultar ambos textos
+    botonImprimir.textContent = '';
+    botonRecargar.textContent = '';
+
+    // Restaurar ambos textos después de 5 segundos
+    setTimeout(() => {
+      botonImprimir.textContent = textoImprimir;
+      botonRecargar.textContent = textoRecargar;
+    }, 8000);
+  });
+</script>
+
         </div>
 
         <!-- Modal para firmas -->
@@ -944,6 +580,30 @@
         </div>
 
     </div>
+
+    <script>
+        // Script para actualizar fecha y hora
+function updateDateTime() {
+    const now = new Date();
+    
+    const date = now.toLocaleDateString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    const datetimeString = `${date} ${formattedTime}`;
+    
+    const dateElement = document.getElementById('datetime');
+    document.title = `PERMISO TRABAJO ELECTRICO - ${datetimeString}`;
+    if (dateElement) {
+        dateElement.textContent = datetimeString;
+    }
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
+    </script>
 
     <script src="script/scripp.js"></script>
 
