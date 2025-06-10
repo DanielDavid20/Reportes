@@ -531,10 +531,12 @@
     botonImprimir.textContent = '';
     botonRecargar.textContent = '';
 
-  
+    // Restaurar ambos textos después de 5 segundos
+    setTimeout(() => {
       botonImprimir.textContent = textoImprimir;
       botonRecargar.textContent = textoRecargar;
- 
+    }, 8000);
+  });
 </script>
 
         </div>
