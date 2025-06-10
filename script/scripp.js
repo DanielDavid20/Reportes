@@ -165,7 +165,7 @@ function validarNumeroPersonas() {
 
 // Función de validación completa
 function validacionCompleta() {
-  return validarCamposObligatorios() && validarRangoFechas() && validarRangoHoras() && validarNumeroPersonas()
+  return validarCamposObligatorios() && validarRangoFechas() && validarNumeroPersonas()
 }
 
 // Inicializar el modal de firma
@@ -579,10 +579,6 @@ function setupRealTimeValidation() {
   // Validación en tiempo real para fechas
   document.getElementById("fecha-inicial").addEventListener("change", validarRangoFechas)
   document.getElementById("fecha-final").addEventListener("change", validarRangoFechas)
-
-  // Validación en tiempo real para horas
-  document.getElementById("hora-inicial").addEventListener("change", validarRangoHoras)
-  document.getElementById("hora-final").addEventListener("change", validarRangoHoras)
 
   // Validación en tiempo real para número de personas
   document.getElementById("num-personas").addEventListener("input", validarNumeroPersonas)
