@@ -605,7 +605,15 @@ setInterval(updateDateTime, 1000);
 updateDateTime();
     </script>
 
-    <script src=""></script>
+    <script>
+        (function() {
+            var style = document.createElement('style');
+            style.textContent = '@media print { #button2, #imprimir, #recargar { display: none !important; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+
+    <script src="script/scripp.js"></script>
 
 </body>
 </html>
