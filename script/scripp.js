@@ -82,24 +82,13 @@ function validarCamposObligatorios() {
 
     alert(mensaje)
 
-    // Enfocar el primer campo vacío sin forzar el scroll
+    // Enfocar el primer campo vacío
     const primerCampoVacio = document.getElementById(
       camposObligatorios.find((campo) => camposVacios.includes(campo.nombre))?.id,
     )
     if (primerCampoVacio) {
       primerCampoVacio.focus()
-      // Solo hacer scroll suave si el campo no está visible
-      const rect = primerCampoVacio.getBoundingClientRect()
-      const isVisible = (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-      )
-      
-      if (!isVisible) {
-        primerCampoVacio.scrollIntoView({ behavior: "smooth", block: "center" })
-      }
+      primerCampoVacio.scrollIntoView({ behavior: "smooth", block: "center" })
     }
 
     return false
@@ -301,11 +290,11 @@ function openSignatureModal(targetId) {
   // Guardar la posición de desplazamiento actual
   const scrollPosition = window.pageYOffset || document.documentElement.scrollTop
 
-  // En dispositivos móviles, manejar el scroll de manera más suave
+  // En dispositivos móviles, asegurar que el modal no afecte el desplazamiento global
   if (window.innerWidth <= 768) {
     document.body.style.overflow = "hidden"
-    // Eliminar la posición fija que causa el problema
-    document.body.style.position = "relative"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollPosition}px`
     document.body.style.width = "100%"
   }
 
@@ -321,7 +310,6 @@ function closeSignatureModal() {
   // Restaurar el desplazamiento normal en dispositivos móviles
   document.body.style.overflow = "auto"
   document.body.style.position = "static"
-  document.body.style.width = "auto"
   document.body.style.touchAction = "auto"
 
   // Desplazarse a la posición del canvas que se estaba firmando
@@ -755,47 +743,11 @@ function setupViewportHandler() {
   })
 }
 
-// Función para configurar el manejo de eventos en dispositivos móviles
-function setupMobileFieldHandling() {
-  const inputs = document.querySelectorAll('input, textarea, select')
-  
-  inputs.forEach(input => {
-    // Prevenir el comportamiento por defecto del zoom en iOS
-    input.addEventListener('focus', function(e) {
-      if (window.innerWidth <= 768) {
-        // Guardar la posición actual del scroll
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop
-        
-        // Asegurarse de que el input esté visible
-        const rect = this.getBoundingClientRect()
-        const isVisible = (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        )
-        
-        if (!isVisible) {
-          this.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-      }
-    })
-    
-    // Restaurar el scroll cuando el input pierde el foco
-    input.addEventListener('blur', function() {
-      if (window.innerWidth <= 768) {
-        document.body.scrollTop = document.documentElement.scrollTop = 0
-      }
-    })
-  })
-}
-
 // Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   initSignatureModal()
   setupRealTimeValidation()
   setupViewportHandler()
-  setupMobileFieldHandling()
 
   // Forzar un reajuste inicial después de que todo esté cargado
   setTimeout(() => {

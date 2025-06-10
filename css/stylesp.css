@@ -1,328 +1,1449 @@
-/* Estilos Generales */
-body {
-  font-family: Arial, sans-serif;
-  background-color: white;
-  margin: 0;
-  padding: 10px; /* Reducción del padding */
+/* Reset y configuración base */
+* {
+  box-sizing: border-box;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 10px;
+  line-height: 1.6;
+  color: #333;
+  touch-action: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Header responsivo */
 header {
-  background-color: #185dfddf; /* Color más vibrante y atractivo */
+  background-color: #185dfddf;
   color: #fff;
- 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1400px;
+  margin: 0 auto 20px auto;
+  width: 95%;
+  text-align: center;
 }
 
 header h1 {
   margin: 0;
-  font-size: 1.5em; /* Ajustar tamaño para móviles */
-  margin-right: 20px; /* Espacio entre el título y el logo */
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
-
 .logo {
-  width: 80px; /* Ancho reducido para móviles */
-  height: 80px; /* Alto reducido para móviles */
-  border: 2px solid #1f68de; /* Borde cuadrado */
-  border-radius: 0; /* Sin bordes redondeados */
+  width: 80px;
+  height: 80px;
+  border: 2px solid #1f68de;
+  border-radius: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s; /* Transición suave */
+  transition: transform 0.3s;
 }
 
 .logo:hover {
-  transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+  transform: scale(1.05);
 }
 
-/* Media query para pantallas pequeñas */
-@media (max-width: 600px) {
-  header h1 {
-      font-size: 1.2em; /* Ajustar tamaño de fuente en móviles */
-  }
-
-  .logo {
-      width: 60px; /* Cambiar tamaño del logo para móviles */
-      height: 60px; /* Cambiar tamaño del logo para móviles */
-  }
-
-  /* Ajustes para tablas en pantallas pequeñas */
-  table {
-      font-size: 0.8rem; /* Tamaño de fuente más pequeño */
-      overflow-x: auto; /* Permitir desplazamiento horizontal */
-      display: block; /* Cambiar a bloque para permitir desplazamiento */
-      white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
-  }
-
-  th, td {
-      padding: 4px; /* Reducción en el padding */
-  }
-}
+/* Contenedor principal */
 .container {
-  width: 95%; /* Utilizar el 95% del ancho disponible */
-  border-radius: 16px; /* Hacer esquinas más redondeadas */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
-  margin: 30px auto; /* Aumentar el margen superior y inferior para mejor espaciado */
-  background-color: rgba(255, 255, 255, 0.884); /* Fondo semitransparente */
+  max-width: 1400px;
+  width: 95%;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  background-color: white;
+  padding: clamp(15px, 3vw, 30px);
+  overflow: hidden;
 }
 
-/* Agregar estilos para mejorar el aspecto de los elementos dentro del contenedor */
-.container label {
-  font-weight: bold; /* Hacer las etiquetas más prominentes */
+.container h2 {
+  background-color: #e6eeff;
+  padding: 15px 20px;
+  border-radius: 4px;
+  margin: 25px 0 20px 0;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: #000;
 }
 
-.container h1, .container h2 {
-  margin-bottom: 15px; /* Espaciado inferior para los títulos */
-  color: #333; /* Color de texto más oscuro para mejor contraste */
+/* Secciones del formulario */
+.form-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: #fafbfc;
+  transition: all 0.3s ease;
 }
 
-/* Estilos para los botones dentro del contenedor */
-.container button {
-  margin-top: 10px; /* Espaciado superior para los botones */
+.form-section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Títulos */
-h1, h2 {
-  text-align: center;
-  font-size: 1.5rem; /* Tamaño de fuente más pequeño */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  align-items: center;
+  gap: 10px;
 }
 
-h3 {
-  color: #333;
+.form-row label {
+  font-weight: 600;
+  color: #374151;
+  margin-right: 10px;
+  min-width: 200px;
+  font-size: 0.9rem;
 }
 
-/* Etiquetas */
-label {
-  display: block;
-  margin: 5px 0 2px; /* Reducción en márgenes */
+.inline-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
-/* Campos de Texto */
+.inline-fields label {
+  min-width: unset;
+  margin-right: 8px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Campos de formulario mejorados */
 input[type="text"],
 input[type="date"],
+input[type="time"],
+input[type="number"],
 select {
-  width: calc(100% - 10px); /* Ajuste de ancho */
-  padding: 8px; /* Reducción en el padding */
-  margin-bottom: 8px; /* Margen más pequeño */
+  padding: 12px 16px;
+  margin: 5px 0;
   border: 1px solid #1f68de;
   border-radius: 4px;
-  box-sizing: border-box; /* Incluye padding y border en el ancho total */
+  box-sizing: border-box;
+  flex-grow: 1;
+  max-width: 300px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #000;
 }
 
-[contenteditable="true"] {
-  width: calc(100% - 10px); /* Ajuste de ancho para contenteditable */
-  padding: 8px; /* Mismo padding */
-  margin-bottom: 8px; /* Margen más pequeño */
-  border: 1px solid #1f68de; /* Misma propiedad */
-  border-radius: 4px; /* Misma propiedad */
-  box-sizing: border-box; /* Incluye padding y border en el ancho total */
-  min-height: 50px; /* Altura mínima para que se parezca a un textarea */
-  overflow-wrap: break-word; /* Permitir que las palabras se dividan y se ajusten dentro de la celda */
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #185dfd;
+  box-shadow: 0 0 0 2px rgba(24, 93, 253, 0.2);
 }
 
-/* Grupo de Radios */
-.radio-group {
-  display: flex;
-  flex-direction: column; /* Cambiar a columna para mejor uso del espacio */
-  margin-bottom: 8px; /* Reducción en el margen */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  margin: 5px 0;
+  border: 1px solid #1f68de;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #000;
 }
 
-/* Tabla */
+textarea:focus {
+  outline: none;
+  border-color: #185dfd;
+  box-shadow: 0 0 0 2px rgba(24, 93, 253, 0.2);
+}
+
+/* Tablas responsivas mejoradas */
+.table-container {
+  overflow-x: auto;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 8px 0; /* Margen más pequeño */
-  font-size: 0.9rem; /* Ajuste tamaño de fuente */
-  margin-left: -1px; /* Desplazar la tabla a la izquierda */
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  min-width: 600px;
 }
 
-th, td {
-  border: 0.5px solid #1f68de;
-  padding: 3px; /* Aumentar el padding para mejorar la visibilidad */
-  text-align: left; /* Alinear texto a la izquierda */
-  min-width: 90px; /* Aumentar el ancho mínimo de las celdas */
+th,
+td {
+  padding: clamp(8px, 2vw, 12px);
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  word-wrap: break-word;
 }
 
 th {
-  background-color: #1f68de;
-  color: #fff; /* Color de texto en el encabezado */
+  background-color: #185dfd;
+  color: white;
+  font-weight: 600;
+  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-/* Estilo para filas alternas */
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2; /* Color de fondo para filas pares */
+tbody tr {
+  transition: background-color 0.2s ease;
 }
 
 tbody tr:hover {
-  background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+  background-color: #f8fafc;
 }
 
-/* Botones */
-button {
-  background-color: #c4b15d; /* Color de fondo del botón */
-  color: white; /* Color de texto del botón */
-  border: none;
-  padding: 5px 10px; /* Padding del botón */
-  cursor: pointer; /* Cambiar cursor al pasar el ratón */
-  border-radius: 3px; /* Bordes redondeados */
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
 }
 
-button:hover {
-  background-color: #c4b15d; /* Color al pasar el ratón */
+/* Radio buttons mejorados */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* Estilos para los canvas de firma en dispositivos móviles */
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  accent-color: #185dfd;
+}
+
+/* EPP y Equipos de seguridad */
+.epp-grid,
+.equipos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.epp-item,
+.equipo-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.epp-item:hover,
+.equipo-item:hover {
+  background-color: #f8fafc;
+  border-color: #185dfd;
+}
+
+.epp-item input[type="checkbox"],
+.equipo-item input[type="checkbox"] {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+  accent-color: #185dfd;
+}
+
+.epp-item label,
+.equipo-item label {
+  font-size: 0.9rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+/* Reglas de oro */
+.reglas-oro {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 4px;
+  margin: 20px 0;
+  border-left: 4px solid #1f68de;
+}
+
+.reglas-oro h3 {
+  color: #000;
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.reglas-oro ol {
+  margin: 10px 0 0 20px;
+  padding: 0;
+  color: #000;
+}
+
+.reglas-oro li {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Firmas mejoradas */
+.firma-section {
+  margin-bottom: 30px;
+  padding: 25px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.firma-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.firma-datos label {
+  font-weight: 600;
+  min-width: 80px;
+  color: #374151;
+}
+
 .signature-pad {
-  text-align: center;
-  margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
+  margin-top: 20px;
+  width: 100%;
 }
 
-canvas {
-  width: 100%; 
-  border: 1px solid #1f68de; /* Borde del canvas */
-}
-
-/* Botones */
-button {
+/* Canvas de firmas optimizado */
+.signatureCanvas {
+  width: 100%;
+  height: 120px;
+  border: 2px solid #185dfd;
+  border-radius: 8px;
+  background-color: white;
   display: block;
-  width: 98%;
-  padding: 8px; /* Reducción en el padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.signatureCanvas:hover {
+  box-shadow: 0 4px 12px rgba(24, 93, 253, 0.2);
+}
+
+.mini-signature {
+  width: 100%;
+  height: 80px;
+  border: 2px solid #185dfd;
+  border-radius: 8px;
+  background-color: white;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mini-signature:hover {
+  box-shadow: 0 4px 12px rgba(24, 93, 253, 0.2);
+}
+
+.signature-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.sign-button {
+  background-color: #1f68de;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 100px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.sign-button:hover {
+  background-color: #1852b8;
+  transform: translateY(-1px);
+}
+
+.clearSignatureButton {
+  background-color: #0f9f22;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.clearSignatureButton:hover {
+  background-color: #9ed033;
+  transform: translateY(-1px);
+}
+
+/* Tabla de firmas responsiva */
+.firmas-table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.firmas-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.firmas-table th {
+  background: linear-gradient(135deg, #185dfd 0%, #1e40af 100%);
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+  font-weight: 600;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+}
+
+.firmas-table td {
+  vertical-align: middle;
+  padding: 15px 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.firmas-table input[type="date"],
+.firmas-table input[type="text"] {
+  width: 100%;
+  min-width: 120px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+}
+
+/* Botones principales */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 15px 30px;
   background-color: #1eb125;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem; /* Tamaño de fuente ajustado */
-  
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 150px;
 }
 
 button:hover {
   background-color: #3ded22;
+  transform: translateY(-1px);
 }
 
-/* Media Query para dispositivos móviles */
-@media screen and (max-width: 480px) {
-  h1 {
-      font-size: 1.4rem; /* Tamaño de fuente más pequeño */
-  }
-  h2 {
-      font-size: 1.2rem; /* Tamaño de fuente más pequeño */
-  }
+/* Indicador de campos requeridos */
+.required {
+  color: #dc3545;
+  font-weight: bold;
+  margin-left: 2px;
 }
 
-/* Estilos para el modal */
+/* Estilo para el botón de nuevo formulario */
+#recargar {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+#recargar:hover {
+  background-color: #c82333 !important;
+  transform: translateY(-1px);
+}
+
+/* MODAL COMPLETAMENTE RESPONSIVO */
 .modal {
-  display: none; /* Escondido por defecto */
-  position: fixed; /* Fijo a la pantalla */
-  z-index: 1; /* Por encima de otros elementos */
+  display: none;
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
-  width: 100%; /* 100% ancho */
-  height: 100%; /* 100% alto */
-  overflow: auto; /* Permitir el desplazamiento si es necesario */
-  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con transparencia */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% desde la parte superior y centrado */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Ancho del modal */
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 95vh;
+  overflow: hidden;
+  margin: 2.5vh auto;
+  width: 95%;
+  max-width: 900px;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Header del modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .close {
-  color: #aaa;
-  float: right;
+  color: #6b7280;
   font-size: 28px;
   font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
   cursor: pointer;
+  line-height: 1;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
 }
 
-.clearSignatureButton {
-  font-size: 14px; /* Tamaño del texto */
-  padding: 5px 10px; /* Espaciado interno del botón */
-  border: 1px solid #6afb30; /* Borde */
-  background: #0f9f22; /* Color de fondo */
-  cursor: pointer; /* Cambia el cursor al pasar el ratón */
-  border-radius: 5px; /* Bordes redondeados */
-  transition: background-color 0.3s; /* Transición suave de fondo */
+.close:hover {
+  color: #374151;
+  background-color: #f3f4f6;
+  transform: scale(1.1);
 }
 
-.clearSignatureButton:hover {
-  background-color: #9ed033; /* Color de fondo al pasar el ratón */
+/* Contenido del modal */
+.modal-body {
+  padding: 30px;
+  flex: 1;
+  overflow-y: auto;
 }
 
-.deleteRowButton {
-  background-color: transparent; /* Fondo transparente */
-  color: red; /* Color del texto */
-  border: 2px solid red; /* Borde rojo */
-  border-radius: 5px; /* Bordes redondeados */
-  padding: 5px 10px; /* Espaciado interno */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+.signature-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 }
 
-/* Cambios al pasar el mouse */
-.deleteRowButton:hover {
-  background-color: red; /* Fondo rojo al pasar el mouse */
-  color: white; /* Color del texto blanco al pasar el mouse */
+.signature-options label {
+  font-weight: 600;
+  margin: 0;
+  color: #374151;
+  font-size: 0.95rem;
 }
 
-@media print {
-  .hide-column {
-      display: none !important; /* Ocultar la columna al imprimir */
-  }
+.signature-options input,
+.signature-options select {
+  padding: 10px 14px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  min-width: 100px;
+  margin: 0;
+  transition: all 0.3s ease;
 }
 
-
-
-
-/* Estilo general para el textarea */
-textarea {
-  width: 95%; /* Ancho del textarea */
-  height: 50px; /* Altura del textarea */
-  padding: 10px; /* Espaciado interno */
-  border: 1px solid #ccc; /* Borde */
-  border-radius: 5px; /* Bordes redondeados */
-  resize: vertical; /* Permitir redimensionar solo verticalmente */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  font-size: 1em; /* Tamaño de la fuente */
-  color: #333; /* Color del texto */
+.signature-options input:focus,
+.signature-options select:focus {
+  outline: none;
+  border-color: #185dfd;
+  box-shadow: 0 0 0 3px rgba(24, 93, 253, 0.1);
 }
 
-/* Estilo específico para pantallas pequeñas (teléfonos) */
-@media (max-width: 600px) {
-  textarea {
-      height: 150px; /* Aumentar altura en móviles */
-      font-size: 1.1em; /* Aumentar tamaño de fuente en móviles */
-      padding: 12px; /* Aumentar espaciado interno en móviles */
-  }
-}
-
-@media print {
-  button {
-      display: none;
-  }
-  #button2 {
-      display: none;
-  }
-  
-}
-
-#reloadButton {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #68b8da; /* Color verde */
+#clearSignatureModal {
+  background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: auto;
 }
 
-#reloadButton:hover {
-  background-color: #455da0; /* Color más oscuro al pasar el mouse */
+#clearSignatureModal:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Canvas de firma en modal */
+.signature-canvas-container {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  border: 3px solid #185dfd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  touch-action: none;
+}
+
+#signaturePad {
+  width: 100%;
+  display: block;
+  background-color: white;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* Footer del modal */
+.modal-footer {
+  padding: 25px 30px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f8f9fa;
+  border-radius: 0 0 16px 16px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.modal-actions button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+#cancelSignature {
+  background-color: #6c757d;
+  color: white;
+}
+
+#cancelSignature:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+#saveSignature {
+  background-color: #1eb125;
+  color: white;
+}
+
+#saveSignature:hover {
+  background-color: #3ded22;
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE DESIGN COMPLETO */
+
+/* Móviles pequeños (< 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+
+  header {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .container {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .container h2 {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+
+  .form-section {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .form-row label {
+    margin-bottom: 5px;
+    min-width: unset;
+    font-size: 0.9rem;
+  }
+
+  .inline-fields {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select {
+    width: 100%;
+    max-width: unset;
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  /* Tablas en móviles */
+  table {
+    min-width: 500px;
+    font-size: 0.7rem;
+  }
+
+  th,
+  td {
+    padding: 6px 8px;
+  }
+
+  th {
+    font-size: 0.65rem;
+  }
+
+  .firmas-table {
+    min-width: 600px;
+  }
+
+  .firmas-table input[type="date"],
+  .firmas-table input[type="text"] {
+    min-width: 80px;
+    padding: 6px 8px;
+    font-size: 0.7rem;
+  }
+
+  /* EPP Grid en móviles */
+  .epp-grid,
+  .equipos-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .epp-item,
+  .equipo-item {
+    padding: 10px 12px;
+  }
+
+  /* Modal en móviles */
+  .modal-content {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    padding: 20px;
+    border-radius: 0;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-footer {
+    padding: 20px;
+    border-radius: 0;
+  }
+
+  .signature-options {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .signature-options > * {
+    width: 100%;
+  }
+
+  #clearSignatureModal {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal-actions button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+  }
+
+  .signature-canvas-container {
+    height: 280px;
+  }
+
+  #signaturePad {
+    height: 280px;
+  }
+
+  /* Botones principales en móviles */
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    padding: 16px;
+  }
+
+  /* Firmas en móviles */
+  .firma-datos {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .signature-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-row label {
+    margin-bottom: 8px;
+    min-width: unset;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select {
+    width: 100%;
+    max-width: unset;
+  }
+
+  .inline-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .modal-content {
+    margin: 5vh auto;
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .signature-canvas-container {
+    height: 320px;
+  }
+
+  #signaturePad {
+    height: 320px;
+  }
+
+  .epp-grid,
+  .equipos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* Tablets grandes y laptops pequeños (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .modal-content {
+    margin: 5vh auto;
+    width: 85%;
+    max-width: 800px;
+  }
+
+  .signature-canvas-container {
+    height: 350px;
+  }
+
+  #signaturePad {
+    height: 350px;
+  }
+}
+
+/* Escritorio (1025px+) */
+@media (min-width: 1025px) {
+  .modal-content {
+    margin: 5vh auto;
+    width: 80%;
+    max-width: 900px;
+  }
+
+  .signature-canvas-container {
+    height: 400px;
+  }
+
+  #signaturePad {
+    height: 400px;
+  }
+
+  .epp-grid,
+  .equipos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Pantallas muy grandes (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    padding: 40px;
+  }
+
+  .modal-content {
+    max-width: 1000px;
+  }
+
+  .signature-canvas-container {
+    height: 450px;
+  }
+
+  #signaturePad {
+    height: 450px;
+  }
+}
+
+/* Orientación landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .modal-content {
+    margin: 1vh auto;
+    max-height: 98vh;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 15px 25px;
+  }
+
+  .signature-canvas-container {
+    height: 220px;
+  }
+
+  #signaturePad {
+    height: 220px;
+  }
+
+  .signature-options {
+    margin-bottom: 15px;
+    padding: 15px;
+  }
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .modal-actions button,
+  .form-actions button {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  .close {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+
+  .signature-options input,
+  .signature-options select {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  #clearSignatureModal {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  .sign-button,
+  .clearSignatureButton {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+}
+
+/* Clase para cuando el modal está activo */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Impresión directa */
+@media print {
+  .modal,
+  .clearSignatureButton,
+  .sign-button,
+  .signature-buttons {
+    display: none !important;
+  }
+
+  body {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .container {
+    box-shadow: none;
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  header {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #000;
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+
+  .container h2 {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    border: 1px solid #000;
+    padding: 6px;
+    margin: 8px 0 6px 0;
+    font-size: 13px;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .form-section {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: white;
+    page-break-inside: avoid;
+  }
+
+  /* Agrupar secciones específicas para que no se separen */
+  .container h2:nth-of-type(5) /* 5. Planeación */,
+  .container h2:nth-of-type(5) + .form-section {
+    page-break-before: auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .container h2:nth-of-type(6) /* 6. Para la Ejecución */,
+  .container h2:nth-of-type(6) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .container h2:nth-of-type(8) /* 8. Firmas Emisión y Revalidaciones */,
+  .container h2:nth-of-type(8) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Agrupar secciones 3 y 4 específicamente */
+  .container h2:nth-of-type(3) /* 3. Equipos de Seguridad y Señalización */,
+  .container h2:nth-of-type(3) + .form-section,
+  .container h2:nth-of-type(4) /* 4. Competencias del Personal */,
+  .container h2:nth-of-type(4) + .form-section {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Forzar que la sección 4 no se separe de la 3 */
+  .container h2:nth-of-type(4) {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Mantener juntas las secciones de firmas */
+  .firma-section {
+    border: 2px solid #000 !important;
+    margin: 8px 0;
+    padding: 8px;
+    background-color: white !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .firma-section p {
+    margin: 4px 0 !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Mantener la tabla de ejecutores junta */
+  .firmas-table-container {
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    overflow: visible !important;
+    margin-top: 8px;
+  }
+
+  .firmas-table {
+    width: 100% !important;
+    min-width: unset !important;
+    border-collapse: collapse;
+    font-size: 9px;
+    margin-bottom: 0 !important;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table th,
+  .firmas-table td {
+    border: 1px solid #000 !important;
+    padding: 3px !important;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.2;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold;
+    font-size: 8px;
+  }
+
+  .firmas-table input {
+    border: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    padding: 1px !important;
+    font-size: 8px !important;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* Optimización específica para canvas de firmas - SIN LIMPIAR */
+  .signatureCanvas,
+  .mini-signature {
+    border: 2px solid #000 !important;
+    background-color: white !important;
+    width: 100% !important;
+    max-width: 180px !important;
+    height: auto !important;
+    min-height: 50px !important;
+    display: block !important;
+    margin: 3px 0 !important;
+    page-break-inside: avoid !important;
+    /* Mantener calidad de imagen sin procesar */
+    image-rendering: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .firma-datos {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 6px;
+    page-break-inside: avoid !important;
+  }
+
+  .firma-datos label {
+    font-weight: bold;
+    margin-right: 3px;
+    font-size: 9px;
+  }
+
+  .firma-datos input {
+    border-bottom: 1px solid #000 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: transparent !important;
+    padding: 1px 3px !important;
+    font-size: 9px !important;
+  }
+
+  /* Contenedor de firma para impresión */
+  .signature-pad {
+    page-break-inside: avoid !important;
+    margin: 6px 0;
+  }
+
+  /* Tablas responsivas en impresión */
+  .table-container {
+    overflow: visible !important;
+    page-break-inside: avoid;
+    margin: 8px 0;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: unset !important;
+    font-size: 9px;
+    border-collapse: collapse;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #000 !important;
+    padding: 3px !important;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.2;
+  }
+
+  table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold;
+    font-size: 8px;
+  }
+
+  /* Radio buttons en impresión */
+  input[type="radio"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    font-size: 10px;
+  }
+
+  /* Checkboxes en impresión */
+  input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    font-size: 10px;
+  }
+
+  /* EPP y equipos en impresión */
+  .epp-grid,
+  .equipos-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3px;
+    font-size: 9px;
+    margin: 6px 0;
+  }
+
+  .epp-item,
+  .equipo-item {
+    border: 1px solid #ccc;
+    padding: 3px;
+    background-color: white;
+    line-height: 1.2;
+  }
+
+  /* Reglas de oro en impresión */
+  .reglas-oro {
+    border: 1px solid #000 !important;
+    background-color: #f9f9f9 !important;
+    padding: 6px;
+    margin: 6px 0;
+    page-break-inside: avoid;
+  }
+
+  .reglas-oro h3 {
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .reglas-oro ol {
+    margin: 3px 0 0 12px;
+    font-size: 9px;
+  }
+
+  .reglas-oro li {
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  /* Textareas en impresión */
+  textarea {
+    border: 1px solid #000 !important;
+    background: transparent !important;
+    width: 100% !important;
+    min-height: 30px !important;
+    padding: 3px !important;
+    font-size: 9px !important;
+    resize: none !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Inputs en impresión */
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    background: transparent !important;
+    padding: 1px 3px !important;
+    font-size: 9px !important;
+  }
+
+  /* Evitar saltos de página en elementos importantes */
+  .form-row,
+  .epp-item,
+  .equipo-item {
+    page-break-inside: avoid;
+    margin-bottom: 3px;
+  }
+
+  /* Ajustes para páginas */
+  @page {
+    margin: 0.8cm;
+    size: A4;
+  }
+
+  /* Compactar la sección de ejecutores */
+  .firmas-table tbody tr {
+    height: auto !important;
+    page-break-inside: avoid !important;
+  }
+
+  .firmas-table tbody tr td {
+    padding: 2px !important;
+    vertical-align: middle !important;
+  }
+
+  /* Observaciones más compactas */
+  .form-section:last-of-type {
+    margin-bottom: 6px !important;
+    page-break-before: avoid !important;
+  }
+
+  /* Forzar que las secciones críticas se mantengan juntas */
+  .container h2:nth-of-type(5) /* Planeación */,
+  .container h2:nth-of-type(5) + .form-section,
+  .container h2:nth-of-type(6) /* Para la Ejecución */,
+  .container h2:nth-of-type(6) + .form-section,
+  .container h2:nth-of-type(8) /* Firmas */,
+  .container h2:nth-of-type(8) + .form-section {
+    break-inside: avoid !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+  }
+}
+
+/* Estilos específicos para mejorar la calidad de impresión de canvas */
+@media print {
+  .signatureCanvas,
+  .mini-signature {
+    -webkit-print-color-adjust: exact !important;
+    accent-color: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
