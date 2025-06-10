@@ -58,17 +58,19 @@ body::before {
 /* Estilo para nav y offcanvas */
 nav,
 .offcanvas {
-  background-color:#185dfddf; /* Color de fondo azul */
-  color: #ffffff; /* Color de texto por defecto */
+  background-color: #185dfddf;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-toggler {
-  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.navbar-toggler:focus {
-  outline: none;
-  box-shadow: none;
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Estilos para enlaces en la barra de navegación */
@@ -118,9 +120,10 @@ button:active {
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 25px;
+    margin: 25px auto; /* Centrado horizontal y margen vertical */
     transition: all 0.3s ease;
     max-width: 1140px;
+    width: 95%; /* Asegura que haya un margen en pantallas pequeñas */
 }
 
 .container:hover {
@@ -179,6 +182,8 @@ p {
     transition: all 0.3s ease;
     height: 100%;
     border: none;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .feature-card:hover {
@@ -216,6 +221,8 @@ p {
     transition: all 0.3s ease;
     height: 100%;
     border: none;
+    margin: 0 auto;
+    max-width: 100%;
     margin-bottom: 20px;
 }
 
@@ -243,6 +250,8 @@ p {
     border: none;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .ai-tool-card:hover {
@@ -355,25 +364,32 @@ footer .text-white-50:hover {
 }
 
 .social-footer {
-    margin-top: 15px;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-footer a {
-    color: #0dcaf0;
-    font-size: 1.3rem;
-    margin: 0 10px;
+    font-size: 1.4rem;
+    margin: 0 0.8rem;
+    opacity: 0.8;
     transition: all 0.3s ease;
 }
 
 .social-footer a:hover {
-    color: white;
+    opacity: 1;
     transform: translateY(-3px);
 }
 
 /* Media queries para responsividad */
 @media (max-width: 992px) {
     .container {
-        padding: 20px;
+        width: 90%;
+        margin: 15px auto;
+    }
+    
+    .navbar .container-fluid {
+        padding: 0 10px;
     }
     
     h1 {
@@ -384,9 +400,12 @@ footer .text-white-50:hover {
 
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
-        margin-left: 10px;
-        margin-right: 10px;
+        width: 95%;
+        margin: 10px auto;
+    }
+    
+    .nav-item {
+        padding: 0.5rem 0;
     }
     
     h1 {
@@ -407,6 +426,102 @@ footer .text-white-50:hover {
     p {
         font-size: 1rem;
     }
+}
+
+/* Ajustes para la navegación */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar .container-fluid {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Ajustes para el menú lateral */
+.offcanvas {
+    max-width: 350px;
+    border-right: none;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+}
+
+.offcanvas-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.offcanvas-body {
+    padding: 1.5rem;
+}
+
+/* Mejoras a los elementos del menú */
+.navbar-nav {
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.nav-link {
+    padding: 0.8rem 1.5rem;
+    text-align: left;
+    width: 100%;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background-color: #ffffff;
+    transition: height 0.3s ease;
+    border-radius: 0 2px 2px 0;
+}
+
+.nav-link:hover::before {
+    height: 70%;
+}
+
+/* Mejoras al botón de logout */
+#logout {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#logout:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
   </style>
   <body>
@@ -473,13 +588,13 @@ footer .text-white-50:hover {
                   </a>
               </li>
               <li class="nav-item p-3 py-md-1">
-                <a href="inspeccionequipotrabajoaltura.html" class="nav-link">formato inspección de equipos de trabajo en alturas (Ya disponible)</a>
+                <a href="inspeccionequipotrabajoaltura.html" class="nav-link">formato inspección de equipos de trabajo en alturas</a>
               </li>
                <li class="nav-item p-3 py-md-1">
-                <a href="Trabajoaltura.html" class="nav-link">5-Formato ATS(Ya disponible)</a>
+                <a href="Trabajoaltura.html" class="nav-link">5-Formato ATS</a>
               </li>
                 <li class="nav-item p-3 py-md-1">
-                <a href="permisoelectrico.html" class="nav-link">PERMISO TRABAJO ELECTRICO(PRUEBA)</a>
+                <a href="permisoelectrico.html" class="nav-link">PERMISO TRABAJO ELECTRICO</a>
               </li>
               <li class="nav-item p-3 py-md-1">
                 <a href="Eliminarcuenta.html" class="nav-link">Ver Información y Eliminar cuenta</a>
