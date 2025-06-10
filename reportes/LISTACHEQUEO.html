@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylechequeo.css">
+    <title>LISTA DE CHEQUEO PARA HERRAMIENTAS Y EQUIPOS - <span id="datetime"></span></title>
+<script>
+function updateDateTime() {
+  const now = new Date();
+  
+  const date = now.toLocaleDateString();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+  const datetimeString = `${date} ${formattedTime}`;
+  
+  const dateElement = document.getElementById('datetime');
+  document.title = `LISTA DE CHEQUEO PARA HERRAMIENTAS Y EQUIPOS - ${datetimeString}`;
+  dateElement.textContent = datetimeString;
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<body>
+    
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+                <i class="fas fa-home"></i> Volver a Inicio
+            </div>
+            <h1 id="title">LISTA DE CHEQUEO PARA HERRAMIENTAS Y EQUIPOS</h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Versión</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>mv005</td>
+                    <td>1</td>
+                    <td>31/08/2023</td>
+                </tr>
+             
+                
+            </tbody>
+         
+        </table>
+        <table>
+        <tr>
+            <td>Objetivo:Identificar los agentes deriesgos que enfrentan los trabajadores,
+                ensusactividades cotidianas, mediante inspecciones periódicas a las áreas,
+                frentes de trabajo y equipos en general. </td>
+        </tr>
+    </table>
+      
+    <label for="fecha-servicio">Fecha de diligenciamiento </label>
+    <input type="date" id="fecha-servicio">
+
+    <label for="Diligenciado">Diligenciado Por: </label>
+            <input type="text" id="Diligenciado" required>
+        
+    <label for="Dependencia">Dependencia, DT o AP: </label>
+            <input type="text" id="Dependencia" required>
+
+ <label for="cargo">Cargo: </label>
+            <input type="text" id="cargo" required>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="6" class="table-header" style="text-align: center;">INSPECCION DE HERRAMIENTAS 					
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="table-header" style="text-align: center;">Estado</th>
+                    </tr>
+                    <tr>
+                        <th>TIPO DE HERRAMIENTA <br>
+                            Herramientas Fijas					
+                        </th>
+                        <th>ÓPTIMO</th>
+                        <th>REGULAR</th>
+                        <th>DEFICIENTE</th>
+                        <th>NO SE TIENE</th>
+                        <th>OBSERVACIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Herramientas Fijas</td>
+                        <td><input type="checkbox" name="herramientas_fijas_optimo"></td>
+                        <td><input type="checkbox" name="herramientas_fijas_regular"></td>
+                        <td><input type="checkbox" name="herramientas_fijas_deficiente"></td>
+                        <td><input type="checkbox" name="herramientas_fijas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Esmeril</td>
+                        <td><input type="checkbox" name="esmeril_optimo"></td>
+                        <td><input type="checkbox" name="esmeril_regular"></td>
+                        <td><input type="checkbox" name="esmeril_deficiente"></td>
+                        <td><input type="checkbox" name="esmeril_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Taladro</td>
+                        <td><input type="checkbox" name="taladro_optimo"></td>
+                        <td><input type="checkbox" name="taladro_regular"></td>
+                        <td><input type="checkbox" name="taladro_deficiente"></td>
+                        <td><input type="checkbox" name="taladro_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Prensa</td>
+                        <td><input type="checkbox" name="prensa_optimo"></td>
+                        <td><input type="checkbox" name="prensa_regular"></td>
+                        <td><input type="checkbox" name="prensa_deficiente"></td>
+                        <td><input type="checkbox" name="prensa_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Compresor</td>
+                        <td><input type="checkbox" name="compresor_optimo"></td>
+                        <td><input type="checkbox" name="compresor_regular"></td>
+                        <td><input type="checkbox" name="compresor_deficiente"></td>
+                        <td><input type="checkbox" name="compresor_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Máquina de soldar</td>
+                        <td><input type="checkbox" name="maquina_soldar_optimo"></td>
+                        <td><input type="checkbox" name="maquina_soldar_regular"></td>
+                        <td><input type="checkbox" name="maquina_soldar_deficiente"></td>
+                        <td><input type="checkbox" name="maquina_soldar_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Gato Hidráulico</td>
+                        <td><input type="checkbox" name="gato_hidraulico_optimo"></td>
+                        <td><input type="checkbox" name="gato_hidraulico_regular"></td>
+                        <td><input type="checkbox" name="gato_hidraulico_deficiente"></td>
+                        <td><input type="checkbox" name="gato_hidraulico_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Equipo de oxicorte</td>
+                        <td><input type="checkbox" name="equipo_oxicorte_optimo"></td>
+                        <td><input type="checkbox" name="equipo_oxicorte_regular"></td>
+                        <td><input type="checkbox" name="equipo_oxicorte_deficiente"></td>
+                        <td><input type="checkbox" name="equipo_oxicorte_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                
+                    <tr>
+                        <th>Herramientas Manuales</th>
+                        <th>ÓPTIMO</th>
+                        <th>REGULAR</th>
+                        <th>DEFICIENTE</th>
+                        <th>NO SE TIENE</th>
+                        <th>OBSERVACIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Taladro percutor doble manija</td>
+                        <td><input type="checkbox" name="taladro_percutor_optimo"></td>
+                        <td><input type="checkbox" name="taladro_percutor_regular"></td>
+                        <td><input type="checkbox" name="taladro_percutor_deficiente"></td>
+                        <td><input type="checkbox" name="taladro_percutor_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Guadaña</td>
+                        <td><input type="checkbox" name="guadana_optimo"></td>
+                        <td><input type="checkbox" name="guadana_regular"></td>
+                        <td><input type="checkbox" name="guadana_deficiente"></td>
+                        <td><input type="checkbox" name="guadana_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Taladro sencillo (A)</td>
+                        <td><input type="checkbox" name="taladro_sencillo_A_optimo"></td>
+                        <td><input type="checkbox" name="taladro_sencillo_A_regular"></td>
+                        <td><input type="checkbox" name="taladro_sencillo_A_deficiente"></td>
+                        <td><input type="checkbox" name="taladro_sencillo_A_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Lijadora</td>
+                        <td><input type="checkbox" name="lijadora_optimo"></td>
+                        <td><input type="checkbox" name="lijadora_regular"></td>
+                        <td><input type="checkbox" name="lijadora_deficiente"></td>
+                        <td><input type="checkbox" name="lijadora_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Pulidora pequeña (A)</td>
+                        <td><input type="checkbox" name="pulidora_pequena_A_optimo"></td>
+                        <td><input type="checkbox" name="pulidora_pequena_A_regular"></td>
+                        <td><input type="checkbox" name="pulidora_pequena_A_deficiente"></td>
+                        <td><input type="checkbox" name="pulidora_pequena_A_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Pulidora grande (B)</td>
+                        <td><input type="checkbox" name="pulidora_grande_B_optimo"></td>
+                        <td><input type="checkbox" name="pulidora_grande_B_regular"></td>
+                        <td><input type="checkbox" name="pulidora_grande_B_deficiente"></td>
+                        <td><input type="checkbox" name="pulidora_grande_B_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Segueta pequeña</td>
+                        <td><input type="checkbox" name="segueta_pequena_optimo"></td>
+                        <td><input type="checkbox" name="segueta_pequena_regular"></td>
+                        <td><input type="checkbox" name="segueta_pequena_deficiente"></td>
+                        <td><input type="checkbox" name="segueta_pequena_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Segueta grande</td>
+                        <td><input type="checkbox" name="segueta_grande_optimo"></td>
+                        <td><input type="checkbox" name="segueta_grande_regular"></td>
+                        <td><input type="checkbox" name="segueta_grande_deficiente"></td>
+                        <td><input type="checkbox" name="segueta_grande_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Martillos grandes (Monas)</td>
+                        <td><input type="checkbox" name="martillos_grandes_optimo"></td>
+                        <td><input type="checkbox" name="martillos_grandes_regular"></td>
+                        <td><input type="checkbox" name="martillos_grandes_deficiente"></td>
+                        <td><input type="checkbox" name="martillos_grandes_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Martillos</td>
+                        <td><input type="checkbox" name="martillos_optimo"></td>
+                        <td><input type="checkbox" name="martillos_regular"></td>
+                        <td><input type="checkbox" name="martillos_deficiente"></td>
+                        <td><input type="checkbox" name="martillos_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Cuchillos</td>
+                        <td><input type="checkbox" name="cuchillos_optimo"></td>
+                        <td><input type="checkbox" name="cuchillos_regular"></td>
+                        <td><input type="checkbox" name="cuchillos_deficiente"></td>
+                        <td><input type="checkbox" name="cuchillos_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Escalera de extensión</td>
+                        <td><input type="checkbox" name="escalera_extension_optimo"></td>
+                        <td><input type="checkbox" name="escalera_extension_regular"></td>
+                        <td><input type="checkbox" name="escalera_extension_deficiente"></td>
+                        <td><input type="checkbox" name="escalera_extension_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Escalera fija</td>
+                        <td><input type="checkbox" name="escalera_fija_optimo"></td>
+                        <td><input type="checkbox" name="escalera_fija_regular"></td>
+                        <td><input type="checkbox" name="escalera_fija_deficiente"></td>
+                        <td><input type="checkbox" name="escalera_fija_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Machete</td>
+                        <td><input type="checkbox" name="machete_optimo"></td>
+                        <td><input type="checkbox" name="machete_regular"></td>
+                        <td><input type="checkbox" name="machete_deficiente"></td>
+                        <td><input type="checkbox" name="machete_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Raches</td>
+                        <td><input type="checkbox" name="raches_optimo"></td>
+                        <td><input type="checkbox" name="raches_regular"></td>
+                        <td><input type="checkbox" name="raches_deficiente"></td>
+                        <td><input type="checkbox" name="raches_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Brocas</td>
+                        <td><input type="checkbox" name="brocas_optimo"></td>
+                        <td><input type="checkbox" name="brocas_regular"></td>
+                        <td><input type="checkbox" name="brocas_deficiente"></td>
+                        <td><input type="checkbox" name="brocas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Llaves fijas</td>
+                        <td><input type="checkbox" name="llaves_fijas_optimo"></td>
+                        <td><input type="checkbox" name="llaves_fijas_regular"></td>
+                        <td><input type="checkbox" name="llaves_fijas_deficiente"></td>
+                        <td><input type="checkbox" name="llaves_fijas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Alicates de puntas</td>
+                        <td><input type="checkbox" name="alicates_puntas_optimo"></td>
+                        <td><input type="checkbox" name="alicates_puntas_regular"></td>
+                        <td><input type="checkbox" name="alicates_puntas_deficiente"></td>
+                        <td><input type="checkbox" name="alicates_puntas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Alicates eléctricos</td>
+                        <td><input type="checkbox" name="alicates_electricos_optimo"></td>
+                        <td><input type="checkbox" name="alicates_electricos_regular"></td>
+                        <td><input type="checkbox" name="alicates_electricos_deficiente"></td>
+                        <td><input type="checkbox" name="alicates_electricos_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="6" class="table-header" style="text-align: center;">Estado</th>
+                    </tr>
+                   
+                    <tr>
+                        <th>TIPO DE HERRAMIENTA</th>
+                        <th>ÓPTIMO</th>
+                        <th>REGULAR</th>
+                        <th>DEFICIENTE</th>
+                        <th>NO SE TIENE</th>
+                        <th>OBSERVACIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Extensiones eléctricas</td>
+                        <td><input type="checkbox" name="extensiones_optimo"></td>
+                        <td><input type="checkbox" name="extensiones_regular"></td>
+                        <td><input type="checkbox" name="extensiones_deficiente"></td>
+                        <td><input type="checkbox" name="extensiones_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Tijeras grandes</td>
+                        <td><input type="checkbox" name="tijeras_grandes_optimo"></td>
+                        <td><input type="checkbox" name="tijeras_grandes_regular"></td>
+                        <td><input type="checkbox" name="tijeras_grandes_deficiente"></td>
+                        <td><input type="checkbox" name="tijeras_grandes_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Tijeras pequeñas</td>
+                        <td><input type="checkbox" name="tijeras_pequenas_optimo"></td>
+                        <td><input type="checkbox" name="tijeras_pequenas_regular"></td>
+                        <td><input type="checkbox" name="tijeras_pequenas_deficiente"></td>
+                        <td><input type="checkbox" name="tijeras_pequenas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Motosierra</td>
+                        <td><input type="checkbox" name="motosierra_optimo"></td>
+                        <td><input type="checkbox" name="motosierra_regular"></td>
+                        <td><input type="checkbox" name="motosierra_deficiente"></td>
+                        <td><input type="checkbox" name="motosierra_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Extensiones con lámparas</td>
+                        <td><input type="checkbox" name="extensiones_lamparas_optimo"></td>
+                        <td><input type="checkbox" name="extensiones_lamparas_regular"></td>
+                        <td><input type="checkbox" name="extensiones_lamparas_deficiente"></td>
+                        <td><input type="checkbox" name="extensiones_lamparas_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Pelacable (A)</td>
+                        <td><input type="checkbox" name="pelacable_A_optimo"></td>
+                        <td><input type="checkbox" name="pelacable_A_regular"></td>
+                        <td><input type="checkbox" name="pelacable_A_deficiente"></td>
+                        <td><input type="checkbox" name="pelacable_A_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Cortafrío (A)</td>
+                        <td><input type="checkbox" name="cortafrio_A_optimo"></td>
+                        <td><input type="checkbox" name="cortafrio_A_regular"></td>
+                        <td><input type="checkbox" name="cortafrio_A_deficiente"></td>
+                        <td><input type="checkbox" name="cortafrio_A_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Cortafrío (B)</td>
+                        <td><input type="checkbox" name="cortafrio_B_optimo"></td>
+                        <td><input type="checkbox" name="cortafrio_B_regular"></td>
+                        <td><input type="checkbox" name="cortafrio_B_deficiente"></td>
+                        <td><input type="checkbox" name="cortafrio_B_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Pinzas universales</td>
+                        <td><input type="checkbox" name="pinzas_universales_optimo"></td>
+                        <td><input type="checkbox" name="pinzas_universales_regular"></td>
+                        <td><input type="checkbox" name="pinzas_universales_deficiente"></td>
+                        <td><input type="checkbox" name="pinzas_universales_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Destornillador de estría</td>
+                        <td><input type="checkbox" name="destornillador_estria_optimo"></td>
+                        <td><input type="checkbox" name="destornillador_estria_regular"></td>
+                        <td><input type="checkbox" name="destornillador_estria_deficiente"></td>
+                        <td><input type="checkbox" name="destornillador_estria_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Destornillador perillero pala</td>
+                        <td><input type="checkbox" name="destornillador_pala_optimo"></td>
+                        <td><input type="checkbox" name="destornillador_pala_regular"></td>
+                        <td><input type="checkbox" name="destornillador_pala_deficiente"></td>
+                        <td><input type="checkbox" name="destornillador_pala_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Destornillador perillero estría</td>
+                        <td><input type="checkbox" name="destornillador_perillero_estria_optimo"></td>
+                        <td><input type="checkbox" name="destornillador_perillero_estria_regular"></td>
+                        <td><input type="checkbox" name="destornillador_perillero_estria_deficiente"></td>
+                        <td><input type="checkbox" name="destornillador_perillero_estria_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Pinza Voltiampérimetrica</td>
+                        <td><input type="checkbox" name="pinza_voltiamperimetrica_optimo"></td>
+                        <td><input type="checkbox" name="pinza_voltiamperimetrica_regular"></td>
+                        <td><input type="checkbox" name="pinza_voltiamperimetrica_deficiente"></td>
+                        <td><input type="checkbox" name="pinza_voltiamperimetrica_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Gira macho grande</td>
+                        <td><input type="checkbox" name="gira_macho_grande_optimo"></td>
+                        <td><input type="checkbox" name="gira_macho_grande_regular"></td>
+                        <td><input type="checkbox" name="gira_macho_grande_deficiente"></td>
+                        <td><input type="checkbox" name="gira_macho_grande_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Gira macho pequeño</td>
+                        <td><input type="checkbox" name="gira_macho_pequeno_optimo"></td>
+                        <td><input type="checkbox" name="gira_macho_pequeno_regular"></td>
+                        <td><input type="checkbox" name="gira_macho_pequeno_deficiente"></td>
+                        <td><input type="checkbox" name="gira_macho_pequeno_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Cautín</td>
+                        <td><input type="checkbox" name="cautin_optimo"></td>
+                        <td><input type="checkbox" name="cautin_regular"></td>
+                        <td><input type="checkbox" name="cautin_deficiente"></td>
+                        <td><input type="checkbox" name="cautin_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Llaves de tubo</td>
+                        <td><input type="checkbox" name="llaves_tubo_optimo"></td>
+                        <td><input type="checkbox" name="llaves_tubo_regular"></td>
+                        <td><input type="checkbox" name="llaves_tubo_deficiente"></td>
+                        <td><input type="checkbox" name="llaves_tubo_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Llave expansiva</td>
+                        <td><input type="checkbox" name="llave_expansiva_optimo"></td>
+                        <td><input type="checkbox" name="llave_expansiva_regular"></td>
+                        <td><input type="checkbox" name="llave_expansiva_deficiente"></td>
+                        <td><input type="checkbox" name="llave_expansiva_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Hombre solo</td>
+                        <td><input type="checkbox" name="hombre_solo_optimo"></td>
+                        <td><input type="checkbox" name="hombre_solo_regular"></td>
+                        <td><input type="checkbox" name="hombre_solo_deficiente"></td>
+                        <td><input type="checkbox" name="hombre_solo_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Cincel</td>
+                        <td><input type="checkbox" name="cincel_optimo"></td>
+                        <td><input type="checkbox" name="cincel_regular"></td>
+                        <td><input type="checkbox" name="cincel_deficiente"></td>
+                        <td><input type="checkbox" name="cincel_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Punzones o botadores</td>
+                        <td><input type="checkbox" name="punzones_botadores_optimo"></td>
+                        <td><input type="checkbox" name="punzones_botadores_regular"></td>
+                        <td><input type="checkbox" name="punzones_botadores_deficiente"></td>
+                        <td><input type="checkbox" name="punzones_botadores_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                    <tr>
+                        <td>Torque</td>
+                        <td><input type="checkbox" name="torque_optimo"></td>
+                        <td><input type="checkbox" name="torque_regular"></td>
+                        <td><input type="checkbox" name="torque_deficiente"></td>
+                        <td><input type="checkbox" name="torque_no_se_tiene"></td>
+                        <td><input type="text" placeholder="Observaciones"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Registro de Otras Herramientas</h2>
+<p></p>
+<table>
+    <thead>
+        <tr>
+            <th colspan="5" class="table-header" style="text-align: center;">Si existe otro tipo de herramienta no mencionada antes, relacione aquí:</th>
+        </tr>
+        <tr>
+            <th colspan="5" class="table-header" style="text-align: center;">Estado</th>
+        </tr>
+       
+        <tr>
+            <th>Tipo de herramienta</th>
+            <th>ÓPTIMO</th>
+            <th>REGULAR</th>
+            <th>DEFICIENTE</th>
+            <th>RECOMENDACIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Se pueden agregar hasta 7 herramientas -->
+        <tr>
+            <td><input type="text" placeholder=" "></td>
+            <td><input type="checkbox" name="herramienta1_optimo"></td>
+            <td><input type="checkbox" name="herramienta1_regular"></td>
+            <td><input type="checkbox" name="herramienta1_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="checkbox" name="herramienta2_optimo"></td>
+            <td><input type="checkbox" name="herramienta2_regular"></td>
+            <td><input type="checkbox" name="herramienta2_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=" "></td>
+            <td><input type="checkbox" name="herramienta3_optimo"></td>
+            <td><input type="checkbox" name="herramienta3_regular"></td>
+            <td><input type="checkbox" name="herramienta3_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="checkbox" name="herramienta4_optimo"></td>
+            <td><input type="checkbox" name="herramienta4_regular"></td>
+            <td><input type="checkbox" name="herramienta4_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="checkbox" name="herramienta5_optimo"></td>
+            <td><input type="checkbox" name="herramienta5_regular"></td>
+            <td><input type="checkbox" name="herramienta5_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="checkbox" name="herramienta6_optimo"></td>
+            <td><input type="checkbox" name="herramienta6_regular"></td>
+            <td><input type="checkbox" name="herramienta6_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="checkbox" name="herramienta7_optimo"></td>
+            <td><input type="checkbox" name="herramienta7_regular"></td>
+            <td><input type="checkbox" name="herramienta7_deficiente"></td>
+            <td><input type="text" placeholder="Recomendaciones"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Reporte de Herramientas en Mal Estado que se Deben Dar de Baja</h2>
+<table>
+    <thead>
+        <tr>
+            <th colspan="4" class="table-header" style="text-align: center;">Reporte de Herramientas en Mal Estado</th>
+        </tr>
+        <tr>
+            <th>Descripción de la Herramienta</th>
+            <th>Descripción de la Falta Presentada</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Se pueden agregar hasta 7 herramientas -->
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=" "></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=" "></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=" "></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder=""></td>
+            <td><input type="text" placeholder="Observaciones"></td>
+        </tr>
+    </tbody>
+</table>
+          
+<div >
+   
+    <table id="reportadoPorTable" style="border-collapse: collapse; width: 100%;">
+        <thead>
+           
+            <tr>
+                
+                <th style="border: 1px solid #ccc; padding: 8px;">Firma</th>
+                <th  id="nombre" style="border: 1px solid #ccc; padding: 8px;">Nombre</th>
+               
+                <th  id="cedula" style="border: 1px solid #ccc; padding: 8px;">Cedula: </th>
+                
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+            
+                <td>
+                    <canvas class="signatureCanvas" width="500" height="140" style="border: 1px solid #ccc;"></canvas>
+                </td>
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 8px;"></td>
+            
+                <td contenteditable="true" style="border: 1px solid #ccc; padding: 8px;"></td>
+               
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Botones para limpiar las firmas -->
+    <div style="margin-top: 20px;">
+        <button id="clearSignatureReportedBy" style="background-color: red;">Limpiar Firma</button>
+       
+    </div>
+
+    <!-- Modal para la firma -->
+    <div id="signatureModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firma</h2>
+            <canvas id="modalCanvas" width="500" height="200"></canvas>
+            <button id="saveSignature">Guardar firma</button>
+        </div>
+    </div>
+</div>
+
+           
+            <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+            
+
+            <button id="printButton">Imprimir</button>
+            <button id="reloadButton">Limpiar Formulario</button>
+            
+        </form>
+    </div>
+    <script>
+        document.getElementById('printButton').addEventListener('click', function() {
+             // Validar campos requeridos
+             const requiredFields = [
+         document.getElementById('Diligenciado'),
+         document.getElementById('fecha-servicio'),
+         document.getElementById('Dependencia'),
+         document.getElementById('cargo'),
+         
+      
+     ];
+        // Limpiar placeholders en campos contenteditable
+        const placeholders = document.querySelectorAll('td[contenteditable="true"]');
+        placeholders.forEach(td => {
+            if (td.textContent.trim() === "") {
+                td.textContent = ""; // Limpia el contenido antes de imprimir
+            }
+        });
+ 
+             let allValid = true;
+ 
+             requiredFields.forEach(field => {
+                 if (!field.value) {
+                     allValid = false;
+                     field.style.border = '2px solid red'; // Resaltar campo no válido
+                 } else {
+                     field.style.border = ''; // Restablecer el borde si es válido
+                 }
+             });
+ 
+             if (allValid) {
+                 window.print();
+             } else {
+                 alert('Por favor, complete todos los campos requeridos.');
+             }
+             
+         });
+        
+     </script>
+     
+
+      <script>
+          document.getElementById('reloadButton').addEventListener('click', function() {
+              window.location.reload();
+          });
+      </script>
+    
+    <script src="script/scripchequeo.js"></script>
+
+    
+</body>
+</html>
+

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sistema de Gestión Documental</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+  </head>
+  <style>
+/* Estilos para el logo */
+body {
+    background-image: url("img/mac.jpeg");
+    background-size: cover;  /* Hace que la imagen cubra todo el área del body */
+    background-position: center;  /* Centra la imagen */
+    background-repeat: no-repeat;  /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Fondo fijo al hacer scroll */
+    min-height: 100vh;  /* Asegura que el body tenga al menos la altura de la ventana */
+    margin: 0;  /* Elimina el margen por defecto */
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Añadiendo una superposición sutil para mejorar la legibilidad */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.navbar-brand img {
+  border-radius: 5px; /* Hace que el logo sea redondeado */
+  max-width: 100%; /* Asegura que no se desborde del contenedor */
+  height: auto; /* Mantiene la proporción del logo */
+  display: block; /* Garantiza que el logo se muestre como un bloque */
+}
+
+.user-email {
+  color: #ffffff; /* Color del texto */
+  margin-left: 15px; /* Espaciado a la izquierda */
+  font-size: 1rem; /* Tamaño del texto */
+}
+
+/* Estilo para nav y offcanvas */
+nav,
+.offcanvas {
+  background-color:#185dfddf; /* Color de fondo azul */
+  color: #ffffff; /* Color de texto por defecto */
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Estilos para enlaces en la barra de navegación */
+.navbar-nav .nav-link {
+  color: #ffffff; /* Color de texto para enlaces */
+  transition: color 0.3s; /* Transición suave para el hover */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f0f0f0; /* Color de texto al pasar el ratón */
+}
+
+@media (max-width: 768px) {
+  .navbar-nav > li:hover {
+    background-color: #ffffff; /* Fondo blanco en hover (para mejor legibilidad) */
+    color: #6c93bd; /* Color de texto oscuro para contraste */
+  }
+}
+
+button {
+  margin-right: 10px;
+  background-color: #0dcaf0; /* Color de fondo del botón */
+  color: #ffffff; /* Color de texto del botón */
+  border-radius: 23px; /* Bordes redondeados */
+  border: none; /* Sin borde */
+  padding: 10px 15px; /* Espaciado interno */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+/* Estilo cuando el botón se encuentra en hover */
+button:hover {
+  background-color: #0091c8; /* Color más oscuro al pasar el ratón */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+/* Estilo cuando el botón es presionado */
+button:active {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); /* Sombra más intensa */
+  transform: translateY(1px); /* Efecto de bajada */
+}
+
+/* Mejoras al contenedor */
+.container {
+    background-color: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    max-width: 1140px;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Mejoras al encabezado */
+h1 {
+    background: linear-gradient(135deg, #185dfd 0%, #1a4fd8 100%);
+    border-radius: 8px;
+    padding: 20px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #185dfd;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #185dfd, #0dcaf0);
+    border-radius: 3px;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: center;
+    color: #333;
+    margin-bottom: 0;
+}
+
+/* Estilos para las tarjetas */
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: none;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #185dfd;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+.feature-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.feature-text {
+    color: #555;
+    text-align: center;
+}
+
+/* Estilos para las tarjetas de acceso rápido */
+.quick-access-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.quick-access-icon {
+    font-size: 2.2rem;
+    color: #185dfd;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+/* Estilos para la sección de herramientas AI */
+.ai-tool-card {
+    background: linear-gradient(145deg, #ffffff, #f5f7ff);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-tool-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(145deg, #f5f7ff, #e8eeff);
+}
+
+.ai-icon {
+    font-size: 2.2rem;
+    color: #185dfd;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+.ai-tool-card .btn {
+    margin-top: auto;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.ai-tool-card .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(24, 93, 253, 0.3);
+}
+
+/* Mejoras a la sección de ayuda */
+.help-section {
+    background: linear-gradient(135deg, #185dfd 0%, #0091c8 100%);
+    border-radius: 12px;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.help-section:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.help-section h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.help-section .btn {
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.help-section .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mejoras al footer */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 25px 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    color: #f8f9fa;
+    font-size: 0.9rem;
+}
+
+/* Aseguramos que el contenedor dentro del footer tenga fondo oscuro */
+footer .container {
+    background-color: transparent; /* Eliminamos el fondo blanco del contenedor */
+    box-shadow: none; /* Eliminamos la sombra */
+}
+
+footer .container:hover {
+    transform: none; /* Eliminamos la animación de elevación */
+    box-shadow: none;
+}
+
+/* Aseguramos que todos los textos en el footer sean visibles */
+footer h5 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+footer .small {
+    color: #d1d1d1 !important;
+}
+
+footer .text-white-50 {
+    color: #b0b0b0 !important;
+    transition: color 0.3s ease;
+}
+
+footer .text-white-50:hover {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.social-footer {
+    margin-top: 15px;
+}
+
+.social-footer a {
+    color: #0dcaf0;
+    font-size: 1.3rem;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.social-footer a:hover {
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 992px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        padding: 12px;
+    }
+    
+    .feature-card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+}
+  </style>
+  <body>
+    <header>
+    <!-- MENU START  -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <!-- NAV CONTAINER START -->
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a href="#" class="navbar-brand">
+          <img src="logo.png" alt="Logo" width="100" height="40" /> <!-- Ajusta el ancho y alto según sea necesario -->
+          <div style="font-size: 12px;">Email: <span id="loggedUserEmail" ></span></div>
+        </a>
+        <a href="" class="navbar-brand text-info fw-semibold fs-4">Inicio</a>
+        
+        <!-- Email del usuario -->
+     
+           
+    
+
+        <!-- NAV BUTTON  -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#menuLateral"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- OFFCANVAS MAIN CONTAINER START -->
+        <section
+          class="offcanvas offcanvas-start"
+          id="menuLateral"
+          tabindex="-1"
+        >
+          <div class="offcanvas-header" data-bs-theme="dark">
+            <h5 class="offcanvas-title text-info">Formularios</h5>
+            <button
+              class="btn-close"
+              type="button"
+              aria-label="Close"
+              data-bs-dismiss="offcanvas"
+            ></button>
+          </div>
+          <!-- OFF CANVAS MENU LINKS  START-->
+          <div
+            class="offcanvas-body d-flex flex-column justify-content-between px-0"
+          >
+            <ul class="navbar-nav fs-5 justify-content-evenly">
+              <li class="nav-item p-3 py-md-1">
+                <a href="formatomantenimientoaire.html" class="nav-link">
+                  Informe de mantenimiento de aires acondicionados
+                </a>
+              </li>
+              <li class="nav-item p-3 py-md-1">
+                <a href="listadodeasistencia.html" class="nav-link">Plantilla de asistencia</a>
+              </li>
+              <li class="nav-item p-3 py-md-1">
+                <a href="InspeccióndeDotaciónyEPP.html" class="nav-link">Inspección de Dotación y EPP</a>
+              </li>
+              <li class="nav-item p-3 py-md-1">
+                <a href="LISTACHEQUEO.html" class="nav-link">
+                  Lista de chequeo para herramientas y equipos
+                  </a>
+              </li>
+              <li class="nav-item p-3 py-md-1">
+                <a href="inspeccionequipotrabajoaltura.html" class="nav-link">formato inspección de equipos de trabajo en alturas (Ya disponible)</a>
+              </li>
+               <li class="nav-item p-3 py-md-1">
+                <a href="Trabajoaltura.html" class="nav-link">5-Formato ATS(Ya disponible)</a>
+              </li>
+                <li class="nav-item p-3 py-md-1">
+                <a href="permisoelectrico.html" class="nav-link">PERMISO TRABAJO ELECTRICO(PRUEBA)</a>
+              </li>
+              <li class="nav-item p-3 py-md-1">
+                <a href="Eliminarcuenta.html" class="nav-link">Ver Información y Eliminar cuenta</a>
+              </li>
+             
+              <li>
+
+                <button id="logout">Logout</button>
+
+              </li>
+             
+            </ul>
+            <!-- enlaces redes sociales -->
+            <div class="d-lg-none align-self-center py-3">
+              <a href=""><i class="bi bi-twitter px-2 text-info fs-2"></i></a>
+              <a href=""><i class="bi bi-facebook px-2 text-info fs-2"></i></a>
+              <a href=""><i class="bi bi-github px-2 text-info fs-2"></i></a>
+              <a href=""><i class="bi bi-whatsapp px-2 text-info fs-2"></i></a>
+            </div>
+          </div>
+        </section>
+        <!-- OFFCANVAS MAIN CONTAINER END  -->
+      </div>
+    </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL MEJORADO -->
+    <main class="py-4">
+      <div class="container mt-3"> 
+        <h1>¡Bienvenido! <span id="loggedUserFName"></span></h1>
+        <p class="lead mb-4">
+          Accede a todos nuestros formularios y herramientas desde un solo lugar. Nuestro sistema de gestión te permite administrar eficientemente los documentos y registros necesarios para tus operaciones diarias.
+        </p>
+      </div>
+
+      <!-- SECCIÓN DE ACCESOS RÁPIDOS -->
+      <div class="container">
+        <h2 class="text-center mb-4">Accesos Rápidos</h2>
+        <div class="row">
+
+                <!-- Formulario 6: Formato ATS -->
+<div class="col-md-6 col-sm-6 mb-4">
+  <div class="quick-access-card">
+    <div class="text-center">
+      <i class="bi bi-file-earmark-text quick-access-icon"></i>
+      <h5 class="card-title">Formato ATS</h5>
+      <p class="card-text mb-3">Evalúa tareas de trabajo en altura con el análisis de seguridad (ATS).</p>
+      <a href="Trabajoaltura.html" class="btn btn-primary">Acceder</a>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario 7: Permiso Trabajo Eléctrico -->
+<div class="col-md-6 col-sm-6 mb-4">
+  <div class="quick-access-card">
+    <div class="text-center">
+      <i class="bi bi-lightning-charge quick-access-icon"></i>
+      <h5 class="card-title">Permiso Trabajo Eléctrico</h5>
+      <p class="card-text mb-3">Gestiona permisos para actividades eléctricas de forma segura.</p>
+      <a href="permisoelectrico.html" class="btn btn-primary">Acceder</a>
+    </div>
+  </div>
+</div>
+
+          <!-- Formulario 1 -->
+          <div class="col-md-4 col-sm-6 mb-4">
+            <div class="quick-access-card">
+              <div class="text-center">
+                <i class="bi bi-fan quick-access-icon"></i>
+                <h5 class="card-title">Mantenimiento A/C</h5>
+                <p class="card-text mb-3">Registra las actividades de mantenimiento de aires acondicionados.</p>
+                <a href="formatomantenimientoaire.html" class="btn btn-primary">Acceder</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulario 2 -->
+          <div class="col-md-4 col-sm-6 mb-4">
+            <div class="quick-access-card">
+              <div class="text-center">
+                <i class="bi bi-clipboard-data quick-access-icon"></i>
+                <h5 class="card-title">Asistencia</h5>
+                <p class="card-text mb-3">Controla la asistencia del personal a sus turnos y actividades.</p>
+                <a href="listadodeasistencia.html" class="btn btn-primary">Acceder</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulario 3 -->
+          <div class="col-md-4 col-sm-6 mb-4">
+            <div class="quick-access-card">
+              <div class="text-center">
+                <i class="bi bi-shield-check quick-access-icon"></i>
+                <h5 class="card-title">EPP y Dotación</h5>
+                <p class="card-text mb-3">Gestiona el equipo de protección personal y dotación laboral.</p>
+                <a href="InspeccióndeDotaciónyEPP.html" class="btn btn-primary">Acceder</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulario 4 -->
+          <div class="col-md-6 col-sm-6 mb-4">
+            <div class="quick-access-card">
+              <div class="text-center">
+                <i class="bi bi-tools quick-access-icon"></i>
+                <h5 class="card-title">Lista de Chequeo</h5>
+                <p class="card-text mb-3">Verifica el estado de herramientas y equipos con nuestra lista de chequeo.</p>
+                <a href="LISTACHEQUEO.html" class="btn btn-primary">Acceder</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Formulario 5 -->
+          <div class="col-md-6 col-sm-6 mb-4">
+            <div class="quick-access-card">
+              <div class="text-center">
+                <i class="bi bi-ladder quick-access-icon"></i>
+                <h5 class="card-title">Inspecciona equipo de trabajo en alturas </h5>
+                <p class="card-text mb-3">Inspecciona los equipos de trabajo en alturas para garantizar la seguridad.</p>
+                <a href="inspeccionequipotrabajoaltura.html" class="btn btn-primary">Acceder</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+
+      <!-- SECCIÓN DE HERRAMIENTAS AI -->
+      <div class="container">
+        <h2 class="text-center mb-4">Herramientas AI</h2>
+        <div class="row">
+          <!-- ChatGPT -->
+          <div class="col-md-4 mb-4">
+            <div class="ai-tool-card">
+              <div class="text-center">
+                <i class="bi bi-robot ai-icon"></i>
+                <h5 class="card-title">ChatGPT</h5>
+                <p class="card-text mb-3">Asistente de inteligencia artificial para resolver consultas y generar contenido.</p>
+                <a href="https://chatgpt.com" target="_blank" class="btn btn-primary">Abrir ChatGPT</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Poe -->
+          <div class="col-md-4 mb-4">
+            <div class="ai-tool-card">
+              <div class="text-center">
+                <i class="bi bi-cpu ai-icon"></i>
+                <h5 class="card-title">Poe</h5>
+                <p class="card-text mb-3">Plataforma con múltiples modelos de IA para diferentes necesidades.</p>
+                <a href="https://poe.com" target="_blank" class="btn btn-primary">Abrir Poe</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- DeepAI -->
+          <div class="col-md-4 mb-4">
+            <div class="ai-tool-card">
+              <div class="text-center">
+                <i class="bi bi-stars ai-icon"></i>
+                <h5 class="card-title">DeepAI</h5>
+                <p class="card-text mb-3">Plataforma con generadores de imágenes, video, música y chat con inteligencia artificial.</p>
+                <a href="https://deepai.org" target="_blank" class="btn btn-primary">Abrir DeepAI</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <!-- SECCIÓN DE AYUDA -->
+      <div class="container">
+        <div class="help-section">
+          <h3>¿Necesitas ayuda?</h3>
+          <p class="text-white">Contamos con un equipo de soporte listo para asistirte con cualquier consulta.</p>
+          <button class="btn btn-light">Contactar Soporte</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER MEJORADO -->
+    <footer class="bg-dark text-white text-center p-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h5>Sistema de Gestión</h5>
+            <p class="small">Facilitando la gestión documental y el cumplimiento normativo</p>
+          </div>
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h5>Enlaces Rápidos</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white-50">Inicio</a></li>
+              <li><a href="#" class="text-white-50">Ayuda</a></li>
+              <li><a href="#" class="text-white-50">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5>Contáctanos</h5>
+            <p class="small text-white-50">soporte@tuempresa.com</p>
+            <p class="small text-white-50">(+57) 300 123 4567</p>
+          </div>
+        </div>
+        <hr class="my-3 bg-secondary">
+        <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
+        <div class="social-footer">
+          <a href=""><i class="bi bi-twitter"></i></a>
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-github"></i></a>
+          <a href=""><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="script/homepage.js"></script>
+  </body>
+</html>

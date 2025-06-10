@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PERMISO TRABAJO ELECTRICO <span id="datetime"></span></title>
+    <link rel="stylesheet" href="css/stylesp.css">
+
+      <!-- Scripts externos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Encabezado -->
+ <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer; print-color-adjust: exact; -webkit-print-color-adjust: exact;">
+    <script>
+        (function() {
+            var style = document.createElement('style');
+            style.textContent = '@media print { #button2 { display: none !important; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+    <i class="fas fa-home"></i> Volver a Inicio
+</div>
+            <h1 id="title"> PERMISO PARA TRABAJOS CON RIESGO ELÉCTRICO</h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+
+    <div class="container">
+        <h2>1. Generalidades</h2>
+        <div class="form-section">
+            <div class="form-row">
+                <label for="fecha-expedicion">FECHA EXPEDICIÓN DEL PERMISO: <span class="required">*</span></label>
+                <input type="date" id="fecha-expedicion" value="" required>
+                
+                <label for="vigencia">VIGENCIA DEL PERMISO:</label>
+                <div class="inline-fields">
+                    <label for="fecha-inicial">FECHA INICIAL: <span class="required">*</span></label>
+                    <input type="date" id="fecha-inicial" value="" required>
+                    
+                    <label for="fecha-final">FECHA FINAL: <span class="required">*</span></label>
+                    <input type="date" id="fecha-final" value="" required>
+                    
+                    <label for="hora-inicial">HORA INICIAL: <span class="required">*</span></label>
+                    <input type="time" id="hora-inicial" value="" required>
+                    
+                    <label for="hora-final">HORA FINAL: <span class="required">*</span></label>
+                    <input type="time" id="hora-final" value="" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="empresa">EMPRESA CONTRATISTA: <span class="required">*</span></label>
+                <input type="text" id="empresa" value="" required>
+            </div>
+
+            <div class="form-row">
+                <label for="area">ÁREA O LUGAR: <span class="required">*</span></label>
+                <input type="text" id="area" value="" required>
+                
+                <label for="num-personas">N° PERSONAS EJECUTORAS: <span class="required">*</span></label>
+                <input type="number" id="num-personas" value="" min="1" required>
+            </div>
+
+            <div class="form-row">
+                <label for="responsable">RESPONSABLE DE LOS TRABAJOS: <span class="required">*</span></label>
+                <input type="text" id="responsable" value="" required>
+            </div>
+
+            <div class="form-row">
+                <label for="actividad">ACTIVIDAD A REALIZAR: <span class="required">*</span></label>
+                <textarea id="actividad" required></textarea>
+            </div>
+        </div>
+
+        <h2>2. Elementos de Protección Personal Requeridos (EPP)</h2>
+        <div class="form-section">
+            <div class="epp-grid">
+                <div class="epp-item">
+                    <input type="checkbox" id="equipo-caidas">
+                    <label for="equipo-caidas">Equipo de protección contra caídas</label>
+                </div>
+                <div class="epp-item">
+                    <input type="checkbox" id="gafas">
+                    <label for="gafas">Gafas protección</label>
+                </div>
+                <div class="epp-item">
+                    <input type="checkbox" id="botas">
+                    <label for="botas">Botas dieléctricas</label>
+                </div>
+                <div class="epp-item">
+                    <input type="checkbox" id="ropa-algodon">
+                    <label for="ropa-algodon">Ropa en algodón y sin partes metálicas</label>
+                </div>
+                <div class="epp-item">
+                    <input type="checkbox" id="casco">
+                    <label for="casco">Casco Dieléctrico con barbuquejo</label>
+                </div>
+                <div class="epp-item">
+                    <input type="checkbox" id="guantes">
+                    <label for="guantes">Guantes de seguridad</label>
+                </div>
+                <div class="epp-item">
+                    <label for="equipo-especial">Equipo especial:</label>
+                    <input type="text" id="equipo-especial">
+                </div>
+                <div class="epp-item">
+                    <label for="otro-epp">Otro:</label>
+                    <input type="text" id="otro-epp">
+                </div>
+            </div>
+        </div>
+
+        <h2>3. Equipos de Seguridad y Señalización</h2>
+        <div class="form-section">
+            <div class="equipos-grid">
+                <div class="equipo-item">
+                    <input type="checkbox" id="verificador">
+                    <label for="verificador">Verificador de ausencia de tensión</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="cinta">
+                    <label for="cinta">Cinta de demarcar y conos de señalización</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="dispositivos">
+                    <label for="dispositivos">Dispositivos condenar el corte visible</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="tarjetas">
+                    <label for="tarjetas">Tarjetas para señalizar el corte visible y de "NO OPERAR"</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="barreras">
+                    <label for="barreras">Barreras dieléctricas</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="tapetes">
+                    <label for="tapetes">Tapetes dieléctricos</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="pertigas">
+                    <label for="pertigas">Pértigas (certificada/buen estado)</label>
+                </div>
+                <div class="equipo-item">
+                    <input type="checkbox" id="tierra">
+                    <label for="tierra">Puesta a tierra (certificada/revisada/medida)</label>
+                </div>
+                <div class="equipo-item">
+                    <label for="otro-equipo">Otro:</label>
+                    <input type="text" id="otro-equipo">
+                </div>
+            </div>
+        </div>
+
+        <h2>4. Competencias del Personal</h2>
+        <div class="form-section">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>SI</th>
+                            <th>NO</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>¿El personal que realizara los trabajos cuenta con formación en electrotecnia y experiencia verificable en su oficio?</td>
+                            <td><input type="radio" name="pregunta1" value="si"></td>
+                            <td><input type="radio" name="pregunta1" value="no"></td>
+                            <td><input type="radio" name="pregunta1" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿El personal cuenta con capacitación en Riesgo eléctrico?</td>
+                            <td><input type="radio" name="pregunta2" value="si"></td>
+                            <td><input type="radio" name="pregunta2" value="no"></td>
+                            <td><input type="radio" name="pregunta2" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿El personal conoce los procedimientos y/o instructivos necesarios para efectuar de manera segura el trabajo?</td>
+                            <td><input type="radio" name="pregunta3" value="si"></td>
+                            <td><input type="radio" name="pregunta3" value="no"></td>
+                            <td><input type="radio" name="pregunta3" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿El personal cuenta con tarjeta profecional CONTE?</td>
+                            <td><input type="radio" name="pregunta4" value="si"></td>
+                            <td><input type="radio" name="pregunta4" value="no"></td>
+                            <td><input type="radio" name="pregunta4" value="na"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2>5. Planeación</h2>
+        <div class="form-section">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>SI</th>
+                            <th>NO</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>¿Fueron identificados todos los aspectos técnicos de la instalación? (Equipos a intervenir, adyacentes y la ubicación de los mismos)</td>
+                            <td><input type="radio" name="pregunta5" value="si"></td>
+                            <td><input type="radio" name="pregunta5" value="no"></td>
+                            <td><input type="radio" name="pregunta5" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Fueron analizados los documentos técnicos disponibles? (Manuales, planos, guías, estadísticas de falla y operación, entre otros)</td>
+                            <td><input type="radio" name="pregunta6" value="si"></td>
+                            <td><input type="radio" name="pregunta6" value="no"></td>
+                            <td><input type="radio" name="pregunta6" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se tienen definidas y descritas las actividades que deben efectuarse paso a paso.</td>
+                            <td><input type="radio" name="pregunta7" value="si"></td>
+                            <td><input type="radio" name="pregunta7" value="no"></td>
+                            <td><input type="radio" name="pregunta7" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se identificaron, valoraron y definieron las medidas de prevención y protección de los peligros por contacto eléctrico (directo e indirecto) de la actividad? (Aplicación de las reglas de oro)</td>
+                            <td><input type="radio" name="pregunta8" value="si"></td>
+                            <td><input type="radio" name="pregunta8" value="no"></td>
+                            <td><input type="radio" name="pregunta8" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se definieron los recursos necesarios para la ejecución de los trabajos? (personal, herramientas, equipos, materiales, epp).</td>
+                            <td><input type="radio" name="pregunta9" value="si"></td>
+                            <td><input type="radio" name="pregunta9" value="no"></td>
+                            <td><input type="radio" name="pregunta9" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se dispone de un plan de emergencias para atender cualquier evento, que concuerde con el de la sede donde se ejecuta el trabajo?</td>
+                            <td><input type="radio" name="pregunta10" value="si"></td>
+                            <td><input type="radio" name="pregunta10" value="no"></td>
+                            <td><input type="radio" name="pregunta10" value="na"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2>6. Para la Ejecución</h2>
+        <div class="form-section">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>SI</th>
+                            <th>NO</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>¿El personal que realizara los trabajadores conocen las actividades programadas, los riesgos y los controles definidos?</td>
+                            <td><input type="radio" name="pregunta11" value="si"></td>
+                            <td><input type="radio" name="pregunta11" value="no"></td>
+                            <td><input type="radio" name="pregunta11" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se encuentra en buen estado y correcto funcionamiento las herramientas, equipos de medida, elementos de protección y equipos de seguridad?</td>
+                            <td><input type="radio" name="pregunta12" value="si"></td>
+                            <td><input type="radio" name="pregunta12" value="no"></td>
+                            <td><input type="radio" name="pregunta12" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se encuentran en buen estado las estructuras, soportes, accesos y sitios de trabajo?</td>
+                            <td><input type="radio" name="pregunta13" value="si"></td>
+                            <td><input type="radio" name="pregunta13" value="no"></td>
+                            <td><input type="radio" name="pregunta13" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Está el área limpia y libre de sustancias combustibles?</td>
+                            <td><input type="radio" name="pregunta14" value="si"></td>
+                            <td><input type="radio" name="pregunta14" value="no"></td>
+                            <td><input type="radio" name="pregunta14" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se ha identificado y demarcado adecuadamente el Área de trabajo?</td>
+                            <td><input type="radio" name="pregunta15" value="si"></td>
+                            <td><input type="radio" name="pregunta15" value="no"></td>
+                            <td><input type="radio" name="pregunta15" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Se verifica el NO uso de elementos conductores? (relojes, anillos, joyas, etc.)</td>
+                            <td><input type="radio" name="pregunta16" value="si"></td>
+                            <td><input type="radio" name="pregunta16" value="no"></td>
+                            <td><input type="radio" name="pregunta16" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>¿Fueron aplicadas las REGLAS DE ORO para trabajos en instalaciones y equipo eléctrico?</td>
+                            <td><input type="radio" name="pregunta17" value="si"></td>
+                            <td><input type="radio" name="pregunta17" value="no"></td>
+                            <td><input type="radio" name="pregunta17" value="na"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="reglas-oro">
+                <h3>REGLAS DE ORO:</h3>
+                <ol>
+                    <li>Efectuar el corte visible de todas las fuentes de tensión</li>
+                    <li>Condenación o bloqueo</li>
+                    <li>Verificar ausencia de tensión en cada una de las fases</li>
+                    <li>Puesta a tierra y en cortocircuito de todas las posibles fuentes de tensión que incidan en la zona de trabajo</li>
+                    <li>Señalizar y delimitar la zona de trabajo</li>
+                </ol>
+            </div>
+
+            <div class="form-row">
+                <label for="medidas">Si la respuesta a una o más preguntas es NO, indique las razones y las medidas que se tomarán para mantener un ambiente de trabajo seguro:</label>
+                <textarea id="medidas"></textarea>
+            </div>
+        </div>
+
+        <h2>7. Afectaciones</h2>
+        <div class="form-section">
+            <div class="form-row">
+                <label>¿Este trabajo produce riesgos para otros trabajos en áreas adyacentes?</label>
+                <div class="radio-group">
+                    <input type="radio" id="riesgos-si" name="riesgos" value="si">
+                    <label for="riesgos-si">Si</label>
+                    <input type="radio" id="riesgos-no" name="riesgos" value="no">
+                    <label for="riesgos-no">No</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label>¿Los trabajos en áreas adyacentes producen riesgos sobre este trabajo?</label>
+                <div class="radio-group">
+                    <input type="radio" id="riesgos-adyacentes-si" name="riesgos-adyacentes" value="si">
+                    <label for="riesgos-adyacentes-si">Si</label>
+                    <input type="radio" id="riesgos-adyacentes-no" name="riesgos-adyacentes" value="no">
+                    <label for="riesgos-adyacentes-no">No</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="acciones">¿Cuáles son las acciones para controlar estos riesgos? (Explique)</label>
+                <textarea id="acciones"></textarea>
+            </div>
+        </div>
+
+        <h2>8. Firmas Emisión y Revalidaciones</h2>
+        <div class="form-section">
+            <div class="firma-section">
+                <p><strong>EMISOR:</strong> He verificado en campo con el ejecutor la aplicación de permiso y los demás controles para minimizar los riesgos asociados a este trabajo y considero seguro proceder con la ejecución del mismo.</p>
+                
+                <div class="firma-datos">
+                    <label for="nombre-emisor">NOMBRE:</label>
+                    <input type="text" id="nombre-emisor" value="">
+                    
+                    <label for="cc-emisor">CC:</label>
+                    <input type="text" id="cc-emisor" value="">
+                    
+                    <div class="signature-pad">
+                        <label>FIRMA:</label>
+                        <canvas id="firma-emisor" class="signatureCanvas"></canvas>
+                        <div class="signature-buttons">
+                            <button type="button" class="sign-button" data-signature-target="firma-emisor">Firmar</button>
+                            <button type="button" class="clearSignatureButton">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="firma-section">
+                <p><strong>EJECUTOR:</strong> He verificado con el emisor la aplicación de Permiso y los demás controles para minimizar los riesgos asociados a este trabajo y los comunicaré al grupo ejecutor. He verificado el buen estado de las herramientas y equipos a utilizar.</p>
+                
+                <div class="firmas-table-container">
+                    <table class="firmas-table">
+                        <thead>
+                            <tr>
+                                <th>FECHA (dd/mm/aa)</th>
+                                <th>NOMBRE</th>
+                                <th>CÉDULA</th>
+                                <th>FIRMA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-1" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-1" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-1" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-1" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-1">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-2" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-2" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-2" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-2" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-2">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-3" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-3" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-3" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-3" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-3">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-4" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-4" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-4" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-4" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-4">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-5" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-5" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-5" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-5" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-5">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-6" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-6" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-6" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-6" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-6">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-7" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-7" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-7" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-7" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-7">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-8" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-8" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-8" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-8" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-8">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="fecha-ejecutor-9" value=""></td>
+                                <td><input type="text" id="nombre-ejecutor-9" value=""></td>
+                                <td><input type="text" id="cedula-ejecutor-9" value=""></td>
+                                <td>
+                                    <canvas id="firma-ejecutor-9" class="mini-signature"></canvas>
+                                    <div class="signature-buttons">
+                                        <button type="button" class="sign-button" data-signature-target="firma-ejecutor-9">Firmar</button>
+                                        <button type="button" class="clearSignatureButton">Limpiar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <label for="observaciones">OBSERVACIONES:</label>
+            <textarea id="observaciones"></textarea>
+        </div>
+
+        <div class="form-actions">
+         
+  <button type="button" id="imprimir">Imprimir</button>
+<button id="recargar" type="button" style="background-color: rgb(255, 248, 249); color: white;">🔃</button>
+
+<script>
+  const botonImprimir = document.getElementById('imprimir');
+  const botonRecargar = document.getElementById('recargar');
+
+  const textoImprimir = botonImprimir.textContent;
+  const textoRecargar = botonRecargar.textContent;
+
+  botonImprimir.addEventListener('mousedown', () => {
+    // Ocultar ambos textos
+    botonImprimir.textContent = '';
+    botonRecargar.textContent = '';
+
+    // Restaurar ambos textos después de 5 segundos
+    setTimeout(() => {
+      botonImprimir.textContent = textoImprimir;
+      botonRecargar.textContent = textoRecargar;
+    }, 8000);
+  });
+</script>
+
+        </div>
+
+        <!-- Modal para firmas -->
+        <div id="signatureModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Firme en el recuadro</h3>
+                    <span class="close">&times;</span>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="signature-options">
+                        <label for="penColor">Color:</label>
+                        <input type="color" id="penColor" value="#000000">
+                        
+                        <label for="penSize">Grosor:</label>
+                        <select id="penSize">
+                            <option value="1">Fino</option>
+                            <option value="2" selected>Normal</option>
+                            <option value="4">Grueso</option>
+                            <option value="6">Muy grueso</option>
+                        </select>
+                        
+                        <button id="clearSignatureModal">Limpiar Firma</button>
+                    </div>
+                    
+                    <div class="signature-canvas-container">
+                        <canvas id="signaturePad"></canvas>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="modal-actions">
+                        <button id="cancelSignature">Cancelar</button>
+                        <button id="saveSignature">Guardar Firma</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Script para actualizar fecha y hora
+function updateDateTime() {
+    const now = new Date();
+    
+    const date = now.toLocaleDateString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    const datetimeString = `${date} ${formattedTime}`;
+    
+    const dateElement = document.getElementById('datetime');
+    document.title = `PERMISO TRABAJO ELECTRICO - ${datetimeString}`;
+    if (dateElement) {
+        dateElement.textContent = datetimeString;
+    }
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
+    </script>
+
+    <script src="script/scripp.js"></script>
+
+</body>
+</html>

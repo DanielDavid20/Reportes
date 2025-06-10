@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/trabajoaltura.css">
+    <title>5-Formato ATS - <span id="datetime"></span></title>
+    
+    <!-- Scripts externos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Encabezado -->
+ <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer; print-color-adjust: exact; -webkit-print-color-adjust: exact;">
+    <script>
+        (function() {
+            var style = document.createElement('style');
+            style.textContent = '@media print { #button2 { display: none !important; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+    <i class="fas fa-home"></i> Volver a Inicio
+</div>
+            <h1 id="title">5-Formato ATS</h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+    
+    <!-- Contenido principal -->
+    <div class="container">
+        <h2 style="font-size: 20px;">Valles & Villegas Multiservicios S.A.S.</h2>
+        
+        <!-- Tabla de información general -->
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th colspan="6" class="table-header">ANALISIS DE TRABAJO SEGURO "ATS"</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label for="nombre">Nombre de quien realiza el ATS:</label>
+                        <input type="text" id="nombre" name="nombre">
+                    </td>
+                    <td>
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula">
+                    </td>
+                    <td colspan="2">
+                        <label for="cargo">Cargo:</label>
+                        <input type="text" id="cargo" name="cargo">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <label for="lugar">Lugar donde se realiza el trabajo:</label>
+                        <input type="text" id="lugar" name="lugar">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <label for="descripcion">Descripción del trabajo a desarrollar:</label>
+                        <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Tabla de análisis de tareas -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PASOS DE LA TAREA</th>
+                        <th>RIESGO GENERADO</th>
+                        <th>CONSECUENCIAS</th>
+                        <th>CONTROLES A IMPLEMENTAR</th>
+                        <th>RESPONSABLE DE LA APLICACIÓN DEL CONTROL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td contenteditable="true">ARMADO DE ANDAMIOS</td>
+                        <td contenteditable="true">* Caidas a distintos nivel<br>* Ergonomico<br>* Caidas de Objeto</td>
+                        <td contenteditable="true">* Fracturas<br>* Heridas<br>* Lesiones osteo muscular<br>* Fatalidad</td>
+                        <td contenteditable="true">* Capacitacion<br>* Uso de EPP<br>* Auto cuidado<br>* Uso de elementos proteccion contra caidas</td>
+                        <td contenteditable="true">ROGER VALLE</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">ACENSO - ANDAMIO</td>
+                        <td contenteditable="true">* Caidas a distintos nivel<br>* Ergonomico<br>* Caidas de Objeto</td>
+                        <td contenteditable="true">* Fracturas<br>* Heridas<br>* Lesiones osteo muscular<br>* Fatalidad</td>
+                        <td contenteditable="true">* Capacitacion<br>* Uso de EPP<br>* Auto cuidado<br>* Uso de elementos proteccion contra caida</td>
+                        <td contenteditable="true">ROGER VALLE</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">CAMBIO DE LAMPARA HIGHBAY<br>desmontaje de la existente, y<br>montaje de la nueva</td>
+                        <td contenteditable="true">* Caidas a distintos nivel<br>* Ergonomico<br>* Caidas de Objeto</td>
+                        <td contenteditable="true">* Fracturas<br>* Heridas<br>* Lesiones osteo muscular<br>* Fatalidad</td>
+                        <td contenteditable="true">* Capacitacion<br>* Uso de EPP<br>* Auto cuidado<br>* Uso de elementos proteccion contra caidas</td>
+                        <td contenteditable="true">ROGER VALLE</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">DESCENSO POR ANADAMIOS</td>
+                        <td contenteditable="true">* Caidas a distintos nivel<br>* Ergonomico<br>* Caidas de Objetos</td>
+                        <td contenteditable="true">* Fracturas<br>* Heridas<br>* Lesiones osteo muscular<br>* Fatalidad</td>
+                        <td contenteditable="true">* Capacitacion<br>* Uso de EPP<br>* Auto cuidado<br>* Uso de elementos proteccion contra caidas</td>
+                        <td contenteditable="true">ROGER VALLE</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">DESARMADA DE ANDAMIOS</td>
+                        <td contenteditable="true">* Caidas a distintos nivel<br>* Ergonomico<br>* Caidas de Objeto</td>
+                        <td contenteditable="true">* Fracturas<br>* Heridas<br>* Lesiones osteo muscular<br>* Fatalidad</td>
+                        <td contenteditable="true">* Capacitacion<br>* Uso de EPP<br>* Auto cuidado<br>* Uso de elementos proteccion contra caidas</td>
+                        <td contenteditable="true">ROGER VALLE</td>
+                    </tr>
+                    <!-- Filas adicionales vacías para escribir -->
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h3>El ATS es requisito indispensable para la autorización del permiso de trabajo, debe ser anexo al permiso y permanecer en el área donde se realizan los trabajos.</h3>
+
+      <!-- Tabla de firmas -->
+<div class="table-responsive">
+    <table id="reportadoPorTable">
+        <thead>
+            <tr>
+                <th>RESPONSABLE ATS</th>
+                <th>Firma</th>
+                <th>COORDINADOR DE ALTURAS</th>
+                <th>Firma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true"></td>
+                <td>
+                    <canvas id="firmaResponsable" class="signatureCanvas" width="500" height="140"></canvas>
+                </td>
+                <td contenteditable="true"></td>
+                <td>
+                    <canvas id="firmaCoordinador" class="signatureCanvas" width="500" height="140"></canvas>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Botones para limpiar las firmas -->
+<div>
+    <button id="clearSignatureReportedBy" style="background-color: rgb(241, 67, 67);">Limpiar Firma Responsable</button>
+    <button id="clearSignatureEncargado" style="background-color: rgb(241, 67, 67);">Limpiar Firma Coordinador de alturas</button>
+</div>
+
+        <!-- Logo oculto para PDF -->
+        <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
+
+        <!-- Botones de acción -->
+        <div>
+            <button id="printButton">Imprimir</button>
+            <button id="reloadButton">Limpiar Formulario</button>
+        </div>
+
+        <!-- Modal para la firma -->
+        <div id="signatureModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Firma</h2>
+                <canvas id="modalCanvas" width="400" height="200"></canvas>
+                <button id="saveSignature">Guardar firma</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+   <script>
+// Script para actualizar fecha y hora
+function updateDateTime() {
+    const now = new Date();
+    
+    const date = now.toLocaleDateString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    const datetimeString = `${date} ${formattedTime}`;
+    
+    const dateElement = document.getElementById('datetime');
+    document.title = `FORMATO INSPECCIÓN DE EQUIPOS DE TRABAJO EN ALTURAS - ${datetimeString}`;
+    if (dateElement) {
+        dateElement.textContent = datetimeString;
+    }
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// Función para limpiar firmas
+function limpiarFirma(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
+// Función para validar campos obligatorios
+function validarCamposObligatorios() {
+    // Lista de campos obligatorios
+    const camposObligatorios = [
+        { id: 'nombre', nombre: 'Nombre de quien realiza el ATS' },
+        { id: 'cedula', nombre: 'Cédula' },
+        { id: 'cargo', nombre: 'Cargo' },
+        { id: 'lugar', nombre: 'Lugar donde se realiza el trabajo' },
+        { id: 'descripcion', nombre: 'Descripción del trabajo a desarrollar' }
+    ];
+    
+    let camposVacios = [];
+    
+    // Verificar cada campo
+    camposObligatorios.forEach(campo => {
+        const elemento = document.getElementById(campo.id);
+        if (!elemento.value.trim()) {
+            camposVacios.push(campo.nombre);
+            
+            // Resaltar campo vacío
+            elemento.style.border = '2px solid red';
+            elemento.style.backgroundColor = '#fff0f0';
+            
+            // Agregar evento para quitar el resaltado cuando se escriba
+            elemento.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.style.border = '1px solid #1f68de';
+                    this.style.backgroundColor = '';
+                }
+            });
+        }
+    });
+    
+    // Si hay campos vacíos, mostrar mensaje y no permitir imprimir
+    if (camposVacios.length > 0) {
+        const mensaje = `Por favor complete los siguientes campos obligatorios antes de imprimir:\n\n${camposVacios.join('\n')}`;
+        alert(mensaje);
+        return false;
+    }
+    
+    return true;
+}
+
+// Script para imprimir con validación
+document.getElementById('printButton').addEventListener('click', function() {
+    if (validarCamposObligatorios()) {
+        window.print();
+    }
+});
+
+// Script para recargar la página
+document.getElementById('reloadButton').addEventListener('click', function() {
+    if (confirm('¿Está seguro que desea limpiar todo el formulario? Se perderán todos los datos ingresados.')) {
+        window.location.reload();
+    }
+});
+
+// Configuración inicial al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    // Agregar asteriscos a campos obligatorios
+    const camposObligatorios = ['nombre', 'cedula', 'cargo', 'lugar', 'descripcion'];
+    
+    camposObligatorios.forEach(id => {
+        const label = document.querySelector(`label[for="${id}"]`);
+        if (label) {
+            const asterisco = document.createElement('span');
+            asterisco.textContent = ' *';
+            asterisco.style.color = 'red';
+            asterisco.style.fontWeight = 'bold';
+            label.appendChild(asterisco);
+        }
+    });
+
+    // Configurar botones para limpiar firmas
+    document.getElementById('clearSignatureReportedBy')?.addEventListener('click', function() {
+        limpiarFirma('firmaResponsable');
+    });
+
+    document.getElementById('clearSignatureEncargado')?.addEventListener('click', function() {
+        limpiarFirma('firmaCoordinador');
+    });
+});
+</script>
+    <!-- Script externo para manejo de firmas y otras funcionalidades -->
+    <script src="script/scripchequeo.js"></script>
+</body>
+</html>

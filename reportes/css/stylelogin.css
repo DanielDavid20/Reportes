@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex; /* Agregar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh; /* Altura completa de la ventana */
+    background: linear-gradient(to right, #eff3ff, #c9d6ff); /* Mejora del fondo con tonos azules */
+}
+
+.container {
+    background: #ffffff;
+    width: 90%; 
+    max-width: 400px; /* Tamaño más reducido para mejor ajuste en móviles */
+    padding: 1.5rem;
+    margin: 20px auto; /* Espaciado en la parte superior e inferior */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra más sutil */
+}
+
+form {
+    margin: 0 1rem; /* Ajustar márgenes en dispositivos móviles */
+}
+
+.form-title {
+    font-size: 1.8rem; /* Aumento del tamaño del título */
+    font-weight: bold;
+    text-align: center;
+    padding: 1.3rem;
+    color: #007bff; /* Color azul para el título */
+    margin-bottom: 1rem; /* Separa un poco más del contenido */
+}
+
+input {
+    color: #333; /* Color del texto */
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #007bff; /* Color de la línea inferior */
+    padding-left: 1.5rem;
+    font-size: 16px; /* Leve aumento en tamaño de letra */
+    transition: border-bottom 0.3s; /* Suaviza la transición */
+}
+
+.input-group {
+    padding: 1% 0;
+    position: relative;
+}
+
+.input-group i {
+    position: absolute;
+    color: #185dfdab; /* Colores de iconos en azul */
+}
+
+input:focus {
+    background-color: transparent;
+    outline: none;
+    border-bottom: 2px solid #0056b3; /* Sombra más clara al enfocarse */
+}
+
+input::placeholder {
+    color: transparent; /* Placeholder invisible para un efecto limpio */
+}
+
+label {
+    color:#185dfdab; /* Color azul para la etiqueta */
+    position: relative;
+    left: 1.2em;
+    top: -1.3em;
+    cursor: text;
+    transition: 0.3s ease all;
+}
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    top: -2.4em; /* Ajuste en la posición */
+    font-size: 14px; /* Tamaño de fuente más pequeño al enfocar */
+}
+
+.recover {
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.recover a {
+    text-decoration: none;
+    color: #007bff; /* Link en azul */
+}
+
+.recover a:hover {
+    color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    text-decoration: underline;
+}
+
+button {
+    font-size: 1.1rem;
+    padding: 10px; /* Aumento de padding para mejor toque */
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background: #007bff; /* Color azul para el botón */
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+
+.or {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.icons {
+    text-align: center;
+}
+
+.icons i {
+    color: #007bff; 
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid #dfe9f5;
+    margin: 0 15px;
+    transition: background 0.3s, transform 0.3s; /* Suavizado para efecto hover */
+}
+
+.icons i:hover {
+    background: #0056b3; /* Azul más oscuro al pasar el ratón */
+    transform: scale(1.1); /* Efecto de aumento al pasar el ratón */
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2rem; /* Reducción de padding para ajuste en móviles */
+    margin-top: 0.9rem;
+    font-weight: bold;
+}
+
+#signUpButton, 
+#signInButton {
+    color: #007bff;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#signUpButton:hover, 
+#signInButton:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.messageDiv {
+    background-color: #007bff; /* Azul para el mensaje */
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeOut 7s forwards;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 480px) {
+    .container {
+        margin: 20px auto;
+        padding: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem; /* Ajustar en móviles */
+    }
+
+    input {
+        font-size: 14px; /* Tamaño más pequeño para campos de entrada */
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    .icons i {
+        font-size: 1.3rem; 
+    }
+
+    .links {
+        flex-direction: column; /* Cambiar a columna para pantallas pequeñas */
+        padding: 0;
+    }
+
+    .recover {
+        text-align: center; /* Centrar el texto en móviles */
+    }
+}
+.logo {
+   
+    height: 110px; /* Asegúrate de que la altura sea igual al ancho */
+    margin-bottom: 20px; /* Espaciado inferior para separar el logo del contenido */
+    display: block; /* Asegúrate de que el logo sea un bloque para centrarlo */
+    margin-left: auto; /* Para centrar horizontalmente */
+    margin-right: auto; /* Asegura que no haya margen a la derecha */
+    border-radius: 5px; /* Bordes redondeados al 50% para crear un círculo */
+    object-fit: cover; /* Asegúrate de que la imagen se ajuste dentro del círculo */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para los efectos */
+}
+
+/* Efecto de hover para el logo */
+.logo:hover {
+    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra más intensa al hacer hover */
+}

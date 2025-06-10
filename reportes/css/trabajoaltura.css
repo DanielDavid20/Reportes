@@ -1,0 +1,350 @@
+/* Estilos Generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  margin: 0;
+  padding: 10px;
+}
+
+/* Modificar el header para tener un ancho máximo y estar centrado */
+header {
+  background-color: #185dfddf;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 2000px;
+  margin: 0 auto;
+  width: 95%;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  margin-right: 20px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #1f68de;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Modificar el container para que coincida con el header */
+.container {
+  max-width: 1200px;
+  width: 95%;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.884);
+  padding: 15px;
+}
+
+.container label {
+  font-weight: bold;
+}
+
+.container h1,
+.container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Mejora para tablas responsivas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+
+/* Contenedor con scroll horizontal para tablas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Para mejor desplazamiento en iOS */
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  border: 1px solid #1f68de;
+  padding: 8px;
+  text-align: left;
+  min-width: 100px; /* Ancho mínimo para celdas */
+}
+
+th {
+  background-color: #e6eeff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Estilo para filas alternas */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+/* Estilos para la sección de firmas */
+#reportadoPorTable {
+  margin-top: 20px;
+}
+
+.signatureCanvas {
+  width: 100%;
+  height: 140px;
+  border: 2px solid #1f68de;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+/* Mejora visual para botones de firma */
+#clearSignatureReportedBy {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#clearSignatureReportedBy:hover {
+  background-color: #357abd;
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f2f7ff;
+  border-radius: 4px;
+}
+
+/* Campos de Texto */
+input[type="text"],
+input[type="date"],
+select {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #1f68de;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+[contenteditable="true"] {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #1f68de;
+  border-radius: 4px;
+  box-sizing: border-box;
+  min-height: 50px;
+  overflow-wrap: break-word;
+}
+
+/* Grupo de Radios */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+/* Botones */
+button {
+  display: block;
+  width: 98%;
+  padding: 10px;
+  background-color: #1eb125;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 10px auto;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #3ded22;
+}
+
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilo general para el textarea */
+textarea {
+  width: 95%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  color: #333;
+}
+
+button.clearSignatureButton {
+  font-size: 14px;
+  padding: 5px 10px;
+  border: 1px solid #6afb30;
+  background: #0f9f22;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.clearSignatureButton:hover {
+  background-color: #9ed033;
+}
+
+button.deleteRowButton {
+  background-color: transparent;
+  color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.deleteRowButton:hover {
+  background-color: red;
+  color: white;
+}
+
+#reloadButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #68b8da;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#reloadButton:hover {
+  background-color: #455da0;
+}
+
+.signature-pad {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+canvas {
+  width: 100%;
+  border: 1px solid #1f68de;
+}
+
+/* Ocultar botones al imprimir */
+@media print {
+  button {
+    display: none !important;
+  }
+
+  .hide-column {
+    display: none !important;
+  }
+
+  /* Asegurar que las tablas se impriman correctamente */
+  .table-responsive {
+    overflow-x: visible;
+  }
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.2em;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+
+  /* Indicador visual de scroll horizontal */
+  .table-responsive::after {
+    content: "⟷ ";
+    display: block;
+    text-align: center;
+    padding: 5px;
+    color: #666;
+    font-size: 0.8rem;
+    background-color: #f9f9f9;
+  }
+
+  textarea {
+    height: 100px;
+  }
+}
