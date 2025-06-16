@@ -6,8 +6,77 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Formulario de Mantenimiento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .historial-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .historial-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .historial-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .historial-item button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .historial-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-cargar {
+            background-color: #4CAF50;
+        }
+        .btn-cargar:hover {
+            background-color: #45a049;
+        }
+        .btn-eliminar {
+            background-color: #f44336;
+        }
+        .btn-eliminar:hover {
+            background-color: #da190b;
+        }
+        #guardar-progreso {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #guardar-progreso:hover {
+            background-color: #1976D2;
+        }
+        #recargar-formulario {
+            background-color: #FF9800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #recargar-formulario:hover {
+            background-color: #F57C00;
+        }
+    </style>
 </head>
 <body>
        <header style="display: flex; align-items: center; justify-content: space-between;">
@@ -128,12 +197,19 @@
 
             <img id="logo" src="logo.png" alt="Logo" style="display:none;" />
             
-
-            <button type="submit">Imprimir</button>
-            
+            <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
+                <button type="button" id="guardar-progreso" onclick="guardarProgreso()">Guardar Progreso</button>
+                <button type="button" id="recargar-formulario" onclick="recargarFormulario()">Limpiar Formulario</button>
+                <button type="submit">Imprimir</button>
+            </div>
         </form>
+
+        <div id="historial-container" class="historial-container">
+            <!-- Aquí se mostrará el historial -->
+        </div>
     </div>
     <script src="script/script.js"></script>
+    <script src="script/almacenarmantenimiento.js"></script>
     <script>
         document.getElementById('maintenance-form').addEventListener('submit', function(event) {
             event.preventDefault();
