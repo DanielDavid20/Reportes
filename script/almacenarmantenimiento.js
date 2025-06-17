@@ -1,6 +1,18 @@
 // Función para guardar el estado actual del formulario
 function guardarProgreso() {
+    // Obtener historial existente o crear uno nuevo
+    let historial = JSON.parse(localStorage.getItem('historialMantenimiento') || '[]');
+    
+    // Determinar el número de progreso
+    let numeroProgreso = 1;
+    if (historial.length > 0) {
+        // Encontrar el número más alto de progreso
+        const maxProgreso = Math.max(...historial.map(item => item.numeroProgreso || 0));
+        numeroProgreso = maxProgreso + 1;
+    }
+
     const formData = {
+        numeroProgreso: numeroProgreso, // Añadir el número de progreso al objeto
         estadoEquipo: document.getElementById('estado-equipo').value,
         tipoMantenimiento: document.querySelector('input[name="tipo-mantenimiento"]:checked')?.value,
         cliente: document.getElementById('cliente').value,
@@ -31,13 +43,11 @@ function guardarProgreso() {
         fechaGuardado: new Date().toISOString()
     };
 
-    // Obtener historial existente o crear uno nuevo
-    let historial = JSON.parse(localStorage.getItem('historialMantenimiento') || '[]');
     historial.push(formData);
     localStorage.setItem('historialMantenimiento', JSON.stringify(historial));
     
     alert('Progreso guardado exitosamente');
-    mostrarHistorial(); // Actualizar el historial después de guardar
+    mostrarHistorial();
 }
 
 // Función para cargar un formulario guardado
@@ -117,7 +127,19 @@ function cargarFormulario(index) {
             });
         }
 
-        alert('Formulario cargado exitosamente');
+        // Enfocar el primer campo del formulario
+        const primerCampo = document.getElementById('estado-equipo');
+        if (primerCampo) {
+            primerCampo.focus();
+            primerCampo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Notificación de éxito
+        if (typeof mostrarToast === 'function') {
+            mostrarToast('Formulario cargado exitosamente');
+        } else {
+            alert('Formulario cargado exitosamente');
+        }
     } catch (error) {
         console.error('Error al cargar el formulario:', error);
         alert('Error al cargar el formulario. Por favor, intente nuevamente.');
@@ -152,21 +174,23 @@ function mostrarHistorial() {
 
     let html = '<h2>Formularios en Progreso</h2><div class="historial-lista">';
     
-    // Invertir el orden del array para mostrar del más antiguo al más reciente
-    const historialOrdenado = [...historial].reverse();
+    // Ordenar por fecha
+    const historialOrdenado = [...historial].sort((a, b) => {
+        return new Date(a.fechaGuardado) - new Date(b.fechaGuardado);
+    });
     
-    historialOrdenado.forEach((formData, index) => {
+    historialOrdenado.forEach((formData) => {
         const fecha = new Date(formData.fechaGuardado).toLocaleString();
-        const numeroProgreso = index + 1; // Número incremental empezando desde 1
+        const indiceOriginal = historial.indexOf(formData);
         html += `
             <div class="historial-item">
-                <p><strong>Progreso ${numeroProgreso}</strong></p>
+                <p><strong>Progreso ${formData.numeroProgreso}</strong></p>
                 <p><strong>Cliente:</strong> ${formData.cliente || 'No especificado'}</p>
                 <p><strong>Dirección:</strong> ${formData.direccion || 'No especificada'}</p>
                 <p><strong>Fecha:</strong> ${fecha}</p>
                 <div class="historial-buttons">
-                    <button onclick="cargarFormulario(${historial.length - 1 - index})" class="btn-cargar">Cargar este formulario</button>
-                    <button onclick="eliminarFormulario(${historial.length - 1 - index})" class="btn-eliminar">Eliminar</button>
+                    <button onclick="cargarFormulario(${indiceOriginal})" class="btn-cargar">Cargar este formulario</button>
+                    <button onclick="eliminarFormulario(${indiceOriginal})" class="btn-eliminar">Eliminar</button>
                 </div>
             </div>
         `;
