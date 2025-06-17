@@ -246,7 +246,19 @@ function recargarFormulario() {
             if (textInput) textInput.value = '';
         });
 
-        alert('Formulario recargado exitosamente');
+        // Enfocar el primer campo del formulario
+        const primerCampo = document.getElementById('estado-equipo');
+        if (primerCampo) {
+            primerCampo.focus();
+            primerCampo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Notificación de éxito
+        if (typeof mostrarToast === 'function') {
+            mostrarToast('Formulario recargado exitosamente');
+        } else {
+            alert('Formulario recargado exitosamente');
+        }
     }
 }
 
