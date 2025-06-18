@@ -43,9 +43,11 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <label for="nombre">Nombre de quien realiza el ATS:</label>
-                        <input type="text" id="nombre" name="nombre">
+                        <label for="nombre">código:</label>
+                        <input type="text" id="codigo" name="codigo"">
                     </td>
+                    <td>   <label for="nombre">Nombre de quien realiza el ATS:</label>
+                        <input type="text" id="nombre" name="nombre">
                     <td>
                         <label for="cedula">Cédula:</label>
                         <input type="text" id="cedula" name="cedula">
@@ -228,6 +230,7 @@ function limpiarFirma(canvasId) {
 function validarCamposObligatorios() {
     // Lista de campos obligatorios
     const camposObligatorios = [
+        { id: 'codigo', nombre: 'Código' },
         { id: 'nombre', nombre: 'Nombre de quien realiza el ATS' },
         { id: 'cedula', nombre: 'Cédula' },
         { id: 'cargo', nombre: 'Cargo' },
@@ -284,7 +287,7 @@ document.getElementById('reloadButton').addEventListener('click', function() {
 // Configuración inicial al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     // Agregar asteriscos a campos obligatorios
-    const camposObligatorios = ['nombre', 'cedula', 'cargo', 'lugar', 'descripcion'];
+    const camposObligatorios = ['codigo', 'nombre', 'cedula', 'cargo', 'lugar', 'descripcion'];
     
     camposObligatorios.forEach(id => {
         const label = document.querySelector(`label[for="${id}"]`);

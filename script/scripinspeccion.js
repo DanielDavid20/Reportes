@@ -121,14 +121,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>Gafas claras</td>
                             <td>
                                 <select id="utiliza-gafas-claras" required>
-                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="" disabled selected></option>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="estado-gafas-claras" required>
-                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="" disabled selected></option>
                                     <option value="bueno">Bueno</option>
                                     <option value="malo">Malo</option>
                                 </select>
@@ -138,14 +138,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>Gafas oscuras</td>
                             <td>
                                 <select id="utiliza-gafas-oscuras" required>
-                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="" disabled selected></option>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="estado-gafas-oscuras" required>
-                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="" disabled selected></option>
                                     <option value="bueno">Bueno</option>
                                     <option value="malo">Malo</option>
                                 </select>
@@ -155,14 +155,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>Ropa de dotación</td>
                             <td>
                                 <select id="utiliza-ropa" required>
-                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="" disabled selected></option>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="estado-ropa" required>
-                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="" disabled selected></option>
                                     <option value="bueno">Bueno</option>
                                     <option value="malo">Malo</option>
                                 </select>
@@ -172,14 +172,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>Botas de seguridad</td>
                             <td>
                                 <select id="utiliza-botas" required>
-                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="" disabled selected></option>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="estado-botas" required>
-                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="" disabled selected></option>
                                     <option value="bueno">Bueno</option>
                                     <option value="malo">Malo</option>
                                 </select>
@@ -189,14 +189,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>Guantes de seguridad</td>
                             <td>
                                 <select id="utiliza-guantes" required>
-                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="" disabled selected></option>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="estado-guantes" required>
-                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="" disabled selected></option>
                                     <option value="bueno">Bueno</option>
                                     <option value="malo">Malo</option>
                                 </select>

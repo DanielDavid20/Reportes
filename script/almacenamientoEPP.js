@@ -43,13 +43,19 @@ function guardarProgresoEPP() {
             observaciones: observaciones
         };
     });
-    // Guardar firmas de la tabla final
+    
+    // Guardar datos de la tabla final (REPORTADO POR y ENCARGADO SG-SST)
+    const reportadoPor = document.querySelector('#reportadoPorTable tbody tr td:first-child')?.textContent || '';
+    const encargadoSGST = document.querySelector('#reportadoPorTable tbody tr td:nth-child(3)')?.textContent || '';
     const firmasFinales = Array.from(document.querySelectorAll('#reportadoPorTable .signatureCanvas')).map(canvas => canvas.toDataURL());
+    
     const formData = {
         numeroProgreso: numeroProgreso,
         Lugarinspeccion: document.getElementById('Lugarinspeccion').value,
         fechaServicio: document.getElementById('fecha-servicio').value,
         asistencia: asistencia,
+        reportadoPor: reportadoPor,
+        encargadoSGST: encargadoSGST,
         firmasFinales: firmasFinales,
         fechaGuardado: new Date().toISOString()
     };
@@ -101,31 +107,35 @@ function cargarFormularioEPP(index) {
     try {
         document.getElementById('Lugarinspeccion').value = formData.Lugarinspeccion || '';
         document.getElementById('fecha-servicio').value = formData.fechaServicio || '';
+        
         // Restaurar filas de la tabla principal
         const tbody = document.querySelector('#asistenciaTable tbody');
         if (tbody) {
-            // Limpiar todas las filas excepto la primera
-            while (tbody.rows.length > 1) tbody.deleteRow(1);
-            // Rellenar filas
+            // Limpiar todas las filas existentes
+            tbody.innerHTML = '';
+            
+            // Crear las filas de trabajadores y observaciones
             formData.asistencia.forEach((asist, idx) => {
-                let row;
-                if (idx === 0) {
-                    row = tbody.rows[0];
-                    // Generar subtabla EPP desde cero para la primera fila
-                    row.cells[3].colSpan = 2;
-                    row.cells[3].innerHTML = generarSubtablaEPP();
-                } else {
-                    row = tbody.insertRow();
-                    for (let i = 0; i < 5; i++) row.insertCell();
-                    row.cells[0].setAttribute('contenteditable', 'true');
-                    row.cells[1].innerHTML = '<canvas class="signatureCanvas" width="500" height="140"></canvas>';
-                    row.cells[2].innerHTML = `<button class='clearSignatureButton'>Limpiar Firma</button> <button class='deleteRowButton'>Eliminar fila</button>`;
-                    row.cells[3].colSpan = 2;
-                    row.cells[3].innerHTML = generarSubtablaEPP();
-                }
-                row.cells[0].textContent = asist.nombre || '';
+                // Crear fila del trabajador
+                const workerRow = tbody.insertRow();
+                // Celda 1: Nombre
+                const cellNombre = workerRow.insertCell();
+                cellNombre.setAttribute('contenteditable', 'true');
+                cellNombre.textContent = asist.nombre || '';
+                // Celda 2: Firma
+                const cellFirma = workerRow.insertCell();
+                cellFirma.innerHTML = '<canvas class="signatureCanvas" width="500" height="140"></canvas>';
+                // Celda 3: Botones
+                const cellBotones = workerRow.insertCell();
+                cellBotones.classList.add('hide-column');
+                cellBotones.innerHTML = `<button class="clearSignatureButton">Limpiar Firma</button> <button class="deleteRowButton">Eliminar fila</button>`;
+                // Celda 4: EPP
+                const cellEPP = workerRow.insertCell();
+                cellEPP.colSpan = 2;
+                cellEPP.innerHTML = generarSubtablaEPP();
+                
                 // Restaurar firma
-                const canvas = row.querySelector('.signatureCanvas');
+                const canvas = workerRow.querySelector('.signatureCanvas');
                 if (canvas && asist.firma) {
                     const ctx = canvas.getContext('2d');
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -133,9 +143,10 @@ function cargarFormularioEPP(index) {
                     img.src = asist.firma;
                     img.onload = () => ctx.drawImage(img, 0, 0);
                 }
-                // Restaurar selects de EPP SOLO en la subtabla de la celda de la fila principal
+                
+                // Restaurar selects de EPP
                 if (asist.epp && Array.isArray(asist.epp)) {
-                    const eppTable = row.cells[3].querySelector('table');
+                    const eppTable = cellEPP.querySelector('table');
                     if (eppTable) {
                         const eppRows = eppTable.querySelectorAll('tbody tr');
                         asist.epp.forEach((eppObj, i) => {
@@ -147,14 +158,16 @@ function cargarFormularioEPP(index) {
                         });
                     }
                 }
-                // SIEMPRE crear la fila de observaciones justo después de la fila del trabajador
-                let obsRow = tbody.insertRow(row.rowIndex + 1);
-                obsRow.innerHTML = `<td colspan="3"><textarea style="font-family: Arial, sans-serif;">Observaciones: </textarea></td>`;
-                if (obsRow && obsRow.querySelector('textarea')) {
+                
+                // Crear fila de observaciones después de la fila del trabajador
+                const obsRow = tbody.insertRow();
+                obsRow.innerHTML = `<td colspan="5" style="padding-top:8px; border-top:2px solid #3498db;"><textarea style="font-family: Arial, sans-serif; width:98%; min-height:50px;">Observaciones: </textarea></td>`;
+                if (obsRow.querySelector('textarea')) {
                     obsRow.querySelector('textarea').value = asist.observaciones || '';
                 }
             });
         }
+        
         // Restaurar firmas de la tabla final
         const firmasFinales = formData.firmasFinales || [];
         const canvasFinales = document.querySelectorAll('#reportadoPorTable .signatureCanvas');
@@ -167,6 +180,18 @@ function cargarFormularioEPP(index) {
                 img.onload = () => ctx.drawImage(img, 0, 0);
             }
         });
+        
+        // Restaurar campos de REPORTADO POR y ENCARGADO SG-SST
+        const reportadoPorCell = document.querySelector('#reportadoPorTable tbody tr td:first-child');
+        const encargadoSGSTCell = document.querySelector('#reportadoPorTable tbody tr td:nth-child(3)');
+        
+        if (reportadoPorCell && formData.reportadoPor) {
+            reportadoPorCell.textContent = formData.reportadoPor;
+        }
+        if (encargadoSGSTCell && formData.encargadoSGST) {
+            encargadoSGSTCell.textContent = formData.encargadoSGST;
+        }
+        
         // Enfocar el primer campo
         const primerCampo = document.getElementById('Lugarinspeccion');
         if (primerCampo) {
@@ -175,6 +200,7 @@ function cargarFormularioEPP(index) {
         }
         mostrarToast('Formulario cargado exitosamente');
     } catch (error) {
+        console.error('Error al cargar formulario:', error);
         mostrarToast('Error al cargar el formulario');
     }
 }
@@ -219,6 +245,15 @@ document.getElementById('reloadButton').onclick = function() {
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
+    // Limpiar campos de REPORTADO POR y ENCARGADO SG-SST
+    const reportadoPorCell = document.querySelector('#reportadoPorTable tbody tr td:first-child');
+    const encargadoSGSTCell = document.querySelector('#reportadoPorTable tbody tr td:nth-child(3)');
+    if (reportadoPorCell) {
+        reportadoPorCell.textContent = '';
+    }
+    if (encargadoSGSTCell) {
+        encargadoSGSTCell.textContent = '';
+    }
     // Enfocar el primer campo
     const primerCampo = document.getElementById('Lugarinspeccion');
     if (primerCampo) {
@@ -234,7 +269,7 @@ document.addEventListener('DOMContentLoaded', mostrarHistorialEPP);
 // Generar subtabla EPP igual que el botón +
 function generarSubtablaEPP() {
     return `
-        <table style="border: none; width: 100%;">
+        <table id="asistenciaTable">
             <thead>
                 <tr>
                     <th>EPP Asignado</th>
@@ -247,14 +282,14 @@ function generarSubtablaEPP() {
                     <td>Gafas claras</td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione</option>
+                            <option value="" disabled selected></option>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione un estado</option>
+                             <option value="" disabled selected></option>
                             <option value="bueno">Bueno</option>
                             <option value="malo">Malo</option>
                         </select>
@@ -264,14 +299,14 @@ function generarSubtablaEPP() {
                     <td>Gafas oscuras</td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione</option>
+                             <option value="" disabled selected></option>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione un estado</option>
+                            <option value="" disabled selected></option>
                             <option value="bueno">Bueno</option>
                             <option value="malo">Malo</option>
                         </select>
@@ -281,14 +316,14 @@ function generarSubtablaEPP() {
                     <td>Ropa de dotación</td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione</option>
+                            <option value="" disabled selected></option>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione un estado</option>
+                             <option value="" disabled selected></option>
                             <option value="bueno">Bueno</option>
                             <option value="malo">Malo</option>
                         </select>
@@ -298,14 +333,14 @@ function generarSubtablaEPP() {
                     <td>Botas de seguridad</td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione</option>
+                             <option value="" disabled selected></option>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione un estado</option>
+                             <option value="" disabled selected></option>
                             <option value="bueno">Bueno</option>
                             <option value="malo">Malo</option>
                         </select>
@@ -315,14 +350,14 @@ function generarSubtablaEPP() {
                     <td>Guantes de seguridad</td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione</option>
+                             <option value="" disabled selected></option>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </td>
                     <td>
                         <select required>
-                            <option value="" disabled>Seleccione un estado</option>
+                             <option value="" disabled selected></option>
                             <option value="bueno">Bueno</option>
                             <option value="malo">Malo</option>
                         </select>

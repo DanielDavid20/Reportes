@@ -252,6 +252,19 @@ updateDateTime();
             visibility: visible;
             opacity: 1;
         }
+        @media print {
+          .historial-container,
+          .hide-column,
+          .clearSignatureButton,
+          .deleteRowButton {
+            display: none !important;
+          }
+          td.hide-column {
+            width: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+          }
+        }
     </style>
 <body>
     
@@ -529,7 +542,53 @@ updateDateTime();
     <script src="script/scripinspeccion.js"></script>
     <script src="script/almacenamientoEPP.js"></script>
 
-    
+    <script>
+    let celdasBotonesBackup = [];
+    let thBotonesBackup = null;
+
+    function eliminarCeldasBotones() {
+      // Guardar y eliminar el <th> de botones
+      const th = document.querySelector('#asistenciaTable thead th.hide-column');
+      if (th) {
+        thBotonesBackup = th.cloneNode(true);
+        th.parentNode.removeChild(th);
+      }
+      // Guardar y eliminar cada <td> de botones
+      celdasBotonesBackup = [];
+      document.querySelectorAll('#asistenciaTable tbody tr').forEach(tr => {
+        const td = tr.querySelector('td.hide-column');
+        if (td) {
+          celdasBotonesBackup.push({tr, td, index: Array.from(tr.children).indexOf(td)});
+          tr.removeChild(td);
+        }
+      });
+    }
+
+    function restaurarCeldasBotones() {
+      // Restaurar el <th> de botones
+      if (thBotonesBackup) {
+        const tr = document.querySelector('#asistenciaTable thead tr');
+        if (tr) {
+          tr.insertBefore(thBotonesBackup, tr.children[2]); // Insertar en la posición original
+        }
+        thBotonesBackup = null;
+      }
+      // Restaurar cada <td> de botones
+      celdasBotonesBackup.forEach(({tr, td, index}) => {
+        if (tr && td) {
+          if (tr.children.length >= index) {
+            tr.insertBefore(td, tr.children[index]);
+          } else {
+            tr.appendChild(td);
+          }
+        }
+      });
+      celdasBotonesBackup = [];
+    }
+
+    window.addEventListener('beforeprint', eliminarCeldasBotones);
+    window.addEventListener('afterprint', restaurarCeldasBotones);
+    </script>
 </body>
 </html>
 

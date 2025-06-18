@@ -51,6 +51,7 @@ function initializeFormCanvases() {
 // Función para validar campos obligatorios
 function validarCamposObligatorios() {
   const camposObligatorios = [
+    { id: 'codigo', nombre: 'Código' },
     { id: "fecha-expedicion", nombre: "Fecha de Expedición del Permiso" },
     { id: "fecha-inicial", nombre: "Fecha Inicial de Vigencia" },
     { id: "fecha-final", nombre: "Fecha Final de Vigencia" },
