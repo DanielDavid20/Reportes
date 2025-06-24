@@ -1,0 +1,666 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  /* Header */
+  header {
+    background-color: #185dfddf;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 2000px;
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  
+  .logo {
+    width: 80px; /* Ancho reducido para móviles */
+    height: 80px; /* Alto reducido para móviles */
+    border: 2px solid #1f68de; /* Borde cuadrado */
+    border-radius: 0; /* Sin bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s; /* Transición suave */
+}
+
+.logo:hover {
+    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+}
+  /* Container principal */
+  .container {
+    max-width: 1200px;
+    width: 95%;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.884);
+    padding: 15px;
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+  
+  /* Encabezado del formulario */
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  /* Secciones del formulario */
+  .form-section {
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+  
+  .form-section h3 {
+    color: #333;
+    font-size: 1rem;
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f2f7ff;
+    border-radius: 4px;
+  }
+  
+  /* Filas del formulario */
+  .form-row {
+    margin-bottom: 15px;
+  }
+  
+  .form-row label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Campos de entrada */
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #1f68de;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 12px !important;
+  }
+  
+  textarea {
+    height: 50px;
+    resize: vertical;
+  }
+  
+  /* Grupos de radio y checkbox */
+  .radio-group,
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .radio-group label,
+  .checkbox-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  /* Tablas */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  th, td {
+    border: 1px solid #1f68de;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #e6eeff;
+  }
+  
+  /* Sección de firmas */
+  .signature-section {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .signature-pad {
+    flex: 1;
+  }
+  
+  .signatureCanvas {
+    width: 100%;
+    height: 150px;
+    border: 2px solid #1f68de;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .signer-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Botones */
+  button {
+    padding: 10px;
+    background-color: #1eb125;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #3ded22;
+  }
+  
+  .clearSignatureButton {
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #6afb30;
+    background: #0f9f22;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+  }
+  
+  .clearSignatureButton:hover {
+    background-color: #9ed033;
+  }
+  
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: black;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  /* Lista de normas */
+  .normas-list {
+    padding-left: 20px;
+  }
+  
+  .normas-list li {
+    margin-bottom: 8px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .form-header {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .signature-section {
+      flex-direction: column;
+    }
+    
+    .modal-content {
+      width: 95%;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 4px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin: 0 auto !important;
+      box-sizing: border-box;
+      margin-top: 18px !important;
+    }
+    .modal-content {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 0 !important;
+      left: 0 !important;
+      margin: 30vh auto 0 auto !important;
+      padding: 8px 0 12px 0 !important;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .modal-content h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      padding-left: 12px;
+    }
+    #modalCanvas {
+      width: 96vw !important;
+      max-width: 96vw !important;
+      min-width: 0 !important;
+      height: 180px !important;
+      display: block;
+      margin: 0 auto;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .modal-buttons {
+      flex-direction: column;
+      gap: 6px;
+      width: 96vw;
+      margin: 0 auto;
+    }
+    .tabla-info {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      display: block;
+      width: 100%;
+      max-width: 100vw;
+    }
+    .tabla-info, .tabla-info tbody, .tabla-info tr, .tabla-info td {
+      display: block;
+      width: 100%;
+    }
+    .tabla-info td input[type="text"],
+    .tabla-info td input[type="date"] {
+      width: 100%;
+      min-width: 0;
+      font-size: 1rem;
+      box-sizing: border-box;
+      padding: 6px 4px;
+    }
+    #codigo, #fecha-vigencia {
+      width: 120px;
+      min-width: 80px;
+      font-size: 0.98rem;
+      padding: 6px 2px;
+    }
+    table textarea, .tabla-info textarea {
+      width: 50vw !important;
+      min-width: 0 !important;
+      max-width: 50vw !important;
+      font-size: 1.05rem;
+      box-sizing: border-box;
+      margin: 0 auto 8px auto;
+      display: block;
+    }
+  }
+  
+  @media print {
+    .container {
+      display: contents !important;
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .form-section, .form-row {
+      display: block !important;
+      background: #fff !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+      border: 1px solid #e0e0e0 !important;
+      padding: 15px !important;
+      margin: 10px auto !important;
+    }
+    .table-responsive, .tabla-info, .tabla-info-profesional, .tabla-contenedor {
+      display: contents !important;
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    textarea, input, select {
+      height: auto !important;
+      min-height: 40px !important;
+      overflow: visible !important;
+      resize: none !important;
+      white-space: pre-wrap !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      font-size: 10px !important;
+      padding: 4px 2px !important;
+    }
+    tr, td, th {
+      page-break-inside: avoid !important;
+    }
+    table, th, td {
+      border: 1px solid #888 !important;
+      background: #fff !important;
+    }
+    button {
+      display: none !important;
+    }
+    .table-responsive, table {
+      transform: scale(0.90);
+      transform-origin: top left;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      display: block;
+    }
+  }
+  
+  /* Tabla de información general */
+  .tabla-info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    background: #f7fbff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(24, 93, 253, 0.07);
+  }
+  
+  .tabla-info td, .tabla-info th {
+    border: 1px solid #1f68de;
+    padding: 8px 10px;
+    font-size: 1rem;
+  }
+  
+  .tabla-info td input[type="text"],
+  .tabla-info td input[type="date"],
+  .tabla-info td input[type="time"] {
+    width: 88%;
+    min-width: 70px;
+    font-size: 0.97rem;
+    padding: 6px 4px;
+  }
+  
+  .tabla-info tr {
+    background: #f2f7ff;
+  }
+  
+  .tabla-info tr:nth-child(even) {
+    background: #e6eeff;
+  }
+  
+  @media (max-width: 800px) {
+    .tabla-info td, .tabla-info th {
+      font-size: 0.95rem;
+      padding: 6px 4px;
+    }
+    .tabla-info td input[type="text"],
+    .tabla-info td input[type="date"] {
+      min-width: 70px;
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .tabla-info, .tabla-info tbody, .tabla-info tr, .tabla-info td {
+      display: block;
+      width: 100%;
+    }
+    .tabla-info tr {
+      margin-bottom: 12px;
+      background: #fafdff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(24, 93, 253, 0.05);
+      padding: 6px 0;
+    }
+    .tabla-info td {
+      border: none;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 6px 4px 6px;
+      text-align: left;
+      position: relative;
+      background: #fafdff;
+    }
+    .tabla-info td:last-child {
+      border-bottom: none;
+    }
+    .tabla-info td strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.01rem;
+    }
+    .tabla-info td input,
+    .tabla-info td span {
+      display: block;
+      width: 100%;
+      margin-bottom: 6px;
+    }
+    .tabla-info td input[type="date"],
+    .tabla-info td input[type="time"],
+    .tabla-info td input[type="text"] {
+      width: 96%;
+      min-width: 0;
+      font-size: 0.96rem;
+      padding: 6px 2px;
+      box-sizing: border-box;
+    }
+  }
+
+  /* Entradas compactas para código y fecha de vigencia */
+  #codigo, #fecha-vigencia {
+    width: 150px;
+    min-width: 100px;
+    max-width: 100%;
+    display: inline-block;
+  }
+
+  @media (max-width: 600px) {
+    #codigo, #fecha-vigencia {
+      width: 120px;
+      min-width: 80px;
+      font-size: 0.98rem;
+      padding: 6px 2px;
+    }
+  }
+
+  /* Tabla profesional para información general */
+  .tabla-info-profesional {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(24, 93, 253, 0.10);
+    background: #fafdff;
+    margin-bottom: 22px;
+  }
+
+  .tabla-info-profesional th {
+    background: linear-gradient(90deg, #185dfd 60%, #1eb125 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 14px 8px;
+    letter-spacing: 1px;
+    border: none;
+  }
+
+  .tabla-info-profesional td {
+    background: #fafdff;
+    border: none;
+    border-bottom: 1px solid #e0e7ef;
+    padding: 10px 8px;
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+
+  .tabla-info-profesional tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tabla-info-profesional input[type="text"],
+  .tabla-info-profesional input[type="date"],
+  .tabla-info-profesional input[type="time"] {
+    width: 85%;
+    min-width: 70px;
+    font-size: 0.97rem;
+    padding: 6px 4px;
+    border: 1px solid #1f68de;
+    border-radius: 5px;
+    background: #f4f8ff;
+    transition: border 0.2s;
+  }
+
+  .tabla-info-profesional input:focus {
+    border: 1.5px solid #185dfd;
+    outline: none;
+    background: #eaf2ff;
+  }
+
+  .vigencia-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .tabla-info-profesional th, .tabla-info-profesional td {
+      font-size: 0.97rem;
+      padding: 8px 4px;
+    }
+    .tabla-info-profesional input[type="text"],
+    .tabla-info-profesional input[type="date"],
+    .tabla-info-profesional input[type="time"] {
+      width: 100%;
+      min-width: 0;
+      font-size: 0.96rem;
+      padding: 6px 2px;
+    }
+    .vigencia-flex {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px 0;
+    }
+  }
+
+  .vigencia-vertical span,
+  .vigencia-vertical input[type="date"],
+  .vigencia-vertical input[type="time"] {
+    display: block;
+    width: 88%;
+    min-width: 70px;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 600px) {
+    .vigencia-vertical span,
+    .vigencia-vertical input[type="date"],
+    .vigencia-vertical input[type="time"] {
+      width: 96%;
+      min-width: 0;
+    }
+  }
+
+  .tabla-info .input-vigencia {
+    width: 140px;
+    min-width: 100px;
+    max-width: 100%;
+    font-size: 0.97rem;
+    padding: 6px 4px;
+    box-sizing: border-box;
+    display: inline-block;
+  }
+
+  @media (max-width: 600px) {
+    .tabla-info .input-vigencia {
+      width: 98%;
+      min-width: 0;
+      font-size: 0.96rem;
+      padding: 6px 2px;
+    }
+  }
+
+  /* Tablas de checkboxes sin bordes ni líneas */
+  table.tabla-sin-bordes, table.tabla-sin-bordes td {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  table.tabla-sin-bordes {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+  }
+  table.tabla-sin-bordes td {
+    padding: 4px 8px;
+    vertical-align: top;
+  }
+
+  @media (max-width: 700px) {
+    .tabla-sin-bordes tr,
+    .tabla-sin-bordes td {
+      display: block;
+      width: 100% !important;
+      text-align: left !important;
+    }
+    .tabla-sin-bordes td {
+      margin-bottom: 8px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tabla-sin-bordes label {
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+  }

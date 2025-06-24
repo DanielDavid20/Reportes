@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permiso para Trabajos en Altura - <span id="datetime"></span></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/permisotrabajo.css">
+</head>
+<body>
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer; print-color-adjust: exact; -webkit-print-color-adjust: exact;">
+    <script>
+        (function() {
+            var style = document.createElement('style');
+            style.textContent = '@media print { #button2 { display: none !important; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+    <i class="fas fa-home"></i> Volver a Inicio
+</div>
+            <h1 id="title"> PERMISO PARA TRABAJO EN ALTURA</h1>
+        </div>
+        <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+    </header>
+    <div class="container">
+           
+        <div class="form-header">
+            <div class="version-info">
+                <table class="tabla-info">
+                    <tr>
+                        <td><strong>Versión:</strong></td>
+                        <td>1</td>
+                        <td><strong>Código:</strong></td>
+                        <td><input type="text" id="codigo"></td>
+                        <td><strong>N° Permiso:</strong></td>
+                        <td>PTA-031</td>
+                        <td><strong>Fecha de vigencia:</strong></td>
+                        <td><input type="date" id="fecha-vigencia" value="2022-10-06"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    
+        <div class="form-section">
+       
+            <table class="tabla-info">
+                <tr>
+                    <td><strong>Fecha de Expedición del Permiso:</strong></td>
+                    <td><input type="date" id="fecha-expedicion-date"></td>
+                </tr>
+                <tr>
+                    <td rowspan="4"><strong>Vigencia del Permiso:</strong></td>
+                    <td>
+                        <label for="fecha-inicio">Fecha (I):</label>
+                        <input type="date" id="fecha-inicio" class="input-vigencia">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="hora-inicio">Hora (I):</label>
+                        <input type="time" id="hora-inicio" class="input-vigencia">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="fecha-fin">Fecha (F):</label>
+                        <input type="date" id="fecha-fin" class="input-vigencia">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="hora-fin">Hora (F):</label>
+                        <input type="time" id="hora-fin" class="input-vigencia">
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Empresa Ejecutora:</strong></td>
+                    <td><input type="text" id="empresa" value="MULTISERVICIOS V Y V SAS"></td>
+                </tr>
+                <tr>
+                    <td><strong>Proceso:</strong></td>
+                    <td><input type="text" id="proceso"></td>
+                </tr>
+                <tr>
+                    <td><strong>Ubicación:</strong></td>
+                    <td><input type="text" id="ubicacion"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="form-section">
+            <h3>NORMAS GENERALES PARA TRABAJO SEGURO EN ALTURAS</h3>
+            <ul class="normas-list">
+                <li>Identifique los riesgos frente a los cuales está expuesto para desarrollar la actividad.</li>
+                <li>Verifique el estado de elementos o sistemas para trabajo en alturas (arnés, eslinga, línea de vida, entre otros) a utilizar.</li>
+                <li>Verifique el estado de los equipos a utilizar.</li>
+                <li>Demarque y/o señalice el área de trabajo para prevenir la caída de objetos sobre transeúntes.</li>
+                <li>Verifique que el punto al cual se sujete, se encuentre en buen estado.</li>
+                <li>Si utiliza andamios fijos, verifique que se encuentren asegurados tramo a tramo y al suelo.</li>
+                <li>Si utiliza andamios colgantes, verifique que la sujeción del andamio sea apropiada al peso a soportar.</li>
+            </ul>
+        </div>
+
+        <div class="form-section">
+            <h3>A. DESCRIPCIÓN DEL TRABAJO (DETALLE)</h3>
+            <div class="form-row">
+                <textarea id="descripcion-trabajo" rows="4"></textarea>
+            </div>
+            <div class="form-row">
+                <label>Tipo de trabajo:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="tipo-trabajo" value="linea-media-tension"> Trabajos de línea de media tensión</label>
+                    <label><input type="radio" name="tipo-trabajo" value="otro"> Otro. ¿Cuál?: <input type="text" id="otro-trabajo" placeholder="Mantenimiento preventivo y correctivo de aviso luminoso"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>B. ALTURA APROXIMADA A LA CUAL SE VA A DESARROLLAR LA ACTIVIDAD</h3>
+            <div class="form-row">
+                <input type="text" id="altura" value="3 metros">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>C. VERIFICACIÓN DE AFILIACIÓN VIGENTE A LA SEGURIDAD SOCIAL</h3>
+            <div class="form-row">
+                <label>ARL:</label>
+                <input type="text" id="arl" value="ARL Sura">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>D. IDENTIFICACIÓN DE RIESGOS</h3>
+            <div class="form-row">
+                <table class="tabla-sin-bordes">
+                    <tr>
+                        <td><label><input type="checkbox" name="riesgos" value="caidas"> Caídas a distinto nivel</label></td>
+                        <td><label><input type="checkbox" name="riesgos" value="insectos"> Presencia de insectos (zancudos, avispas, etc.)</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="riesgos" value="lineas-energizadas"> Contacto con líneas energizadas</label></td>
+                        <td><label><input type="checkbox" name="riesgos" value="otro"> Otro. ¿Cuál?: <input type="text" id="otro-riesgo"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="riesgos" value="descargas"> Descargas atmosféricas (rayos, relámpagos, etc.)</label></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>E. MEDIDAS DE PREVENCIÓN</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medida</th>
+                            <th>SI</th>
+                            <th>NO</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Existe demarcación del área</td>
+                            <td><input type="radio" name="demarcacion" value="si"></td>
+                            <td><input type="radio" name="demarcacion" value="no"></td>
+                            <td><input type="radio" name="demarcacion" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Usa cinturón portaherramientas</td>
+                            <td><input type="radio" name="portaherramientas" value="si"></td>
+                            <td><input type="radio" name="portaherramientas" value="no"></td>
+                            <td><input type="radio" name="portaherramientas" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Revisó la superficie de apoyo de escaleras/andamios</td>
+                            <td><input type="radio" name="superficie-apoyo" value="si"></td>
+                            <td><input type="radio" name="superficie-apoyo" value="no"></td>
+                            <td><input type="radio" name="superficie-apoyo" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Revisó la existencia de líneas de energía viva</td>
+                            <td><input type="radio" name="lineas-energia" value="si"></td>
+                            <td><input type="radio" name="lineas-energia" value="no"></td>
+                            <td><input type="radio" name="lineas-energia" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se debe instalar línea de vida</td>
+                            <td><input type="radio" name="linea-vida" value="si"></td>
+                            <td><input type="radio" name="linea-vida" value="no"></td>
+                            <td><input type="radio" name="linea-vida" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se debe realizar la tarea acompañado</td>
+                            <td><input type="radio" name="tarea-acompanada" value="si"></td>
+                            <td><input type="radio" name="tarea-acompanada" value="no"></td>
+                            <td><input type="radio" name="tarea-acompanada" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se informó a los trabajadores los riesgos asociados a la tarea</td>
+                            <td><input type="radio" name="informacion-riesgos" value="si"></td>
+                            <td><input type="radio" name="informacion-riesgos" value="no"></td>
+                            <td><input type="radio" name="informacion-riesgos" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se despojó de cadenas, anillos o cualquier otro elemento que pueda engancharse</td>
+                            <td><input type="radio" name="elementos-enganche" value="si"></td>
+                            <td><input type="radio" name="elementos-enganche" value="no"></td>
+                            <td><input type="radio" name="elementos-enganche" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Ha sido acordonado el sitio de trabajo</td>
+                            <td><input type="radio" name="acordonado" value="si"></td>
+                            <td><input type="radio" name="acordonado" value="no"></td>
+                            <td><input type="radio" name="acordonado" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Se revisó el estado de los equipos que se utilizarán en el trabajo</td>
+                            <td><input type="radio" name="revision-equipos" value="si"></td>
+                            <td><input type="radio" name="revision-equipos" value="no"></td>
+                            <td><input type="radio" name="revision-equipos" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td>Conoce las Normas Generales de Seguridad para trabajo en alturas</td>
+                            <td><input type="radio" name="conoce-normas" value="si"></td>
+                            <td><input type="radio" name="conoce-normas" value="no"></td>
+                            <td><input type="radio" name="conoce-normas" value="na"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Otra medida. ¿Cuál?: <input type="text" id="otra-medida"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>F. ELEMENTOS DE PROTECCIÓN PERSONAL</h3>
+            <div class="form-row">
+                <table class="tabla-sin-bordes">
+                    <tr>
+                        <td><label><input type="checkbox" name="epp" value="cascos"> Cascos de seguridad</label></td>
+                        <td><label><input type="checkbox" name="epp" value="guantes"> Guantes de seguridad</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="epp" value="botas"> Botas de seguridad</label></td>
+                        <td><label><input type="checkbox" name="epp" value="arnes"> Arnés</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="epp" value="gafas"> Gafas de seguridad</label></td>
+                        <td><label><input type="checkbox" name="epp" value="eslingas"> Eslingas</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="epp" value="respiratoria"> Protección Respiratoria</label></td>
+                        <td><label><input type="checkbox" name="epp" value="auditiva"> Protección auditiva</label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label>Otros. ¿Cuáles?: <input type="text" id="otros-epp"></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>G. INSPECCIÓN DE ELEMENTOS DE PROTECCIÓN PERSONAL Y SISTEMAS DE PREVENCIÓN CONTRA CAÍDAS</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento / Sistemas</th>
+                            <th>Componentes</th>
+                            <th>Operario</th>
+                            <th colspan="2">Estado</th>
+                            <th>Operario</th>
+                            <th colspan="2">Estado</th>
+                            <th>Operario</th>
+                            <th colspan="2">Estado</th>
+                            <th>Operario</th>
+                            <th colspan="2">Estado</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>F</th>
+                            <th>NF</th>
+                            <th></th>
+                            <th>F</th>
+                            <th>NF</th>
+                            <th></th>
+                            <th>F</th>
+                            <th>NF</th>
+                            <th></th>
+                            <th>F</th>
+                            <th>NF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">Arnés</td>
+                            <td>Cintas/correas</td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="cintas-f"></td>
+                            <td><input type="radio" name="cintas-nf"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="cintas-f2"></td>
+                            <td><input type="radio" name="cintas-nf2"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="cintas-f3"></td>
+                            <td><input type="radio" name="cintas-nf3"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="cintas-f4"></td>
+                            <td><input type="radio" name="cintas-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Costuras</td>
+                            <td><input type="radio" name="costuras-f"></td>
+                            <td><input type="radio" name="costuras-nf"></td>
+                            <td><input type="radio" name="costuras-f2"></td>
+                            <td><input type="radio" name="costuras-nf2"></td>
+                            <td><input type="radio" name="costuras-f3"></td>
+                            <td><input type="radio" name="costuras-nf3"></td>
+                            <td><input type="radio" name="costuras-f4"></td>
+                            <td><input type="radio" name="costuras-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Partes Metálicas</td>
+                            <td><input type="radio" name="metal-f"></td>
+                            <td><input type="radio" name="metal-nf"></td>
+                            <td><input type="radio" name="metal-f2"></td>
+                            <td><input type="radio" name="metal-nf2"></td>
+                            <td><input type="radio" name="metal-f3"></td>
+                            <td><input type="radio" name="metal-nf3"></td>
+                            <td><input type="radio" name="metal-f4"></td>
+                            <td><input type="radio" name="metal-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">Eslinga</td>
+                            <td>Absorbedor</td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="absorbedor-f"></td>
+                            <td><input type="radio" name="absorbedor-nf"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="absorbedor-f2"></td>
+                            <td><input type="radio" name="absorbedor-nf2"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="absorbedor-f3"></td>
+                            <td><input type="radio" name="absorbedor-nf3"></td>
+                            <td rowspan="3"><textarea></textarea></td>
+                            <td><input type="radio" name="absorbedor-f4"></td>
+                            <td><input type="radio" name="absorbedor-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Reata, cuerda</td>
+                            <td><input type="radio" name="reata-f"></td>
+                            <td><input type="radio" name="reata-nf"></td>
+                            <td><input type="radio" name="reata-f2"></td>
+                            <td><input type="radio" name="reata-nf2"></td>
+                            <td><input type="radio" name="reata-f3"></td>
+                            <td><input type="radio" name="reata-nf3"></td>
+                            <td><input type="radio" name="reata-f4"></td>
+                            <td><input type="radio" name="reata-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Partes Metálicas</td>
+                            <td><input type="radio" name="metal2-f"></td>
+                            <td><input type="radio" name="metal2-nf"></td>
+                            <td><input type="radio" name="metal2-f2"></td>
+                            <td><input type="radio" name="metal2-nf2"></td>
+                            <td><input type="radio" name="metal2-f3"></td>
+                            <td><input type="radio" name="metal2-nf3"></td>
+                            <td><input type="radio" name="metal2-f4"></td>
+                            <td><input type="radio" name="metal2-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">Línea de Vida</td>
+                            <td>Reata, cuerda</td>
+                            <td rowspan="2"><textarea></textarea></td>
+                            <td><input type="radio" name="reata2-f"></td>
+                            <td><input type="radio" name="reata2-nf"></td>
+                            <td rowspan="2"><textarea></textarea></td>
+                            <td><input type="radio" name="reata2-f2"></td>
+                            <td><input type="radio" name="reata2-nf2"></td>
+                            <td rowspan="2"><textarea></textarea></td>
+                            <td><input type="radio" name="reata2-f3"></td>
+                            <td><input type="radio" name="reata2-nf3"></td>
+                            <td rowspan="2"><textarea></textarea></td>
+                            <td><input type="radio" name="reata2-f4"></td>
+                            <td><input type="radio" name="reata2-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Partes Metálicas</td>
+                            <td><input type="radio" name="metal3-f"></td>
+                            <td><input type="radio" name="metal3-nf"></td>
+                            <td><input type="radio" name="metal3-f2"></td>
+                            <td><input type="radio" name="metal3-nf2"></td>
+                            <td><input type="radio" name="metal3-f3"></td>
+                            <td><input type="radio" name="metal3-nf3"></td>
+                            <td><input type="radio" name="metal3-f4"></td>
+                            <td><input type="radio" name="metal3-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Escaleras</td>
+                            <td>Estado General</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="escaleras-f"></td>
+                            <td><input type="radio" name="escaleras-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="escaleras-f2"></td>
+                            <td><input type="radio" name="escaleras-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="escaleras-f3"></td>
+                            <td><input type="radio" name="escaleras-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="escaleras-f4"></td>
+                            <td><input type="radio" name="escaleras-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Dura - Hoist DH/1</td>
+                            <td>Estado General</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="hoist-f"></td>
+                            <td><input type="radio" name="hoist-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="hoist-f2"></td>
+                            <td><input type="radio" name="hoist-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="hoist-f3"></td>
+                            <td><input type="radio" name="hoist-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="hoist-f4"></td>
+                            <td><input type="radio" name="hoist-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Unídipode</td>
+                            <td>Estado General</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="unidipode-f"></td>
+                            <td><input type="radio" name="unidipode-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="unidipode-f2"></td>
+                            <td><input type="radio" name="unidipode-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="unidipode-f3"></td>
+                            <td><input type="radio" name="unidipode-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="unidipode-f4"></td>
+                            <td><input type="radio" name="unidipode-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td>Tripode</td>
+                            <td>Estado General</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="tripode-f"></td>
+                            <td><input type="radio" name="tripode-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="tripode-f2"></td>
+                            <td><input type="radio" name="tripode-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="tripode-f3"></td>
+                            <td><input type="radio" name="tripode-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="tripode-f4"></td>
+                            <td><input type="radio" name="tripode-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Verificación de los Puntos de Anclaje por cada Trabajador</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="anclaje-f"></td>
+                            <td><input type="radio" name="anclaje-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="anclaje-f2"></td>
+                            <td><input type="radio" name="anclaje-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="anclaje-f3"></td>
+                            <td><input type="radio" name="anclaje-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="anclaje-f4"></td>
+                            <td><input type="radio" name="anclaje-nf4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Observaciones</td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="obs-f"></td>
+                            <td><input type="radio" name="obs-nf"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="obs-f2"></td>
+                            <td><input type="radio" name="obs-nf2"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="obs-f3"></td>
+                            <td><input type="radio" name="obs-nf3"></td>
+                            <td><textarea></textarea></td>
+                            <td><input type="radio" name="obs-f4"></td>
+                            <td><input type="radio" name="obs-nf4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>F: Funcional; NF: No Funcional</p>
+            </div>
+          
+        </div>
+
+   
+        <div class="container">
+            <div class="form-header">
+                <div class="version-info">
+                    <table class="tabla-info" style="width:100%; margin-bottom: 12px;">
+                        <tr>
+                            <th colspan="7" style="text-align:center; font-size:1.15rem; letter-spacing:1px; background: linear-gradient(90deg, #185dfd 60%, #1eb125 100%); color: #fff;">PERMISO PARA TRABAJOS EN ALTURA</th>
+                            <th style="width:120px; text-align:center; background: linear-gradient(90deg, #185dfd 60%, #1eb125 100%);">
+                                <img src="logo.png" alt="Logo" style="height:60px; max-width:110px; display:inline-block; vertical-align:middle;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <td><strong>Versión:</strong></td>
+                            <td>1</td>
+                            <td><strong>Código:</strong></td>
+                            <td><input type="text" id="codigo"></td>
+                           
+                            <td><strong>Fecha de vigencia:</strong></td>
+                            <td><input type="date" id="fecha-vigencia" value="2022-10-06"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        <div class="form-section">
+            <h3>H. SISTEMA DE PREVENCIÓN CONTRA CAÍDAS</h3>
+            <div class="form-row">
+                <table class="tabla-sin-bordes">
+                    <tr>
+                        <td><label><input type="checkbox" name="sistema-prevencion" value="linea-vida"> Línea de vida</label></td>
+                        <td><label><input type="checkbox" name="sistema-prevencion" value="eslingas"> Eslingas</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="sistema-prevencion" value="arnes"> Arnés</label></td>
+                        <td><label><input type="checkbox" name="sistema-prevencion" value="otro"> Otros. ¿Cuáles?: <input type="text" id="otros-sistemas"></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>I. EQUIPOS, SISTEMA DE ACCESO PARA TRABAJO EN ALTURA</h3>
+            <div class="form-row">
+                <table class="tabla-sin-bordes">
+                    <tr>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="andamios"> Andamios</label></td>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="unidipode"> Unidípode</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="escalera"> Escalera Portátil</label></td>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="dura-hoist"> Dura-Hoist DH-ZP/ Miller</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="dura-hoist2"> Dura - Hoist DH/1</label></td>
+                        <td><label><input type="checkbox" name="equipos-acceso" value="otro"> Otros. ¿Cuáles?: <input type="text" id="otros-equipos"></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>J. HERRAMIENTAS A UTILIZAR</h3>
+            <div class="form-row">
+                <table class="tabla-sin-bordes">
+                    <tr>
+                        <td><label><input type="checkbox" name="herramientas" value="llave-mixta"> Llave mixta</label></td>
+                        <td><label><input type="checkbox" name="herramientas" value="llave-expansion"> Llave de Expansión</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="herramientas" value="alicate"> Alicate</label></td>
+                        <td><label><input type="checkbox" name="herramientas" value="vigilante"> Vigilante de Tensión</label></td>
+                    </tr>
+                    <tr>
+                        <td><label><input type="checkbox" name="herramientas" value="pertiga"> Pertiga</label></td>
+                        <td><label><input type="checkbox" name="herramientas" value="otro"> Otros. ¿Cuáles?: <input type="text" id="otras-herramientas"></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>K. EJECUTOR</h3>
+            <div class="form-row">
+                <p>Acepto este permiso, acepto las obligaciones de las condiciones arriba mencionadas asociadas a este procedimiento. Conozco y entiendo los procedimientos, los riesgos y las medidas de prevención definidas para hacer el trabajo de manera segura y no estoy bajo efectos de alcohol o drogas que afecten mi habilidad para hacer el trabajo.</p>
+            </div>
+            <div class="table-responsive">
+                <table id="tabla-ejecutores">
+                    <thead>
+                        <tr>
+                            <th>Nombres y Apellidos</th>
+                            <th>No. de Cédula</th>
+                            <th>Firma</th>
+                            <th colspan="2">Apto para TSA</th>
+                            <th colspan="2">Certificado en TSA</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>SI</th>
+                            <th>NO</th>
+                            <th>SI</th>
+                            <th>NO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 6 filas -->
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-0" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-0" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-0" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-0" value="no"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-1" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-1" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-1" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-1" value="no"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-2" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-2" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-2" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-2" value="no"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-3" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-3" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-3" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-3" value="no"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-4" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-4" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-4" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-4" value="no"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="ejecutor-nombre"></textarea></td>
+                            <td><textarea class="ejecutor-cedula"></textarea></td>
+                            <td>
+                                <canvas class="signatureCanvas ejecutor-firma" width="220" height="70" style="border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9; width:220px; height:70px;"></canvas>
+                                <button type="button" class="clearSignatureButton">Limpiar</button>
+                            </td>
+                            <td><input type="radio" name="apto-tsa-5" value="si"></td>
+                            <td><input type="radio" name="apto-tsa-5" value="no"></td>
+                            <td><input type="radio" name="certificado-tsa-5" value="si"></td>
+                            <td><input type="radio" name="certificado-tsa-5" value="no"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>L. EMISOR RESPONSABLE</h3>
+            <div class="form-row">
+                <table id="tabla-emisor-firma">
+                    <tr>
+                        <td colspan="2">He verificado que las medidas de prevención se están aplicando y que los ejecutores cuentan con los elementos de protección personal necesarios para hacer el trabajo.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Nombre:</label></td>
+                        <td><input type="text" id="nombre-emisor"></td>
+                    </tr>
+                    <tr>
+                        <td><label>No. de Cédula:</label></td>
+                        <td><input type="text" id="cedula-emisor"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Firma:</label></td>
+                        <td>
+                            <canvas class="signatureCanvas" width="300" height="150"></canvas>
+                            <button class="clearSignatureButton">Limpiar Firma</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>M. OBSERVACIONES</h3>
+            <div class="form-row">
+                <textarea id="observaciones-finales" rows="4"></textarea>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>N. ESTADO FINAL DEL TRABAJO</h3>
+            <table class="tabla-sin-bordes" style="width:100%; margin-bottom: 12px;">
+                <tr>
+                    <td style="width:45%; text-align:right; vertical-align:middle; font-weight:normal;">Todo trabajo asociado a este permiso de trabajo ha sido:</td>
+                    <td style="width:55%; text-align:left; vertical-align:middle;">
+                        <label style="margin-right:18px;"><input type="radio" name="estado-final" value="completado"> Completado</label>
+                        <label style="margin-right:18px;"><input type="radio" name="estado-final" value="cancelado"> Cancelado</label>
+                        <label><input type="radio" name="estado-final" value="suspendido"> Suspendido</label>
+                    </td>
+                </tr>
+            </table>
+            <div class="form-row">
+                <p>Certifico que el área de trabajo y áreas aledañas han sido inspeccionadas después de finalizado el trabajo y todos los equipos asegurados</p>
+            </div>
+            <div class="signature-section">
+                <div class="signer-info">
+                    <label>Ejecutor (nombre):</label>
+                    <input type="text" id="nombre-firma-ejecutor">
+                    <label>firma:</label>
+                    <canvas id="firma-ejecutor-final" class="signatureCanvas" width="220" height="60" style="display:block; margin-top:6px; border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9;"></canvas>
+                    <button type="button" class="clearSignatureButton" onclick="limpiarFirma('firma-ejecutor-final')">Limpiar Firma</button>
+                </div>
+                <div class="signer-info">
+                    <label>Emisor Responsable (nombre):</label>
+                    <input type="text" id="nombre-firma-emisor">
+                    <label>firma:</label>
+                    <canvas id="firma-emisor-final" class="signatureCanvas" width="220" height="60" style="display:block; margin-top:6px; border:1.5px solid #1f68de; border-radius:4px; background:#f9f9f9;"></canvas>
+                    <button type="button" class="clearSignatureButton" onclick="limpiarFirma('firma-emisor-final')">Limpiar Firma</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <p>Nota: Basta con el nombre y firma de un solo ejecutor para dar fe que la actividad ha culminado.</p>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button id="guardar-permiso">Guardar Permiso</button>
+            <button onclick="window.print()" class="btn-imprimir">Imprimir</button>
+        </div>
+    </div>
+
+    <!-- Modal para firmas -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Firme en el área de abajo</h2>
+            <canvas id="modalCanvas"></canvas>
+            <div class="modal-buttons">
+                <button id="saveSignature">Guardar Firma</button>
+                <button id="clearModalSignature">Limpiar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script/scrippermisotrabajo.js"></script>
+
+    <script>
+        // Script para actualizar fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+            
+            const date = now.toLocaleDateString();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+            const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+            const datetimeString = `${date} ${formattedTime}`;
+            
+            const dateElement = document.getElementById('datetime');
+            document.title = `Permiso para Trabajos en Altura - ${datetimeString}`;
+            if (dateElement) {
+                dateElement.textContent = datetimeString;
+            }
+        }
+        
+        setInterval(updateDateTime, 1000);
+        updateDateTime();</script>
+</body>
+</html>
