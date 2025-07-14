@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
     <link rel="stylesheet" href="css/permisotrabajo.css">
+    <style>
+    .campo-obligatorio {
+        border: 2px solid red !important;
+        background: #ffeaea;
+    }
+    </style>
 </head>
 <body>
     <header style="display: flex; align-items: center; justify-content: space-between;">
@@ -763,8 +769,8 @@
         </div>
 
         <div class="form-actions">
-            <button id="guardar-permiso">Guardar Permiso</button>
-            <button onclick="window.print()" class="btn-imprimir">Imprimir</button>
+            
+            <button onclick="validarCamposAntesDeImprimir()" class="btn-imprimir">Imprimir</button>
         </div>
     </div>
 
@@ -1043,5 +1049,70 @@
             }
         }
     </style>
+    <script>
+        function validarCamposAntesDeImprimir() {
+            var campos = [
+                'fecha-expedicion-date',
+                'fecha-inicio',
+                'hora-inicio',
+                'fecha-fin',
+                'hora-fin',
+                'empresa',
+                'proceso',
+                'ubicacion'
+            ];
+            var nombres = [
+                'Fecha de Expedición',
+                'Fecha de Inicio',
+                'Hora de Inicio',
+                'Fecha de Fin',
+                'Hora de Fin',
+                'Empresa Ejecutora',
+                'Proceso',
+                'Ubicación'
+            ];
+            var faltantes = [];
+            for (var i = 0; i < campos.length; i++) {
+                var campo = document.getElementById(campos[i]);
+                if (!campo || campo.value.trim() === '') {
+                    faltantes.push(nombres[i]);
+                    if (campo) campo.classList.add('campo-obligatorio');
+                } else {
+                    campo.classList.remove('campo-obligatorio');
+                }
+            }
+            if (faltantes.length > 0) {
+                alert('Por favor complete los siguientes campos obligatorios antes de imprimir:\n\n' + faltantes.join('\n'));
+                // Enfoca el primer campo faltante
+                var primerCampo = document.getElementById(campos[campos.findIndex((c, idx) => faltantes.includes(nombres[idx]))]);
+                if (primerCampo) primerCampo.focus();
+                return false;
+            }
+            window.print();
+        }
+        // Quitar el rojo al escribir
+        window.addEventListener('DOMContentLoaded', function() {
+            var campos = [
+                'fecha-expedicion-date',
+                'fecha-inicio',
+                'hora-inicio',
+                'fecha-fin',
+                'hora-fin',
+                'empresa',
+                'proceso',
+                'ubicacion'
+            ];
+            campos.forEach(function(id) {
+                var campo = document.getElementById(id);
+                if (campo) {
+                    campo.addEventListener('input', function() {
+                        if (campo.value.trim() !== '') {
+                            campo.classList.remove('campo-obligatorio');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
