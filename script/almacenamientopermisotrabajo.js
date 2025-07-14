@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })();
         // Enfocar el primer campo
-        const primerCampo = document.getElementById('codigo');
+        const primerCampo = document.getElementById('codigo2');
         if (primerCampo) {
             primerCampo.focus();
             primerCampo.scrollIntoView({ behavior: 'smooth', block: 'center' });
