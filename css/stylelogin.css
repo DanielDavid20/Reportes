@@ -14,26 +14,46 @@ body {
 }
 
 .container {
-    background: #ffffff;
-    width: 90%; 
-    max-width: 400px; /* Tamaño más reducido para mejor ajuste en móviles */
-    padding: 1.5rem;
-    margin: 20px auto; /* Espaciado en la parte superior e inferior */
-    border-radius: 12px; /* Bordes más redondeados */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra más sutil */
+    background: #e0e5ec;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
+    width: 350px;
+    max-width: 98vw;
+}
+
+@media (min-width: 481px) and (max-width: 900px) {
+  .container {
+    width: 700px;
+    padding: 44px 40px;
+  }
+}
+
+@media (min-width: 901px) {
+  .container {
+    width: 900px;
+    padding: 56px 56px;
+  }
 }
 
 form {
     margin: 0 1rem; /* Ajustar márgenes en dispositivos móviles */
 }
 
+/* Mejora de placeholder y título principal */
+input::placeholder {
+  color: #007bff;
+  opacity: 1;
+  font-weight: 500;
+}
+
 .form-title {
-    font-size: 1.8rem; /* Aumento del tamaño del título */
-    font-weight: bold;
-    text-align: center;
-    padding: 1.3rem;
-    color: #007bff; /* Color azul para el título */
-    margin-bottom: 1rem; /* Separa un poco más del contenido */
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
 }
 
 input {
@@ -63,23 +83,11 @@ input:focus {
     border-bottom: 2px solid #0056b3; /* Sombra más clara al enfocarse */
 }
 
-input::placeholder {
-    color: transparent; /* Placeholder invisible para un efecto limpio */
-}
-
-label {
-    color:#185dfdab; /* Color azul para la etiqueta */
-    position: relative;
-    left: 1.2em;
-    top: -1.3em;
-    cursor: text;
-    transition: 0.3s ease all;
-}
-
+/* Elimina reglas de label flotante si existen */
+.input-group label,
 input:focus ~ label,
 input:not(:placeholder-shown) ~ label {
-    top: -2.4em; /* Ajuste en la posición */
-    font-size: 14px; /* Tamaño de fuente más pequeño al enfocar */
+  display: none !important;
 }
 
 .recover {
@@ -225,3 +233,102 @@ button:hover {
     transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra más intensa al hacer hover */
 }
+
+/* --- ESTILOS NEUMÓRFICOS AGREGADOS --- */
+body.neumorph {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #e0e5ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container.neumorph {
+  background: #e0e5ec;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
+  width: 300px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.tabs button.active {
+  background: #d1d9e6;
+  box-shadow: inset 2px 2px 5px #bec4cb, inset -2px -2px 5px #f0f5fa;
+}
+
+.form.neumorph {
+  display: none;
+  flex-direction: column;
+}
+
+.form.neumorph.active {
+  display: flex;
+}
+
+input.neumorph {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #e0e5ec;
+  box-shadow: inset 4px 4px 6px #c8ccd1, inset -4px -4px 6px #f0f5fa;
+}
+
+.btn.neumorph {
+  margin-top: 10px;
+  padding: 12px;
+  background: #e0e5ec;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 6px 6px 10px #c2c8d0, -6px -6px 10px #ffffff;
+  transition: 0.3s;
+}
+
+.btn.neumorph:hover {
+  background: #d6dce4;
+}
+
+.or.neumorph {
+  text-align: center;
+  margin: 15px 0 10px;
+  font-size: 0.85em;
+  color: #666;
+}
+
+.socials {
+  display: flex;
+  justify-content: space-around;
+}
+
+.social {
+  width: 40px;
+  height:40px;
+  border-radius: 50%;
+  border: none;
+  background: #e0e5ec;
+  box-shadow: 6px 6px 10px #c2c8d0, -6px -6px 10px #ffffff;
+  font-size: 1.2em;
+  cursor: pointer;
+}/* --- FIN ESTILOS NEUMÓRFICOS AGREGADOS --- */
