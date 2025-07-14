@@ -234,20 +234,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 2. Ajustar el tamaño del canvas del modal al abrir
     function ajustarCanvasModal() {
-        let width = 540;
-        let height = 220;
-        // Si es móvil, usar casi todo el ancho disponible
-        if (window.innerWidth < 600) {
-            width = Math.min(window.innerWidth * 0.98, 540);
-            height = 200;
-        }
-        if (modalContent && modalCanvas) {
+        const modalContent = document.querySelector('.modal-content');
+        let width = Math.min(window.innerWidth * 0.95, 600); // Máximo 600px, 95% del ancho de pantalla
+        let height = 220; // Altura cómoda por defecto
+
+        if (modalContent) {
+            // Si la modal es más pequeña, usar su ancho
+            width = Math.min(modalContent.offsetWidth - 32, width); // 32px de margen
+            if (window.innerWidth < 600) {
+                width = Math.min(window.innerWidth * 0.98, 400);
+                height = 180;
+            }
             modalContent.style.maxWidth = width + 'px';
             modalContent.style.width = width + 'px';
-            if (window.innerWidth < 600) {
-                modalContent.style.width = '98vw';
-                modalContent.style.maxWidth = '98vw';
-            }
             modalCanvas.width = width;
             modalCanvas.height = height;
             modalCanvas.style.width = width + 'px';
