@@ -56,6 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cerrar modal
     document.querySelector('.close').onclick = function() {
         modal.style.display = "none";
+        // Limpiar el canvas del modal al cerrar con la X
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+        ctx.fillStyle = "#f9f9f9";
+        ctx.fillRect(0, 0, modalCanvas.width, modalCanvas.height);
     };
 
     window.onclick = function(event) {
@@ -63,6 +68,22 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = "none";
         }
     };
+
+    // --- NUEVO: Función para obtener coordenadas correctas en el canvas considerando el escalado ---
+    function getCanvasCoords(e, canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const ratio = canvas.width / rect.width;
+        let x, y;
+        if (e.touches && e.touches.length > 0) {
+            x = (e.touches[0].clientX - rect.left) * ratio;
+            y = (e.touches[0].clientY - rect.top) * ratio;
+        } else {
+            x = (e.clientX - rect.left) * ratio;
+            y = (e.clientY - rect.top) * ratio;
+        }
+        return { x, y };
+    }
+    // --- FIN NUEVO ---
 
     // Funcionalidad de dibujo
     const startDrawing = (e) => {
@@ -77,9 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const draw = (e) => {
         if (!isDrawing) return;
-        const rect = modalCanvas.getBoundingClientRect();
-        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-        const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+        // --- NUEVO: Usar getCanvasCoords para obtener la posición correcta ---
+        const { x, y } = getCanvasCoords(e, modalCanvas);
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = '#0a0a0a';
         ctx.lineCap = 'round';
@@ -154,6 +174,11 @@ document.addEventListener('DOMContentLoaded', function () {
             img.src = modalCanvas.toDataURL();
         }
         modal.style.display = "none";
+        // LIMPIAR EL CANVAS DEL MODAL AL GUARDAR
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+        ctx.fillStyle = "#f9f9f9";
+        ctx.fillRect(0, 0, modalCanvas.width, modalCanvas.height);
     });
 
     // Limpiar firma en modal
@@ -239,6 +264,11 @@ document.addEventListener('DOMContentLoaded', function () {
         currentCanvas = canvas;
         modal.style.display = "block";
         ajustarCanvasModal();
+        // --- NUEVO: Limpiar el canvas del modal al abrirlo ---
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+        ctx.fillStyle = "#f9f9f9";
+        ctx.fillRect(0, 0, modalCanvas.width, modalCanvas.height);
     }
 
     // Llama a ajustarCanvasModal también en window resize para responsividad
