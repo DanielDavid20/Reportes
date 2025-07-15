@@ -1,68 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register & Login</title>
+    <title>Registro & Inicio de Sesión</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/stylelogin.css">
     <script type="module" src="script/firebaseauth.js"></script>
 </head>
-<body class="neumorph">
+<body class="neumorph" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 60%, #ffe259 100%);">
   
     <div class="container neumorph" id="signup" style="display:none;">
       <img src="logo.png" alt="Logo" class="logo"> <!-- Agrega tu logo aquí -->
-      <h1 class="form-title">Register</h1>
+      <h1 class="form-title">Registrarse</h1>
       <form method="post" action="">
         <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
         <div class="input-group">
            <i class="fas fa-user"></i>
-           <input type="text"  id="fName" placeholder="First Name" required class="neumorph">
+           <input type="text"  id="fName" placeholder="Nombre" required class="neumorph">
         </div>
         <div class="input-group">
             <i class="fas fa-user"></i>
-            <input type="text"  id="lName" placeholder="Last Name" required class="neumorph">
+            <input type="text"  id="lName" placeholder="Apellido" required class="neumorph">
         </div>
         <div class="input-group">
             <i class="fas fa-envelope"></i>
-            <input type="email"  id="rEmail" placeholder="Email" required class="neumorph">
+            <input type="email"  id="rEmail" placeholder="Correo electrónico" required class="neumorph">
         </div>
         <div class="input-group">
             <i class="fas fa-lock"></i>
-            <input type="password" id="rPassword"  placeholder="Password" required class="neumorph">
+            <input type="password" id="rPassword"  placeholder="Contraseña" required class="neumorph">
         </div>
-       <button class="btn neumorph" id="submitSignUp" >Sign Up</button>
+       <button class="btn neumorph" id="submitSignUp" >Registrarse</button>
       </form>
  
       <div class="links">
-        <p>Already Have Account ?</p>
-        <button id="signInButton">Sign In</button>
+        <p>¿Ya tienes una cuenta?</p>
+        <button id="signInButton">Iniciar Sesión</button>
       </div>
     </div>
 
   <div class="container neumorph" id="signIn">
     <img src="logo.png" alt="Logo" class="logo"> <!-- Agrega tu logo aquí -->
-        <h1 class="form-title">Sign In</h1>
+        <h1 class="form-title">Iniciar Sesión</h1>
         <form method="post" action="">
           <div id="signInMessage" class="messageDiv" style="display:none;"></div>
 
           <div class="input-group">
               <i class="fas fa-envelope"></i>
-              <input type="email"  id="email" placeholder="Email" required class="neumorph">
+              <input type="email"  id="email" placeholder="Correo electrónico" required class="neumorph">
           </div>
           <div class="input-group">
               <i class="fas fa-lock"></i>
-            <input type="password" id="password"  placeholder="Password" required class="neumorph">
+            <input type="password" id="password"  placeholder="Contraseña" required class="neumorph">
           </div>
           <p class="recover">
-            <a href="#">Recover Password</a>
+            <a href="#">Recuperar Contraseña</a>
           </p>
-         <button  class="btn neumorph"  id="submitSignIn">Sign In</button>
+         <button  class="btn neumorph"  id="submitSignIn">Iniciar Sesión</button>
         </form>
   
         <div class="links">
-          <p>Don't have account yet?</p>
-          <button id="signUpButton">Sign Up</button>
+          <p>¿No tienes una cuenta?</p>
+          <button id="signUpButton">Registrarse</button>
         </div>
       </div>
       <script src="script/scriptlogin.js"></script>

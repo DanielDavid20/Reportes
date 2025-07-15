@@ -6,20 +6,22 @@
 }
 
 body {
-    display: flex; /* Agregar flexbox para centrar el contenido */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    height: 100vh; /* Altura completa de la ventana */
-    background: linear-gradient(to right, #eff3ff, #c9d6ff); /* Mejora del fondo con tonos azules */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #e0e5ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
-    background: #e0e5ec;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
-    width: 350px;
-    max-width: 98vw;
+  background: #e0e5ec;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
+  width: 300px;
 }
 
 @media (min-width: 481px) and (max-width: 900px) {
@@ -247,11 +249,14 @@ body.neumorph {
 }
 
 .container.neumorph {
-  background: #e0e5ec;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
-  width: 300px;
+    background: #e0e5ec;
+    padding: 40px 30px 30px 30px;
+    border-radius: 25px;
+    box-shadow: 10px 10px 30px #c2c8d0, -10px -10px 30px #ffffff;
+    width: 370px;
+    max-width: 98vw;
+    margin: 0 auto;
+    position: relative;
 }
 
 .tabs {
@@ -332,3 +337,231 @@ input.neumorph {
   font-size: 1.2em;
   cursor: pointer;
 }/* --- FIN ESTILOS NEUMÓRFICOS AGREGADOS --- */
+
+body.neumorph {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #e0e5ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-align: center;
+    color: #222e50;
+    margin-bottom: 1.5rem;
+    margin-top: 0.2rem;
+    letter-spacing: 1px;
+}
+
+/* Tabs estilo neumórfico */
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.links p {
+    margin: 0;
+    font-size: 1rem;
+    color: #222e50;
+    align-self: center;
+}
+
+#signUpButton, #signInButton {
+    color: #007bff;
+    border: none;
+    background: none;
+    font-size: 1.08rem;
+    font-weight: bold;
+    padding: 8px 22px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 2px 2px 8px #d1d9e6, -2px -2px 8px #fff;
+    margin-left: 8px;
+    margin-right: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+#signUpButton.active, #signInButton.active {
+    background: #d1d9e6;
+    color: #222e50;
+    box-shadow: inset 2px 2px 5px #bec4cb, inset -2px -2px 5px #f0f5fa;
+}
+
+#signUpButton:hover, #signInButton:hover {
+    background: #e6eaff;
+    color: #0056b3;
+}
+
+.input-group {
+    padding: 0.7rem 0 0.2rem 0;
+    position: relative;
+}
+
+.input-group i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #185dfdab;
+    font-size: 1.1rem;
+}
+
+input.neumorph {
+    color: #222e50;
+    width: 100%;
+    background: #e0e5ec;
+    border: none;
+    border-radius: 12px;
+    box-shadow: inset 4px 4px 8px #c8ccd1, inset -4px -4px 8px #f0f5fa;
+    padding: 12px 12px 12px 38px;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+input.neumorph:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff33, inset 4px 4px 8px #c8ccd1, inset -4px -4px 8px #f0f5fa;
+    border: 1.5px solid #007bff;
+}
+
+input::placeholder {
+    color: #007bff;
+    opacity: 1;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+button.btn.neumorph {
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    margin-top: 0.7rem;
+    margin-bottom: 0.2rem;
+    box-shadow: 6px 6px 12px #c2c8d0, -6px -6px 12px #ffffff;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+button.btn.neumorph:hover {
+    background: #0056b3;
+    box-shadow: 2px 2px 8px #c2c8d0, -2px -2px 8px #ffffff;
+}
+
+.recover {
+    text-align: right;
+    font-size: 0.98rem;
+    margin-bottom: 0.7rem;
+    margin-top: 0.1rem;
+}
+
+.recover a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.recover a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.messageDiv {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    margin: 10px 0 0 0;
+    border-radius: 7px;
+    font-size: 1rem;
+    opacity: 0.95;
+    box-shadow: 2px 2px 8px #c2c8d0, -2px -2px 8px #ffffff;
+    display: none;
+}
+
+.or {
+    font-size: 1.05rem;
+    margin-top: 0.7rem;
+    text-align: center;
+    color: #666;
+}
+
+.icons, .socials {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 0.7rem;
+}
+
+.icons i, .social {
+    color: #007bff;
+    background: #e0e5ec;
+    padding: 0.7rem 1.1rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    border: 2px solid #dfe9f5;
+    box-shadow: 2px 2px 8px #c2c8d0, -2px -2px 8px #ffffff;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.icons i:hover, .social:hover {
+    background: #d1d9e6;
+    transform: scale(1.08);
+}
+
+@media (max-width: 480px) {
+    .container.neumorph {
+        width: 95vw;
+        max-width: 350px;
+        padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+    }
+    .form-title {
+        font-size: 1.2rem;
+    }
+    input.neumorph {
+        font-size: 0.95rem;
+    }
+    button.btn.neumorph {
+        font-size: 1rem;
+    }
+
+    .links {
+        flex-direction: column;
+        gap: 0.2rem;
+        padding: 0;
+    }
+    .recover {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+  button,
+  .btn.neumorph {
+    font-size: 1rem;
+    padding: 10px;
+    width: 95%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .links button {
+    width: 95%;
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+    box-sizing: border-box;
+  }
+}
