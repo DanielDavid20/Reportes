@@ -72,5 +72,34 @@
         </div>
       </div>
       <script src="script/scriptlogin.js"></script>
+<script>
+  // Detectar si es móvil
+  function esMovil() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (esMovil()) {
+      // Si el login está visible al cargar
+      var login = document.getElementById('signIn');
+      if (login && login.style.display !== 'none') {
+        var emailInput = document.getElementById('email');
+        if (emailInput) {
+          setTimeout(() => { emailInput.focus(); }, 300);
+        }
+      }
+      // Si usas botones para mostrar el login
+      var signInButton = document.getElementById('signInButton');
+      if (signInButton) {
+        signInButton.addEventListener('click', function() {
+          setTimeout(() => {
+            var emailInput = document.getElementById('email');
+            if (emailInput) emailInput.focus();
+          }, 300);
+        });
+      }
+    }
+  });
+</script>
 </body>
 </html>
