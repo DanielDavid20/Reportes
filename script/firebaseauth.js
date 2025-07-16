@@ -24,13 +24,56 @@
         messageDiv.style.opacity=0;
     },5000);
  }
- const signUp=document.getElementById('submitSignUp');
- signUp.addEventListener('click', (event)=>{
+ function validarEmail(email) {
+    // Expresión regular básica para validar email
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function marcarCampoInvalido(id) {
+    const campo = document.getElementById(id);
+    campo.style.borderBottom = '2px solid red';
+}
+function limpiarCampoInvalido(id) {
+    const campo = document.getElementById(id);
+    campo.style.borderBottom = '';
+}
+
+// Limpiar el rojo al escribir
+['fName','lName','rEmail','rPassword','email','password'].forEach(id => {
+    const campo = document.getElementById(id);
+    if (campo) {
+        campo.addEventListener('input', () => limpiarCampoInvalido(id));
+    }
+});
+
+const signUp=document.getElementById('submitSignUp');
+signUp.addEventListener('click', (event)=>{
     event.preventDefault();
-    const email=document.getElementById('rEmail').value;
-    const password=document.getElementById('rPassword').value;
-    const firstName=document.getElementById('fName').value;
-    const lastName=document.getElementById('lName').value;
+    const email=document.getElementById('rEmail').value.trim();
+    const password=document.getElementById('rPassword').value.trim();
+    const firstName=document.getElementById('fName').value.trim();
+    const lastName=document.getElementById('lName').value.trim();
+
+    let camposFaltantes = [];
+    if (!firstName) { marcarCampoInvalido('fName'); camposFaltantes.push('Nombre'); }
+    if (!lastName) { marcarCampoInvalido('lName'); camposFaltantes.push('Apellido'); }
+    if (!email) { marcarCampoInvalido('rEmail'); camposFaltantes.push('Correo electrónico'); }
+    if (!password) { marcarCampoInvalido('rPassword'); camposFaltantes.push('Contraseña'); }
+    if (camposFaltantes.length > 0) {
+        showMessage('Falta completar: ' + camposFaltantes.join(', '), 'signUpMessage');
+        return;
+    }
+    if (!validarEmail(email)) {
+        marcarCampoInvalido('rEmail');
+        showMessage('Por favor, ingresa un correo electrónico válido.', 'signUpMessage');
+        return;
+    }
+    if (password.length < 6) {
+        marcarCampoInvalido('rPassword');
+        showMessage('La contraseña debe tener al menos 6 caracteres.', 'signUpMessage');
+        return;
+    }
 
     const auth=getAuth();
     const db=getFirestore();
@@ -43,7 +86,7 @@
             firstName: firstName,
             lastName:lastName
         };
-        showMessage('Account Created Successfully', 'signUpMessage');
+        showMessage('Cuenta creada exitosamente', 'signUpMessage');
         const docRef=doc(db, "users", user.uid);
         setDoc(docRef,userData)
         .then(()=>{
@@ -57,10 +100,10 @@
     .catch((error)=>{
         const errorCode=error.code;
         if(errorCode=='auth/email-already-in-use'){
-            showMessage('Email Address Already Exists !!!', 'signUpMessage');
+            showMessage('¡El correo electrónico ya está registrado!', 'signUpMessage');
         }
         else{
-            showMessage('unable to create User', 'signUpMessage');
+            showMessage('No se pudo crear el usuario', 'signUpMessage');
         }
     })
  });
@@ -68,13 +111,31 @@
  const signIn=document.getElementById('submitSignIn');
  signIn.addEventListener('click', (event)=>{
     event.preventDefault();
-    const email=document.getElementById('email').value;
-    const password=document.getElementById('password').value;
+    const email=document.getElementById('email').value.trim();
+    const password=document.getElementById('password').value.trim();
+
+    let camposFaltantes = [];
+    if (!email) { marcarCampoInvalido('email'); camposFaltantes.push('Correo electrónico'); }
+    if (!password) { marcarCampoInvalido('password'); camposFaltantes.push('Contraseña'); }
+    if (camposFaltantes.length > 0) {
+        showMessage('Falta completar: ' + camposFaltantes.join(', '), 'signInMessage');
+        return;
+    }
+    if (!validarEmail(email)) {
+        marcarCampoInvalido('email');
+        showMessage('Por favor, ingresa un correo electrónico válido.', 'signInMessage');
+        return;
+    }
+    if (password.length < 6) {
+        marcarCampoInvalido('password');
+        showMessage('La contraseña debe tener al menos 6 caracteres.', 'signInMessage');
+        return;
+    }
     const auth=getAuth();
 
     signInWithEmailAndPassword(auth, email,password)
     .then((userCredential)=>{
-        showMessage('login is successful', 'signInMessage');
+        showMessage('Inicio de sesión exitoso', 'signInMessage');
         const user=userCredential.user;
         localStorage.setItem('loggedInUserId', user.uid);
         window.location.href='principal.html';
@@ -82,10 +143,10 @@
     .catch((error)=>{
         const errorCode=error.code;
         if(errorCode==='auth/invalid-credential'){
-            showMessage('Incorrect Email or Password', 'signInMessage');
+            showMessage('Correo o contraseña incorrectos', 'signInMessage');
         }
         else{
-            showMessage('Account does not Exist', 'signInMessage');
+            showMessage('La cuenta no existe', 'signInMessage');
         }
     })
  })
