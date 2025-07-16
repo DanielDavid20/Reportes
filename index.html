@@ -80,24 +80,15 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     if (esMovil()) {
-      // Si el login está visible al cargar
-      var login = document.getElementById('signIn');
-      if (login && login.style.display !== 'none') {
-        var emailInput = document.getElementById('email');
-        if (emailInput) {
-          setTimeout(() => { emailInput.focus(); }, 300);
-        }
-      }
-      // Si usas botones para mostrar el login
-      var signInButton = document.getElementById('signInButton');
-      if (signInButton) {
-        signInButton.addEventListener('click', function() {
+      // Hacer scroll automático al enfocar cualquier input
+      var inputs = document.querySelectorAll('input');
+      inputs.forEach(function(input) {
+        input.addEventListener('focus', function() {
           setTimeout(() => {
-            var emailInput = document.getElementById('email');
-            if (emailInput) emailInput.focus();
-          }, 300);
+            input.scrollIntoView({behavior: 'smooth', block: 'center'});
+          }, 200);
         });
-      }
+      });
     }
   });
 </script>
