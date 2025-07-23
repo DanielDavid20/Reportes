@@ -89,3 +89,4 @@ deleteAccountButton.addEventListener('click', () => {
             });
     }
 });
+
