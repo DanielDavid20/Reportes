@@ -7,12 +7,14 @@ body {
 }
 
 header {
-    background-color: #185dfddf; /* Color más vibrante y atractivo */
-    color: #fff;
-
-
-
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #185dfddf;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 2000px;
+  margin: 0 auto;
+  width: auto;
 }
 
 header h1 {
