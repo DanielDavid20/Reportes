@@ -44,49 +44,73 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Manejo del botón de cierre de sesión
-const logoutButton = document.getElementById('logout');
+// Manejo de los botones de cierre de sesión
+const logoutButton = document.getElementById('logout-btn');
+const sideMenuLogoutButton = document.getElementById('side-menu-logout-btn');
 
-logoutButton.addEventListener('click', () => {
-    localStorage.removeItem('loggedInUserId');
-    signOut(auth)
-        .then(() => {
-            window.location.href = 'index.html';
-        })
-        .catch((error) => {
-            console.error('Error al cerrar sesión:', error);
-        });
-});
+function handleLogout() {
+    signOut(auth).then(() => {
+        localStorage.removeItem('loggedInUserId');
+        window.location.href = 'index.html';
+    }).catch((error) => {
+        console.error('Error al cerrar sesión:', error);
+    });
+}
 
-// Manejo del botón de eliminar cuenta
-const deleteAccountButton = document.getElementById('deleteAccount');
+if (logoutButton) {
+    logoutButton.addEventListener('click', handleLogout);
+}
 
-deleteAccountButton.addEventListener('click', () => {
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es permanente y no se puede revertir. Pero puedes registrarte de nuevo");
-    if (confirmDelete) {
-        const loggedInUserId = localStorage.getItem('loggedInUserId');
-        const user = auth.currentUser;
+if (sideMenuLogoutButton) {
+    sideMenuLogoutButton.addEventListener('click', handleLogout);
+}
 
-        // Eliminar el documento de Firestore
-        const docRef = doc(db, "users", loggedInUserId);
-        deleteDoc(docRef)
+// Original logout button handling
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('loggedInUserId');
+        signOut(auth)
             .then(() => {
-                console.log("Documento eliminado correctamente de Firestore");
-
-                // Eliminar la cuenta de Firebase Authentication
-                deleteUser(user)
-                    .then(() => {
-                        console.log("Cuenta eliminada correctamente de Firebase Authentication");
-                        localStorage.removeItem('loggedInUserId');
-                        window.location.href = 'index.html';
-                    })
-                    .catch((error) => {
-                        console.error("Error al eliminar la cuenta de Firebase Authentication: ", error);
-                    });
+                window.location.href = 'index.html';
             })
             .catch((error) => {
-                console.error("Error al eliminar el documento de Firestore: ", error);
+                console.error('Error al cerrar sesión:', error);
             });
-    }
-});
+    });
+}
+
+// Manejo del botón de eliminar cuenta
+// Este botón solo está presente en la página Eliminarcuenta.html, no en principal.html
+const deleteAccountButton = document.getElementById('deleteAccount');
+
+if (deleteAccountButton) {
+    deleteAccountButton.addEventListener('click', () => {
+        const confirmDelete = confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es permanente y no se puede revertir. Pero puedes registrarte de nuevo");
+        if (confirmDelete) {
+            const loggedInUserId = localStorage.getItem('loggedInUserId');
+            const user = auth.currentUser;
+
+            // Eliminar el documento de Firestore
+            const docRef = doc(db, "users", loggedInUserId);
+            deleteDoc(docRef)
+                .then(() => {
+                    console.log("Documento eliminado correctamente de Firestore");
+
+                    // Eliminar la cuenta de Firebase Authentication
+                    deleteUser(user)
+                        .then(() => {
+                            console.log("Cuenta eliminada correctamente de Firebase Authentication");
+                            localStorage.removeItem('loggedInUserId');
+                            window.location.href = 'index.html';
+                        })
+                        .catch((error) => {
+                            console.error("Error al eliminar la cuenta de Firebase Authentication: ", error);
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error al eliminar el documento de Firestore: ", error);
+                });
+        }
+    });
+}
 

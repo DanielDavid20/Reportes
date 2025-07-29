@@ -1,36 +1,95 @@
-// Script para menú hamburguesa
+// Abrir y cerrar menú lateral
 const menuToggle = document.getElementById('menu-toggle');
 const sideMenu = document.getElementById('side-menu');
 const closeMenu = document.getElementById('close-menu');
+const overlay = document.createElement('div');
+overlay.className = 'menu-overlay';
 
-menuToggle.addEventListener('click', () => {
-  sideMenu.classList.add('open');
-  document.body.classList.add('menu-open');
-});
-
-closeMenu.addEventListener('click', () => {
-  sideMenu.classList.remove('open');
+// Asegurarse de que el menú esté cerrado al cargar la página
+window.addEventListener('DOMContentLoaded', function() {
+  // Remover cualquier estado activo que pudiera haber quedado
+  sideMenu.classList.remove('active');
+  menuToggle.classList.remove('active');
   document.body.classList.remove('menu-open');
-});
-
-// Cerrar menú al hacer clic fuera del menú
-window.addEventListener('click', (e) => {
-  if (
-    sideMenu.classList.contains('open') &&
-    !sideMenu.contains(e.target) &&
-    e.target !== menuToggle &&
-    !menuToggle.contains(e.target)
-  ) {
-    sideMenu.classList.remove('open');
-    document.body.classList.remove('menu-open');
+  if (document.body.contains(overlay)) {
+    document.body.removeChild(overlay);
   }
 });
 
-// Opcional: cerrar menú con la tecla ESC
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && sideMenu.classList.contains('open')) {
-    sideMenu.classList.remove('open');
+// Función para abrir el menú
+function openMenuFunction(e) {
+  // Prevenir comportamiento por defecto
+  if (e) e.preventDefault();
+  
+  // Si el menú ya está abierto, no hacer nada
+  if (sideMenu.classList.contains('active')) return;
+  
+  sideMenu.classList.add('active');
+  menuToggle.classList.add('active');
+  document.body.classList.add('menu-open');
+  
+  // Asegurarse de que el overlay no esté ya añadido
+  if (!document.body.contains(overlay)) {
+    document.body.appendChild(overlay);
+  }
+}
+
+// Añadir eventos para clic y táctil
+menuToggle.addEventListener('click', openMenuFunction);
+menuToggle.addEventListener('touchstart', function(e) {
+  e.preventDefault(); // Prevenir comportamiento por defecto
+  openMenuFunction(e);
+}, { passive: false });
+
+function closeMenuFunction() {
+  // Añadir clase de transición para salida suave
+  sideMenu.classList.add('closing');
+  
+  // Usar setTimeout para permitir que la animación termine
+  setTimeout(() => {
+    sideMenu.classList.remove('active');
+    sideMenu.classList.remove('closing');
+    menuToggle.classList.remove('active');
     document.body.classList.remove('menu-open');
+    
+    // Remover overlay si existe
+    if (document.body.contains(overlay)) {
+      // Añadir clase para animación de salida
+      overlay.classList.add('fade-out');
+      
+      setTimeout(() => {
+        if (document.body.contains(overlay)) {
+          document.body.removeChild(overlay);
+          overlay.classList.remove('fade-out');
+        }
+      }, 300); // Tiempo para la animación de desvanecimiento
+    }
+  }, 50); // Pequeño retraso para permitir que la clase 'closing' tenga efecto
+}
+
+closeMenu.addEventListener('click', closeMenuFunction);
+
+// Cerrar menú al hacer clic o tocar fuera
+overlay.addEventListener('click', closeMenuFunction);
+overlay.addEventListener('touchstart', function(e) {
+  // Prevenir comportamiento por defecto solo si es necesario
+  if (sideMenu.classList.contains('active')) {
+    e.preventDefault();
+    closeMenuFunction();
+  }
+}, { passive: false });
+
+// Cerrar menú con tecla ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
+    closeMenuFunction();
+  }
+});
+
+// Cerrar menú al cambiar el tamaño de la ventana a un tamaño grande
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 992 && sideMenu.classList.contains('active')) {
+    closeMenuFunction();
   }
 });
 
@@ -103,4 +162,4 @@ if (logoutBtn) {
     // Aquí puedes poner tu lógica de logout
     window.location.href = 'index.html';
   };
-} 
+}

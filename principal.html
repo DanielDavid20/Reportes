@@ -21,14 +21,16 @@
     <header>
       <div class="container">
         <div class="header-left">
-          <button id="menu-toggle" class="hamburger" aria-label="Abrir menú">
+          <div id="menu-toggle" class="hamburger-menu" aria-label="Abrir menú">
             <span></span>
             <span></span>
             <span></span>
-          </button>
-          <img src="logo.png" alt="Logo" width="100" height="40" />
-          <h1 class="header-title">Sistema de Gestión Documental</h1>
-          <span id="user-initial" class="user-initial" tabindex="0"></span>
+          </div>
+          <img src="logo.png" alt="Logo" class="navbar-logo" />
+          <h1 class="header-title"> DocuManager</h1>
+          <div class="user-menu-wrapper">
+            <span id="user-initial" class="user-initial" tabindex="0"></span>
+          </div>
           <div id="user-dropdown" class="user-dropdown" style="display:none;">
             <div class="user-dropdown-email" id="loggedUserEmail"></div>
             <a href="Eliminarcuenta.html" class="user-dropdown-link">Ver información de cuenta</a>
@@ -49,7 +51,7 @@
           <li><a href="permisoelectrico.html">Permiso trabajo eléctrico</a></li>
           <li><a href="permisotrabajo.html">Permiso para trabajo en altura</a></li>
           <li><a href="Eliminarcuenta.html">Ver Información y Eliminar cuenta</a></li>
-           <button id="logout-btn" class="user-dropdown-logout">Cerrar sesión</button>
+          <li><button id="side-menu-logout-btn" class="user-dropdown-logout">Cerrar sesión</button></li>
         </ul>
       </nav>
     </header>
@@ -211,16 +213,7 @@
         </div>
       </div>
 
-      
-
-      <!-- SECCIÓN DE AYUDA -->
-      <div class="container">
-        <div class="help-section">
-          <h3>¿Necesitas ayuda?</h3>
-          <p class="text-white">Contamos con un equipo de soporte listo para asistirte con cualquier consulta.</p>
-          <button class="btn btn-light">Contactar Soporte</button>
-        </div>
-      </div>
+    
     </main>
 
     <!-- FOOTER MEJORADO -->
@@ -246,11 +239,9 @@
           </div>
         </div>
         <hr class="my-3 bg-secondary">
-        <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Tu Multiservicios Valles y Villegas.  Todos los derechos reservados.</p>
         <div class="social-footer">
-          <a href=""><i class="bi bi-twitter"></i></a>
           <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-github"></i></a>
           <a href=""><i class="bi bi-whatsapp"></i></a>
         </div>
       </div>
