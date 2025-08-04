@@ -139,11 +139,9 @@ th {
 }
 
 canvas {
-    width: 100%; 
     
   
-    border: 1px solid #1f68de; /* Borde del canvas */
-    
+
 }
 
 /* Botones */
