@@ -146,13 +146,7 @@ th {
     margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
 }
 
-canvas {
-    width: 100%; 
-    
-  
-    border: 1px solid  #185dfdab; /* Borde del canvas */
-    
-}
+
 
 /* Botones */
 button {
