@@ -1,0 +1,343 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+/* Header */
+header {
+    background-color: #185dfddf;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 2000px;
+    margin: 0 auto;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #1f68de;
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    width: 95%;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.884);
+    padding: 15px;
+    margin-top: 32px;
+    margin-bottom: 10px;
+}
+
+/* Secciones del formulario */
+.form-section {
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.form-section h3 {
+    color: #333;
+    font-size: 1rem;
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f2f7ff;
+    border-radius: 4px;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+  display: block;
+}
+
+input,
+canvas {
+  padding: 8px;
+  border: 1px solid #1f68de;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+canvas.signature-canvas-placeholder {
+  cursor: crosshair;
+  height: 150px;
+  background-color: #f9f9f9;
+}
+
+button {
+    padding: 10px;
+    background-color: #1eb125;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #3ded22;
+}
+
+input:focus {
+  outline: none;
+  border-color: #185dfd;
+  box-shadow: 0 0 5px rgba(24, 93, 253, 0.5);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.item input {
+  flex-grow: 1;
+}
+
+.item button {
+  margin-left: 10px;
+  background-color: #dc3545;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+#saveSignature {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #1eb125;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#saveSignature:hover {
+  background-color: #3ded22;
+}
+
+#actaPreview {
+  max-width: 800px; /* Adjust as needed */
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+#clearModalSignature {
+    background-color: #dc3545;
+}
+
+@media (max-width: 840px) {
+  #actaPreview {
+    max-width: 100%;
+    margin: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  .form-section {
+    padding: 10px;
+  }
+  header h1 {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 600px) {
+    .container {
+      padding: 4px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin: 0 auto !important;
+      box-sizing: border-box;
+      margin-top: 18px !important;
+    }
+    header h1 {
+        font-size: 1.1em;
+    }
+    .form-section h3 {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}
+
+@media print {
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.5;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  body > *:not(#actaPreview) {
+    display: none !important;
+  }
+
+  #actaPreview {
+    display: block !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    max-width: 18cm;
+    box-sizing: border-box;
+    background-color: white;
+  }
+  
+  #print-header {
+      text-align: center;
+margin-bottom: 40px;
+  }
+
+  #print-header img {
+      position: relative;
+      top: 15px;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  .acta-header h1 {
+    text-align: center;
+    font-size: 18pt;
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+  }
+
+  .acta-body {
+      padding: 0 2cm;
+  }
+
+  .acta-body .date {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .items-list {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+
+  .firmas-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 80px;
+    text-align: center;
+  }
+
+  .firma-block {
+    width: 40%;
+  }
+  
+  .signature-area {
+      position: relative;
+      height: 100px;
+  }
+
+  .signature-img {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 80px;
+  }
+
+  .signature-line {
+    border-top: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modalCanvas {
+  border: 1px solid black;
+  width: 100%;
+  height: 200px;
+  border-radius: 4px;
+}

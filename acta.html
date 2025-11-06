@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acta de Entrega con Firmas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/acta.css">
+</head>
+<body>
+
+  <header>
+    <div style="display: flex; align-items: center;">
+        <div id="button2" onclick="window.location.href='principal.html'" style="margin-right: 19px; cursor: pointer;">
+            <i class="fas fa-home"></i> Volver a Inicio
+        </div>
+        <h1 id="title">Acta de Entrega</h1>
+    </div>
+    <img class="logo" src="logo.png" alt="Logo" style="margin-left: 20px;">
+  </header>
+
+  <div class="container">
+    <form id="actaForm">
+      <div class="form-section">
+        <h3>Información General</h3>
+        <label>Fecha:</label>
+        <input type="date" id="fecha" required>
+
+        <label>Municipio:</label>
+        <input type="text" id="municipio" placeholder="Ejemplo: Turbo - Antioquia" required>
+
+        <label>Iglesia:</label>
+        <input type="text" id="iglesia" placeholder="Ejemplo: IDMJI Turbo" required>
+      </div>
+
+      <div class="form-section">
+        <h3>Participantes</h3>
+        <label>Representante legal Multiservicios v y v sas:</label>
+        <input type="text" id="representante" placeholder="Nombre completo" required>
+        <input type="text" id="ccRepresentante" placeholder="Cédula">
+
+        <label>Firma del representante:</label>
+        <canvas id="firmaRepresentante" class="signature-canvas-placeholder" width="300" height="150"></canvas>
+        <button type="button" class="limpiar-firma" data-canvas="firmaRepresentante">Limpiar firma</button>
+
+        <label>Pastor encargado:</label>
+        <input type="text" id="pastor" placeholder="Nombre completo" required>
+        <input type="text" id="ccPastor" placeholder="Cédula">
+
+        <label>Firma del pastor:</label>
+        <canvas id="firmaPastor" class="signature-canvas-placeholder" width="300" height="150"></canvas>
+        <button type="button" class="limpiar-firma" data-canvas="firmaPastor">Limpiar firma</button>
+      </div>
+
+      <div class="form-section">
+        <h3>Trabajos Realizados</h3>
+        <label>Ítems de trabajos realizados:</label>
+        <div id="itemsContainer"></div>
+        <button type="button" onclick="agregarItem()">Agregar Ítem</button>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" onclick="generarActa()">Imprimir Acta</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="actaPreview"></div>
+
+  <div id="signatureModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Firma</h2>
+      <canvas id="modalCanvas" width="400" height="200"></canvas>
+      <div class="modal-buttons">
+        <button id="saveSignature">Guardar firma</button>
+        <button id="clearModalSignature" type="button">Limpiar firma</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add a script to hide the back button when printing
+    (function() {
+        var style = document.createElement('style');
+        style.textContent = '@media print { #button2 { display: none !important; } }';
+        document.head.appendChild(style);
+    })();
+
+    // Agregar ítems
+    function agregarItem() {
+      const container = document.getElementById('itemsContainer');
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `
+        <input type="text" placeholder="Descripción del trabajo realizado" required>
+        <button type="button" onclick="this.parentElement.remove()">❌</button>
+      `;
+      container.appendChild(div);
+    }
+    
+    // Signature Pad Logic
+    const modal = document.getElementById('signatureModal');
+    const modalCanvas = document.getElementById('modalCanvas');
+    const modalCtx = modalCanvas.getContext('2d');
+    let isDrawing = false;
+    let currentCanvas = null;
+
+    document.querySelectorAll('.signature-canvas-placeholder').forEach(canvas => {
+      canvas.addEventListener('click', (event) => {
+        currentCanvas = event.target;
+        modal.style.display = "block";
+
+        // Resize the canvas to match its display size.
+        const rect = modalCanvas.getBoundingClientRect();
+        modalCanvas.width = rect.width;
+        modalCanvas.height = rect.height;
+
+        modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+      });
+    });
+
+    const closeModal = document.querySelector('.close');
+    closeModal.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    const startDrawing = (e) => {
+      isDrawing = true;
+      draw(e);
+    };
+
+    const stopDrawing = () => {
+      isDrawing = false;
+      modalCtx.beginPath();
+    };
+
+    const draw = (e) => {
+      if (!isDrawing) return;
+
+      const rect = modalCanvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+      modalCtx.lineWidth = 3;
+      modalCtx.strokeStyle = 'black';
+
+      modalCtx.lineTo(x, y);
+      modalCtx.stroke();
+      modalCtx.beginPath();
+      modalCtx.moveTo(x, y);
+    };
+
+    modalCanvas.addEventListener('mousedown', startDrawing);
+    modalCanvas.addEventListener('mouseup', stopDrawing);
+    modalCanvas.addEventListener('mousemove', draw);
+    modalCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); });
+    modalCanvas.addEventListener('touchend', stopDrawing);
+    modalCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+
+    document.getElementById('saveSignature').addEventListener('click', function () {
+      if (currentCanvas) {
+        const signatureCtx = currentCanvas.getContext('2d');
+        signatureCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
+        signatureCtx.drawImage(modalCanvas, 0, 0, currentCanvas.width, currentCanvas.height);
+      }
+      modal.style.display = "none";
+    });
+
+    document.getElementById('clearModalSignature').addEventListener('click', function () {
+      modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+    });
+
+    document.querySelectorAll('.limpiar-firma').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const canvasId = e.target.dataset.canvas;
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    });
+
+
+    // Generar Acta para Imprimir
+    function generarActa() {
+      const fecha = document.getElementById('fecha').value;
+      const municipio = document.getElementById('municipio').value;
+      const iglesia = document.getElementById('iglesia').value;
+      const representante = document.getElementById('representante').value;
+      const ccRepresentante = document.getElementById('ccRepresentante').value;
+      const pastor = document.getElementById('pastor').value;
+      const ccPastor = document.getElementById('ccPastor').value;
+
+      const firmaRep = document.getElementById('firmaRepresentante').toDataURL();
+      const firmaPas = document.getElementById('firmaPastor').toDataURL();
+
+      const items = Array.from(document.querySelectorAll('#itemsContainer input'))
+        .map(i => `<li>${i.value}</li>`).join('');
+
+      const headerHTML = `
+        <div id="print-header">
+          <img src="img/cabecera.png" alt="Cabecera" style="width: 100%; max-width: 709px; height: auto;">
+        </div>
+      `;
+
+      const contentHTML = `
+        <div id="print-content">
+          <div class="acta-header">
+            <h1>Acta de Entrega y Conformidad</h1>
+          </div>
+          <div class="acta-body">
+            <p class="date">${municipio}, ${new Date(fecha).toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' })}</p>
+            <p>Mediante la presente, se deja constancia de la entrega y conformidad de los siguientes trabajos realizados en la <strong>${iglesia}</strong> del municipio de <strong>${municipio}</strong>:</p>
+            <ul class="items-list">${items}</ul>
+            <p>Los trabajos mencionados han sido recibidos a entera satisfacción.</p>
+            <p>Para constancia de lo anterior, se firma la presente acta el día ${new Date(fecha).toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' })}.</p>
+          </div>
+          <div class="firmas-container">
+            <div class="firma-block">
+              <div class="signature-area">
+                <img src="${firmaRep}" class="signature-img"/>
+                <div class="signature-line"></div>
+              </div>
+              <strong>${representante}</strong><br>
+              CC. ${ccRepresentante}<br>
+              Representante legal Multiservicios v y v sas
+            </div>
+            <div class="firma-block">
+              <div class="signature-area">
+                <img src="${firmaPas}" class="signature-img"/>
+                <div class="signature-line"></div>
+              </div>
+              <strong>${pastor}</strong><br>
+              CC. ${ccPastor}<br>
+              Pastor Encargado ${iglesia}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      const preview = document.getElementById('actaPreview');
+      preview.innerHTML = headerHTML + contentHTML;
+
+      const originalTitle = document.title;
+      document.title = `Acta de Entrega - ${municipio} - ${fecha}`;
+
+      // Add a short delay to allow images to render before printing
+      setTimeout(() => {
+        window.print();
+        document.title = originalTitle;
+      }, 250);
+    }
+  </script>
+
+</body>
+</html>
