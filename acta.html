@@ -100,13 +100,28 @@
       const municipioInput = document.getElementById('municipio');
       const baseTitle = 'Acta de Entrega con Firmas'; // Store the base title
 
-      municipioInput.addEventListener('input', function() {
-        if (municipioInput.value.trim()) {
-          document.title = `Acta de Entrega - ${municipioInput.value}`;
+      function updateTitle() {
+        const now = new Date();
+        const date = now.toLocaleDateString('es-CO');
+        
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+        const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+        
+        const municipio = municipioInput.value.trim();
+
+        if (municipio) {
+          document.title = `Acta de Entrega - ${municipio} - ${date} ${formattedTime}`;
         } else {
           document.title = baseTitle;
         }
-      });
+      }
+
+      municipioInput.addEventListener('input', updateTitle);
+      setInterval(updateTitle, 1000); // Update time every second
+      updateTitle(); // Initial call
     });
 
     // Agregar ítems
