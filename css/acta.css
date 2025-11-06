@@ -119,17 +119,30 @@ input:focus {
   display: flex;
   align-items: center;
   margin-top: 5px;
+  position: relative;
+  padding-right: 40px;
 }
 
 .item input {
   flex-grow: 1;
+  width: calc(100% - 40px);
 }
 
 .item button {
-  margin-left: 10px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(calc(-50% - 5px));
   background-color: #dc3545;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 16px;
+  margin: 0;
+  height: 34px;
+  width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
 }
 
 #saveSignature {

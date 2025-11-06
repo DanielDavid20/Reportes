@@ -14,13 +14,42 @@ header {
     border-radius: 8px;
     max-width: 2000px;
     margin: 0 auto;
-    width: auto;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#button2 {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#button2:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#button2 i {
+    margin-right: 5px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 28px;
-    padding: 10px 0;
+    font-size: 1.5em;
 }
 
 .logo {
@@ -38,12 +67,13 @@ header h1 {
 
 .container {
     max-width: 800px;
-    width: 100%;
+    width: calc(100% - 30px);
     padding: 20px;
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 30px auto;
+    margin: 15px auto;
     background-color: rgba(255, 255, 255, 0.884);
+    box-sizing: border-box;
 }
 
 .container label {
@@ -78,23 +108,41 @@ input[type="date"],
 select,
 [contenteditable="true"],
 textarea {
-    width: calc(100% - 10px);
-    padding: 8px;
-    margin-bottom: 8px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #185dfdab;
-    border-radius: 4px;
+    border-radius: 6px;
     box-sizing: border-box;
+    font-size: 16px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #185dfd;
+    box-shadow: 0 0 5px rgba(24, 93, 253, 0.3);
 }
 
 [contenteditable="true"] {
     min-height: 50px;
     overflow-wrap: break-word;
+    background-color: #fff;
 }
 
 .radio-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
+    gap: 8px;
+}
+
+label {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 5px;
+    display: block;
 }
 
 /* Contenedor de la tabla para permitir desplazamiento horizontal en móviles */
@@ -109,16 +157,52 @@ textarea {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0; /* El margen se maneja en el contenedor */
+    margin: 0;
     font-size: 0.9rem;
-    min-width: 700px; /* Ancho mínimo para forzar el scroll si es necesario */
+    min-width: 700px;
 }
 
 th, td {
     border: 1px solid #185dfdab;
-    padding: 10px 12px; /* Más espaciado para mejor legibilidad */
+    padding: 10px 12px;
     text-align: center;
     vertical-align: middle;
+}
+
+/* Ajustes específicos para cada columna */
+table th:nth-child(1), /* Columna NOMBRE COMPLETO */
+table td:nth-child(1) {
+    width: 25%;
+}
+
+table th:nth-child(2), /* Columna N° CEDULA */
+table td:nth-child(2) {
+    width: 15%;
+}
+
+table th:nth-child(3), /* Columna CARGO */
+table td:nth-child(3) {
+    width: 20%;
+}
+
+table th:nth-child(4), /* Columna FIRMA */
+table td:nth-child(4) {
+    width: 40%; /* Hacemos esta columna más ancha */
+}
+
+/* Ajustes para la celda que contiene la firma */
+td canvas {
+    min-width: 200px;
+    height: 80px;  /* Aumentado de 60px a 80px */
+    margin: 0 auto;
+}
+
+/* Asegurar que la firma tenga suficiente espacio */
+td img[src*="data:image"] {
+    max-width: 100%;
+    height: auto;
+    min-width: 200px;
+    min-height: 80px;  /* Añadido altura mínima para coincidir con el canvas */
 }
 
 th {
@@ -193,18 +277,13 @@ button:hover {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5vh auto;
-    padding: 0;
-    border: none;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
     width: 90%;
-    max-width: 700px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    max-height: 85vh; /* Aumentamos altura para aprovechar mejor el espacio vertical */
-    position: relative; /* Clave para que el botón de cerrar se posicione dentro del modal */
-    animation: slideIn 0.3s ease-out;
+    max-width: 500px;
+    position: relative;
+    border-radius: 8px;
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -236,25 +315,20 @@ button:hover {
 }
 
 #modalCanvas {
+    border: 1px solid black;
     width: 100%;
-    height: 100%; /* El canvas ocupará el espacio disponible */
-    border: none;
-    cursor: crosshair;
+    height: 200px;
+    border-radius: 4px;
 }
 
-.modal-body {
-    flex-grow: 1;
-    padding: 10px;
-    background-color: #f0f0f0;
+.modal-buttons {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
 }
 
-.modal-footer {
-    padding: 15px 25px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
+#clearModalSignature {
+    background-color: #dc3545;
 }
 
 .close:hover,
@@ -503,17 +577,48 @@ textarea:required:invalid {
 /* Media Queries */
 @media only screen and (max-width: 600px) {
     header {
-        padding: 5px 0;
+        padding: 10px 0;
+    }
+
+    header > div {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px;
     }
     
     header h1 {
-        font-size: 24px;
-        padding: 5px 0;
+        font-size: 20px;
+        order: 2;
     }
     
     .logo {
         width: 60px;
         height: 60px;
+        margin: 0;
+        order: 1;
+    }
+
+    #button2 {
+        font-size: 14px;
+        padding: 8px;
+        order: 3;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    label {
+        font-size: 14px;
     }
 }
 
@@ -626,33 +731,36 @@ textarea:required:invalid {
         padding: 10px;
         font-size: 13px;
     }
+
+    .modal {
+        padding: 0;
+    }
     
-    .botones-container button {
-        /* El ancho se hereda de la regla general (width: auto) */
-    }
-
     .modal-content {
+        width: 95%;
+        margin: 40% auto;
+        padding: 15px;
+        border-radius: 8px;
+        max-height: none;
+    }
+
+    #modalCanvas {
+        height: 180px;
+        margin-bottom: 10px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-buttons button {
         width: 100%;
-        height: 100%;
-        max-height: 100vh;
         margin: 0;
-        border-radius: 0;
-    }
-
-    .modal-body {
-        padding: 5px;
-    }
-
-    .modal-footer {
-        padding: 10px;
+        padding: 12px;
     }
 
     #saveSignature {
-        width: 100%;
-        padding: 12px 20px;
-    }
-
-    .modal-header {
-        padding: 15px 20px;
+        margin-top: 10px;
     }
 }

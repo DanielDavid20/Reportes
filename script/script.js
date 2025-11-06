@@ -143,15 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const toggleButton = document.getElementById('toggleTable');
         const tableContainer = document.getElementById('tableContainer');
 
-        toggleButton.addEventListener('click', function() {
-            if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
-                tableContainer.style.display = 'block'; // Mostrar
-                toggleButton.textContent = 'Ocultar Tabla'; // Cambiar texto
-            } else {
-                tableContainer.style.display = 'none'; // Ocultar
-                toggleButton.textContent = 'Mostrar Tabla'; // Cambiar texto
-            }
-        });
+        if (toggleButton && tableContainer) {
+            toggleButton.addEventListener('click', function() {
+                if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
+                    tableContainer.style.display = 'block'; // Mostrar
+                    toggleButton.textContent = 'Ocultar Tabla'; // Cambiar texto
+                } else {
+                    tableContainer.style.display = 'none'; // Ocultar
+                    toggleButton.textContent = 'Mostrar Tabla'; // Cambiar texto
+                }
+            });
+        }
     });
 
     document.addEventListener('DOMContentLoaded', function() {

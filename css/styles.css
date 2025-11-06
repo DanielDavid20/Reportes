@@ -136,6 +136,9 @@ th {
 .signature-pad {
     text-align: center;
     margin-bottom: 15px; /* Espacio entre los contenedores de la firma */
+    border: 2px solid #1f68de; /* Borde azul */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
 }
 
 
