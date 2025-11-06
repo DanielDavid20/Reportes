@@ -37,7 +37,7 @@
         <h3>Participantes</h3>
         <label>Representante legal Multiservicios v y v sas:</label>
         <input type="text" id="representante" placeholder="Nombre completo" required>
-        <input type="text" id="ccRepresentante" placeholder="Cédula">
+        <input type="text" id="ccRepresentante" placeholder="Cédula" required>
 
         <label>Firma del representante:</label>
         <canvas id="firmaRepresentante" class="signature-canvas-placeholder" width="300" height="150"></canvas>
@@ -45,7 +45,7 @@
 
         <label>Pastor encargado:</label>
         <input type="text" id="pastor" placeholder="Nombre completo" required>
-        <input type="text" id="ccPastor" placeholder="Cédula">
+        <input type="text" id="ccPastor" placeholder="Cédula" required>
 
         <label>Firma del pastor:</label>
         <canvas id="firmaPastor" class="signature-canvas-placeholder" width="300" height="150"></canvas>
@@ -187,8 +187,44 @@
     });
 
 
+    function isCanvasEmpty(canvas) {
+        const blank = document.createElement('canvas');
+        blank.width = canvas.width;
+        blank.height = canvas.height;
+        return canvas.toDataURL() === blank.toDataURL();
+    }
+
+
     // Generar Acta para Imprimir
     function generarActa() {
+      const requiredInputs = document.querySelectorAll('#actaForm [required]');
+      for (const input of requiredInputs) {
+        if (!input.value.trim()) {
+          alert(`Por favor, complete el campo: ${input.previousElementSibling.innerText}`);
+          input.focus();
+          return;
+        }
+      }
+
+      const firmaRepresentante = document.getElementById('firmaRepresentante');
+      if (isCanvasEmpty(firmaRepresentante)) {
+          alert('Por favor, ingrese la firma del representante.');
+          return;
+      }
+
+      const firmaPastor = document.getElementById('firmaPastor');
+      if (isCanvasEmpty(firmaPastor)) {
+          alert('Por favor, ingrese la firma del pastor.');
+          return;
+      }
+
+      const itemsInputs = document.querySelectorAll('#itemsContainer input');
+      if (itemsInputs.length === 0) {
+          alert('Por favor, agregue al menos un ítem de trabajo realizado.');
+          return;
+      }
+
+
       const fecha = document.getElementById('fecha').value;
       const municipio = document.getElementById('municipio').value;
       const iglesia = document.getElementById('iglesia').value;
