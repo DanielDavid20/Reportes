@@ -226,12 +226,18 @@
                     const actionsColumn = document.querySelectorAll('th.hide-column, td:nth-child(5)');
                     actionsColumn.forEach(el => el.classList.add('hide-column'));
     
+                    // Forzar la visibilidad completa de la tabla para la captura en móviles
+                    const table = content.querySelector('table');
+                    const originalTableWidth = table.style.width;
+                    const originalTableDisplay = table.style.display;
+                    table.style.width = '100%'; // Asegurar que la tabla no se desborde
+                    table.style.display = 'table'; // Anular el 'display: block' que causa el scroll
+
                     // Aumentar escala para mejor calidad de captura
                     setTimeout(() => {
                         html2canvas(content, { scale: 3 }).then((canvas) => {
                             const imgData = canvas.toDataURL('image/png');
     
-                            // Reducir el tamaño de la imagen
                             const maxWidth = 180; // Tamaño máximo de ancho en mm
                             const maxHeight = 140; // Tamaño máximo de altura en mm
                             const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
@@ -316,6 +322,10 @@ const formattedDateTime = `${year}-${month}-${day}_${hours}:${minutes}_${ampm}`;
                         }).catch(function(error) {
                             console.error("Error al capturar el contenido:", error);
                         }).finally(() => {
+                            // Restaurar estilos de la tabla después de la captura
+                            table.style.width = originalTableWidth;
+                            table.style.display = originalTableDisplay;
+
                             // Restaurar la visibilidad de la columna de ACCIONES
                             actionsColumn.forEach(el => el.classList.remove('hide-column'));
                         });
