@@ -3,7 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acta de Entrega con Firmas</title>
+     <title>Acta de Entrega - <span id="municipio"></span> - <span id="datetime"></span></span></title>
+<script>
+function updateDateTime() {
+  const now = new Date();
+  
+  const date = now.toLocaleDateString();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedTime = `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+  const datetimeString = `${date} ${formattedTime}`;
+  
+  const dateElement = document.getElementById('datetime');
+  document.title = `Acta de Entrega -  ${document.getElementById('municipio').textContent} - ${datetimeString}`;
+  dateElement.textContent = datetimeString;
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
+</script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="css/acta.css">
 </head>
