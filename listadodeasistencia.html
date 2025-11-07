@@ -315,14 +315,15 @@
                     }
                 },
                 columnStyles: {
-                    3: { cellWidth: 70, minCellHeight: 30 } // Wider column for signature, increased min height
-                }
+                    3: { cellWidth: 70, minCellHeight: 30 } // Ancho y alto mínimo para la firma
+                },
+                rowPageBreak: 'avoid' // Evita que una fila se divida entre páginas
             });
 
             // Firmas del Coordinador
             const coordinadorCanvas = document.getElementById('signature-coordinador');
             const coordinadorImage = coordinadorCanvas.toDataURL('image/png');
-            let currentY = doc.lastAutoTable.finalY + 10; // Reducido para acercar la firma a la tabla
+            let currentY = doc.lastAutoTable.finalY + 7; // Reducido para acercar la firma a la tabla
 
             // Check if there's enough space for the signature block (approx 60mm height for image + text)
             if (currentY + 60 > doc.internal.pageSize.getHeight() - 10) { // -10 for bottom margin
@@ -333,7 +334,7 @@
             }
 
             doc.addImage(coordinadorImage, 'PNG', 10, currentY, 80, 40); // Image
-            doc.setDrawColor(bodyTextColor[0], bodyTextColor[1], bodyTextColor[2]); // Black line
+            doc.setDrawColor(bodyTextColor[0], bodyTextColor[1], bodyTextColor[2]);
             doc.setLineWidth(0.2);
             doc.line(10, currentY + 40, 90, currentY + 40); // Line directly below the image
             doc.setFontSize(bodyTextFontSize);
