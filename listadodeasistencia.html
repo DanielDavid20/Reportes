@@ -302,7 +302,8 @@
                 bodyStyles: {
                     fillColor: lightBlue, // Lighter blue for body
                     textColor: bodyTextColor, // Black text
-                    fontSize: bodyTextFontSize
+                    fontSize: bodyTextFontSize,
+                    minCellHeight: 30 // Establecer una altura mínima para todas las celdas del cuerpo
                 },
                 didDrawCell: (data) => {
                     if (data.column.index === 3 && data.cell.section === 'body' && data.cell.raw._internal_image) {
