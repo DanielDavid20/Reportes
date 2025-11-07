@@ -280,7 +280,7 @@
                     // Guardar la imagen en una propiedad separada para usarla en didDrawCell
                     // Adjusted image width and height to better fit the wider cell
                     const firmaData = { image: firmaImg, width: 60, height: 25 };
-                    // Pasar una cadena vacía como contenido de la celda para evitar el '[object Object]'
+                    // Pasar una cadena vacía como contenido de la celda para evitar el '[object Object]'                    
                     tableBody.push([nombre, cedula, cargo, { content: '', _internal_image: firmaData }]);
                 }
             });
@@ -315,14 +315,14 @@
                     }
                 },
                 columnStyles: {
-                    3: { cellWidth: 70, minCellHeight: 20 } // Wider column for signature, increased min height
+                    3: { cellWidth: 70, minCellHeight: 30 } // Wider column for signature, increased min height
                 }
             });
 
             // Firmas del Coordinador
             const coordinadorCanvas = document.getElementById('signature-coordinador');
             const coordinadorImage = coordinadorCanvas.toDataURL('image/png');
-            let currentY = doc.lastAutoTable.finalY + 30; // Start Y for the signature block
+            let currentY = doc.lastAutoTable.finalY + 10; // Reducido para acercar la firma a la tabla
 
             // Check if there's enough space for the signature block (approx 60mm height for image + text)
             if (currentY + 60 > doc.internal.pageSize.getHeight() - 10) { // -10 for bottom margin
